@@ -1,8 +1,10 @@
+const express = require('express')
 const router = require("express").Router();
+
 
 /* GET home page */
 router.get("/", (req, res, next) => {
-    res.render("index");
+    res.send('tomamos el controllllllllllll');
 });
 
 module.exports = router;
