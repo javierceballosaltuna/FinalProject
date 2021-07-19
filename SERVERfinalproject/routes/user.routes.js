@@ -27,13 +27,6 @@ router.get('/subjects', (req, res) => {
 })
 
 
-//EVENTS
-router.get('/events', (req, res) => {
-
-    res.send('listado de eventos', //{ colección de eventos disponibles }
-    )
-})
-
 //MATERIALS
 
 router.get('/teachingmaterials', (req, res) => {

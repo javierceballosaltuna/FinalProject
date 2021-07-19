@@ -10,9 +10,9 @@ const eventSchema = new Schema({
 
     description: { type: String, required: true },
 
-    students: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
+    eventType: { type: String, enum: ['individual', 'group'] },
 
-    teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }],
+    teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }]
 })
 
 const Event = model("Event", eventSchema)

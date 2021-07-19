@@ -1,3 +1,4 @@
+require('dotenv/config')
 
 require('dotenv/config')
 require('./db')
@@ -15,4 +16,4 @@ const projectName = "finalproject";
 
 require('./routes')(app)
 
-module.exports = app;
+module.exports = app
