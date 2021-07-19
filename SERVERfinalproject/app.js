@@ -1,14 +1,12 @@
-require("dotenv/config")
+require('dotenv/config')
 
-require("./db")
+require('./db')
 
-const express = require("express")
+const express = require('express')
 const app = express()
 
-require("./config")(app)
-require("./config/session.config")(app)
-
-const projectName = "finalproject"
+require('./config')(app)
+require('./config/session.config')(app)
 
 require('./routes')(app)
 
