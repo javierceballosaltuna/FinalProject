@@ -19,14 +19,13 @@ const teacherSchema = new Schema({
   subject: [{
     type: String,
     enum: ['spanish', 'math', 'science', 'history', 'music', 'english', 'art', 'physical education', 'special needs']
-  }
-  ],
+  }],
 
-  sessions: [{ type: Schema.Types.ObjectId, ref: 'Session' }],
+  groupEvent: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 
-  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+  individualEvent: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 
-  teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }],
+  teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }]
 
 })
 

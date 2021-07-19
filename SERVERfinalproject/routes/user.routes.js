@@ -1,13 +1,10 @@
 const router = require("express").Router();
 
-
 //RUTAS DE USUARIO
 
 //PROFILE
 
 router.get('/profile/:user_id', (req, res) => {
-
-
 
     res.send('perfil de usuario logeado')
 })
@@ -19,13 +16,6 @@ router.get('/subjects', (req, res) => {
     )
 })
 
-
-//EVENTS
-router.get('/events', (req, res) => {
-
-    res.send('listado de eventos', //{ colección de eventos disponibles }
-    )
-})
 
 //MATERIALS
 

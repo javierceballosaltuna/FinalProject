@@ -28,9 +28,9 @@ const studentSchema = new Schema({
 
   teachers: [{ type: Schema.Types.ObjectId, ref: 'Teacher' }],
 
-  sessions: [{ type: Schema.Types.ObjectId, ref: 'Session' }],
+  groupEvent: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 
-  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+  individualEvent: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 
 })
 
