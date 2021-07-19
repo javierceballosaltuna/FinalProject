@@ -16,8 +16,6 @@ const teacherSchema = new Schema({
 
   avatar: { type: String, required: true },
 
-  students: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
-
   subject: [{
     type: String,
     enum: ['spanish', 'math', 'science', 'history', 'music', 'english', 'art', 'physical education', 'special needs']

@@ -12,11 +12,6 @@ const eventSchema = new Schema({
 
     students: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
 
-    subjects: {
-        type: String,
-        enum: ['spanish', 'math', 'science', 'history', 'music', 'english', 'art', 'physical education', 'special needs'] //HAY QUE PONER TODAS LAS MATERIAS DISPONIBLES
-    },
-
     teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }],
 })
 
