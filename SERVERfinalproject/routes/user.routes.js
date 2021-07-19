@@ -1,4 +1,7 @@
+const User = require("../models/User.model");
+
 const router = require("express").Router();
+
 
 
 //RUTAS DE USUARIO
@@ -7,7 +10,11 @@ const router = require("express").Router();
 
 router.get('/profile/:user_id', (req, res) => {
 
-
+    User
+    
+        .findById(user_id)
+        
+    .then((response)=> res.render())
 
     res.send('perfil de usuario logeado')
 })

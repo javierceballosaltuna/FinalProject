@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose")
-const Teacher = require('./Teacher.model')
-const Student = require('./Student.model')
+const teacherSchema = require('./Teacher.Schema')
+const studentSchema = require('./Student.schema')
 
 const userSchema = new Schema({
 
@@ -8,14 +8,14 @@ const userSchema = new Schema({
 
     password: { type: String, required: true },
 
-    isTeacher: { Teacher },
+    teacherData:  [teacherSchema],
 
-    isStudent: { Student },
+    studentData: [studentSchema],
 
-    role: { type: String, enum: ['student', 'teacher', 'admin']}
+    role: { type: String, enum: ['student', 'teacher', 'admin'] }
 
 })
 
-const User = model("Admin", userSchema)
+const User = model("User", userSchema)
 
 module.exports = User
