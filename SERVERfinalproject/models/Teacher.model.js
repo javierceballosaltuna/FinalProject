@@ -1,6 +1,5 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require("mongoose")
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
 const teacherSchema = new Schema({
 
   userName: { type: String, required: true },
@@ -17,12 +16,7 @@ const teacherSchema = new Schema({
 
   avatar: { type: String, required: true },
 
-  students: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Student'
-    }
-  ],
+  students: [{ type: Schema.Types.ObjectId, ref: 'Student' }],
 
   subject: [{
     type: String,
@@ -30,32 +24,15 @@ const teacherSchema = new Schema({
   }
   ],
 
-  sessions: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Session'
-    }
-  ],
+  sessions: [{ type: Schema.Types.ObjectId, ref: 'Session' }],
 
-  events: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'Event'
-    }
-  ],
+  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 
-  teachingMaterials: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: 'TeachingMaterial'
-    }
-  ],
+  teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }],
 
+})
 
+const Teacher = model("Teacher", teacherSchema)
 
-});
-
-const Teacher = model("Teacher", teacherSchema);
-
-module.exports = Teacher;
+module.exports = Teacher
 

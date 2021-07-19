@@ -1,5 +1,5 @@
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
 
 module.exports = app => {
     app.use(
@@ -8,7 +8,6 @@ module.exports = app => {
             resave: true,
             saveUninitialized: false,
             cookie: {
-                // sameSite: 'none',
                 httpOnly: true,
                 maxAge: 600000
             },
@@ -16,5 +15,5 @@ module.exports = app => {
                 mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost/basicAuth'
             })
         })
-    );
-};
+    )
+}
