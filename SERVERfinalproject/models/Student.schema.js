@@ -10,9 +10,9 @@ const studentSchema = new Schema({
 
   description: { type: String, required: true },
 
-  // course: { type: String, required: true },
+  course: { type: String, required: true },
 
-  // interests: { type: String }, 
+  interests: { type: String }, 
 
   legalTutor: {
 
@@ -22,11 +22,11 @@ const studentSchema = new Schema({
 
   },
 
-  // teachers: [{ type: Schema.Types.ObjectId, ref: 'Teacher' }],
+  teachers: [{ type: Schema.Types.ObjectId, ref: 'Teacher' }],
 
-  // sessions: [{ type: Schema.Types.ObjectId, ref: 'Session' }],
+  sessions: [{ type: Schema.Types.ObjectId, ref: 'Session' }],
 
-  // events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 
 })
 
