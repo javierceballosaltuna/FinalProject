@@ -6,21 +6,21 @@ const studentSchema = new Schema({
 
   lastName: { type: String, required: true },
 
-  // age: { type: Number, required: true },
+  age: { type: Number, required: true },
 
-  // description: { type: String, required: true },
+  description: { type: String, required: true },
 
   // course: { type: String, required: true },
 
   // interests: { type: String }, 
 
-  // legalTutor: {
+  legalTutor: {
 
-  //   name: { type: String, required: true },
-  //   lastName: { type: String, required: true },
-  //   personalId: { type: String, required: true }, 
+    name: { type: String, required: true },
+    lastName: { type: String, required: true },
+    personalId: { type: String, required: true }, 
 
-  // },
+  },
 
   // teachers: [{ type: Schema.Types.ObjectId, ref: 'Teacher' }],
 
