@@ -1,6 +1,9 @@
 
+const studentSchema = require('../models/Student.schema');
+const teacherSchema = require('../models/Teacher.schema')
 const User = require('../models/User.model');
-const router = require("express").Router()
+const router = require("express").Router();
+
 const errorMessage = 'fields have been filled already'
 
 
@@ -29,12 +32,13 @@ router.post('/', (req, res) => {
 //STUDENT, TEACHER DETAILS
 
 router.put("/:user_id", (req, res) => {
+  
+  
     const { user_id } = req.params
+    const { name, lastName, age, description, course, interests, tutorName, tutorLastName, personalId} = req.body;
+    const legalTutor = { tutorName, tutorLastName, personalId}
+    const studentData = { name, lastName, age, description, course, interests, legalTutor}
 
-
-    const { name, lastName, age, description, legalTutor } = req.body
-    legalTutor = { tutorName, tutorLastName, personalId } 
-    let studentData = { name, lastName, age, description, legalTutor }
     console.log('heyheyhye')
 
     User
@@ -43,7 +47,6 @@ router.put("/:user_id", (req, res) => {
             { $push: { studentData } }, { new: true })
         .then((user) => {
             // Bind the user to the session object
-
             res.json(user)
             console.log('lo ha creado')
         })
