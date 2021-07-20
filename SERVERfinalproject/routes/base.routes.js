@@ -32,9 +32,9 @@ router.put("/:user_id", (req, res) => {
     const { user_id } = req.params
 
 
-    const { name, lastName, age, description, course } = req.body
-    const legalTutor = { name, lastName, personalId } = req.body
-    const studentData = { name, lastName, age, description, course, legalTutor }
+    const { name, lastName, age, description, legalTutor } = req.body
+    legalTutor = { tutorName, tutorLastName, personalId } 
+    let studentData = { name, lastName, age, description, legalTutor }
     console.log('heyheyhye')
 
     User

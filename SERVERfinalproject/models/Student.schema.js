@@ -16,8 +16,8 @@ const studentSchema = new Schema({
 
   legalTutor: {
 
-    name: { type: String, required: true },
-    lastName: { type: String, required: true },
+    tutorName: { type: String, required: true },
+    tutorLastName: { type: String, required: true },
     personalId: { type: String, required: true }, 
 
   },
