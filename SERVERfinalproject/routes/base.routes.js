@@ -30,7 +30,7 @@ router.post('/', (req, res) => {
 
 
 //STUDENT FILLING REST OF DETAILS (AS STUDENT)
-router.put("/:user_id", (req, res) => {
+router.put("/:user_id/teacher", (req, res) => {
 
     // if (req.session.user.role === 'teacher') {
         const { user_id } = req.params
@@ -51,7 +51,7 @@ router.put("/:user_id", (req, res) => {
 
     // else { COMENTAMOS HASTA QUE TENGAMOS SESION
 
-    router.put("/:user_id", (req, res) => {
+    router.put("/:user_id/student", (req, res) => {
 
         const { user_id } = req.params
         const { name, lastName, age, description, course, interests, tutorName, tutorLastName, personalId } = req.body;
