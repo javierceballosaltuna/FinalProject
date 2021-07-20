@@ -8,7 +8,7 @@ const eventSchema = new Schema({
 
     description: {
         type: String,
-        // required: true
+        required: true
     },
 
     eventType: { type: String, enum: ['individual', 'group'] },

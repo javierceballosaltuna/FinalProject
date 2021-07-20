@@ -9,7 +9,6 @@ const requestSchema = new Schema({
     isActive: { type: Boolean, default: true },
     comment: { type: String, required: true }
 
-
 }, { timestamps: true })
 
 const Request = model("Request", requestSchema)

@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const User = require("../models/User.model")
-
 const TeachingMaterial = require('../models/TeachingMaterial.model')
 
+const { isLoggedIn, checkRoles } = require('../middleware/index')
 
-router.get('/', (req, res) => {
+
+
+router.get('/', isLoggedIn, (req, res) => {
 
     TeachingMaterial
         .find()
@@ -14,8 +16,7 @@ router.get('/', (req, res) => {
 
 })
 
-
-router.post('/create', (req, res) => {
+router.post('/create', isLoggedIn, checkRoles ('teacher'), (req, res) => {
 
     const { name, url, description, subject } = req.body
     const { user_id } = req.session.user // ver que sale de aquí
@@ -28,7 +29,7 @@ router.post('/create', (req, res) => {
 
 })
 
-router.get('/:material_id', (req, res) => {
+router.get('/:material_id', isLoggedIn, (req, res) => {
 
     TeachingMaterial
         .findById(req.params.material_id)
@@ -37,7 +38,7 @@ router.get('/:material_id', (req, res) => {
 
 })
 
-router.delete('/delete/:material_id', (req, res) => {
+router.delete('/delete/:material_id', isLoggedIn, checkRoles ('teacher', 'admin'), (req, res) => {
 
     TeachingMaterial
         .findByIdAndDelete(req.params.material_id)
@@ -45,7 +46,7 @@ router.delete('/delete/:material_id', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error deleting teaching material', err }))
 })
 
-router.put('/edit/:material_id', (req, res) => {
+router.put('/edit/:material_id', isLoggedIn, checkRoles ('teacher', 'admin'), (req, res) => {
 
     const { material_id } = req.params
     const { name, url, description, subject } = req.body
