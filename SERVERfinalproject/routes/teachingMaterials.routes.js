@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const User = require("../models/User.model")
 
 const TeachingMaterial = require('../models/TeachingMaterial.model')
 
@@ -17,11 +18,12 @@ router.get('/', (req, res) => {
 router.post('/create', (req, res) => {
 
     const { name, url, description, subject } = req.body
+    const { user_id } = req.session.user // ver que sale de aquí
 
     TeachingMaterial
         .create({ name, url, description, subject })
-        .then(
-            response => res.json(response))
+        .then(teachingMaterial => User.findByIdAndUpdate(user_id, { $push: { teachingMaterials: teachingMaterial._id } }))
+        .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating teaching material', err }))
 
 })
