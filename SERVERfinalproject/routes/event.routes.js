@@ -10,7 +10,6 @@ router.get('/individual-sessions', (req, res) => {
         .find({ "eventType": "individual" })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading individual sessions', err }))
-
 })
 
 router.get('/group-sessions', (req, res) => {
@@ -19,7 +18,6 @@ router.get('/group-sessions', (req, res) => {
         .find({ "eventType": "group" })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
-
 })
 
 router.post('/create', (req, res) => {

@@ -2,10 +2,6 @@ const { Schema } = require("mongoose")
 
 const teacherSchema = new Schema({
 
-  userName: { type: String, required: true },
-
-  password: { type: String, required: true },
-
   name: { type: String, required: true },
 
   lastName: { type: String, required: true },
@@ -25,7 +21,7 @@ const teacherSchema = new Schema({
 
   individualEvent: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 
-  teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }]
+  teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }],
 
 })
 

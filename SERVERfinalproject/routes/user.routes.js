@@ -19,21 +19,6 @@ router.get('/profile/:user_id', (req, res) => {
     res.send('perfil de usuario logeado')
 })
 
-//SUBJECTS
-router.get('/subjects', (req, res) => {
-
-    res.send('listado de materias/profesores disponibles', //{ colección de clases/ profesores}
-    )
-})
-
-
-//MATERIALS
-
-router.get('/teachingmaterials', (req, res) => {
-
-    res.send('listado de materiales', //{ colección de materiales públicos }
-    )
-})
 
 //ADMIN PANEL
 

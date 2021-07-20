@@ -29,29 +29,50 @@ router.post('/', (req, res) => {
 });
 
 
-//STUDENT, TEACHER DETAILS
-
+//STUDENT FILLING REST OF DETAILS (AS STUDENT)
 router.put("/:user_id", (req, res) => {
-  
-  
-    const { user_id } = req.params
-    const { name, lastName, age, description, course, interests, tutorName, tutorLastName, personalId} = req.body;
-    const legalTutor = { tutorName, tutorLastName, personalId}
-    const studentData = { name, lastName, age, description, course, interests, legalTutor}
 
-    console.log('heyheyhye')
+    if (req.session.user.role === 'teacher') {
+        const { user_id } = req.params
+        const { name, lastName, age, description, avatar, subject, groupEvent, individualEvent, teachingMaterials } = req.body;
+        const teacherData = { name, lastName, age, description, avatar, subject, groupEvent, individualEvent, teachingMaterials }
 
-    User
-        .findByIdAndUpdate(user_id,
-            // A REVISAR ESTO
-            { $push: { studentData } }, { new: true })
-        .then((user) => {
-            // Bind the user to the session object
-            res.json(user)
-            console.log('lo ha creado')
-        })
-        .catch((err) => console.log(err));
-});
+        User
+            .findByIdAndUpdate(user_id,
+                // A REVISAR ESTO
+                { $push: { teacherData } }, { new: true })
+            .then((user) => {
+                // Bind the user to the session object
+                res.json(user)
+                console.log('lo ha creado')
+            })
+            .catch((err) => console.log(err));
+    }
+
+    else {
+        const { user_id } = req.params
+        const { name, lastName, age, description, course, interests, tutorName, tutorLastName, personalId } = req.body;
+        const legalTutor = { tutorName, tutorLastName, personalId }
+        const studentData = { name, lastName, age, description, course, interests, legalTutor }
+
+        User
+            .findByIdAndUpdate(user_id,
+                // A REVISAR ESTO
+                { $push: { studentData } }, { new: true })
+            .then((user) => {
+                // Bind the user to the session object
+                res.json(user)
+                console.log('lo ha creado')
+            })
+            .catch((err) => console.log(err));
+    }
+})
+
+
+
+
+//TEACHER FILLING REST OF DETAILS (AS TEACHER)
+
 
 
 
