@@ -7,9 +7,7 @@ const Event = require('../models/Event.model')
 router.get('/individual-sessions', (req, res) => {
 
     Event
-        .find()
-        .select('') // filtrar por type individual
-        .populate('')
+        .find({ "eventType": "individual" })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading individual sessions', err }))
 
@@ -18,22 +16,18 @@ router.get('/individual-sessions', (req, res) => {
 router.get('/group-sessions', (req, res) => {
 
     Event
-        .find()
-        .select('') // filtrar por type group
-        .populate('')
+        .find({ "eventType": "group" })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
 
 })
 
-router.get('/create', (req, res) => {
+router.post('/create', (req, res) => {
 
-    const { coordinates, date, avatar, description, eventType } = req.body
-
-    const location = { coordinates }
+    const { date, avatar, description, eventType, lat, lgn } = req.body
 
     Event
-        .create(location, date, avatar, description, eventType)
+        .create({ location: { coordinates: [lat, lgn] }, avatar, description, eventType, date })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating event', err }))
 
@@ -60,12 +54,10 @@ router.delete('/delete/:event_id', (req, res) => {
 router.put('/edit/:event_id', (req, res) => {
 
     const { event_id } = req.params
-    const { coordinates, date, avatar, description } = req.body
-
-    const location = { coordinates }
+    const { date, avatar, description, eventType, lat, lgn } = req.body
 
     Event
-        .findByIdAndUpdate(event_id, { location, date, avatar, description })
+        .findByIdAndUpdate(event_id, { location: { coordinates: [lat, lgn] }, avatar, description, eventType, date })
         .populate('teachingMaterials')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error editing event', err }))

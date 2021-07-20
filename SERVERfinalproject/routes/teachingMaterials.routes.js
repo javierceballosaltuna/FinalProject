@@ -14,13 +14,14 @@ router.get('/', (req, res) => {
 })
 
 
-router.get('/create', (req, res) => {
+router.post('/create', (req, res) => {
 
     const { name, url, description, subject } = req.body
 
     TeachingMaterial
-        .create(name, url, description, subject)
-        .then(response => res.json(response))
+        .create({ name, url, description, subject })
+        .then(
+            response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating teaching material', err }))
 
 })
@@ -51,7 +52,7 @@ router.put('/edit/:material_id', (req, res) => {
         .findByIdAndUpdate(material_id, { name, url, description, subject })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error editing event', err }))
-        
+
 })
 
 
