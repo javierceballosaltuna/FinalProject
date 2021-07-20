@@ -2,12 +2,13 @@ const { Schema, model } = require("mongoose")
 
 
 const requestSchema = new Schema({
-    
-    student: { ref: "User" },
-    teacher: { ref: "User" },
-    isAccepted: Boolean,
-    isActive: Boolean,
+
+    student: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    teacher: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    isAccepted: { type: Boolean, default: false },
+    isActive: { type: Boolean, default: true },
     comment: { type: String, required: true }
+
 
 }, { timestamps: true })
 
