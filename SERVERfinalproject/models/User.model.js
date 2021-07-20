@@ -14,7 +14,7 @@ const userSchema = new Schema({
 
     role: { type: String, enum: ['student', 'teacher', 'admin'] }
 
-})
+}, { timestamps: true })
 
 const User = model("User", userSchema)
 

@@ -13,7 +13,7 @@ const teachingMaterialSchema = new Schema({
         enum: ['spanish', 'math', 'science', 'history', 'music', 'english', 'art', 'physical education', 'special needs'] //HAY QUE PONER TODAS LAS MATERIAS DISPONIBLES
     }
 
-})
+}, { timestamps: true })
 
 const TeachingMaterial = model("TeachingMaterial", teachingMaterialSchema)
 

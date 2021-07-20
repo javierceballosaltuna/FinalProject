@@ -13,7 +13,8 @@ const eventSchema = new Schema({
     eventType: { type: String, enum: ['individual', 'group'] },
 
     teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }]
-})
+
+}, { timestamps: true })
 
 const Event = model("Event", eventSchema)
 

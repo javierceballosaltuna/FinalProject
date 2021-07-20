@@ -1,4 +1,5 @@
 const { Schema } = require("mongoose")
+const studentSchema = require('./Student.schema')
 
 const teacherSchema = new Schema({
 
@@ -23,7 +24,7 @@ const teacherSchema = new Schema({
 
   teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }],
 
-})
+}, { timestamps: true })
 
 module.exports = teacherSchema
 
