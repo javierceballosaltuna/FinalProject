@@ -7,14 +7,16 @@ const User = require("../models/User.model")
 const Event = require('../models/Event.model')
 
 
-router.post('/group-sessions/create', (req, res) => {
+router.post('/group-sessions/create/:user_id', (req, res) => {
 
-    const { date, description, eventType, lat, lgn } = req.body
+    const { date, description, lat, lgn } = req.body
     const { user_id } = req.session.user // ver que sale de aquí
 
+    const{user_id}= req.params
+
     Event
-        .create({ location: { coordinates: [lat, lgn] }, description, eventType, date })
-        .then(event => User.findByIdAndUpdate(user_id, { $push: { teacherData: { groupEvent: event._id } } }))
+        .create({ location: { coordinates: [lat, lgn] }, description, eventType: 'group', date },)
+        .then(event => User.findByIdAndUpdate(user_id, { $push: { teacherData: { groupEvent: event._id } } }, { new: true }))
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 
@@ -36,7 +38,7 @@ router.get('/group-sessions', isLoggedIn, (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
 })
 
-router.get('/:event_id', isLoggedIn, (req, res) => {
+router.get('/:event_id', (req, res) => { //FUNCIONA, POSTMAN
 
     Event
         .findById(req.params.event_id)
@@ -45,28 +47,18 @@ router.get('/:event_id', isLoggedIn, (req, res) => {
 
 })
 
-router.put('/:event_id/join/:user_id', (req, res) => {
-
-    const { user_id, event_id } = req.params // ver que sale de aquí
+router.put('/:event_id/join/:user_id', (req, res) => {//FUNCIONA, POSTMAN
+    const { user_id } = req.params
+    //const { user_id } = req.session.user // ver que sale de aquí
 
     Event
-        .findById(event_id) 
-        .then(event => User.findByIdAndUpdate(user_id, { $push: { studentData: { groupEvent: event._id } } }))
+        .findById(req.params.event_id)
+        .then(event => User.findByIdAndUpdate(user_id, { $push: { studentData: { groupEvent: event._id } } }, { new: true }))
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 
 })
 
-router.put('/:event_id/quit', isLoggedIn, checkRoles('student'), (req, res) => {
-
-    const { user_id } = req.session.user // ver que sale de aquí
-
-    User
-        .findByIdAndUpdate((user_id, { $pull: { studentData: { groupEvent: event_id } } }))
-        .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
-
-})
 
 router.delete('/delete/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
 
@@ -82,11 +74,22 @@ router.put('/edit/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, 
     const { date, avatar, description, eventType, lat, lgn } = req.body
 
     Event
-        .findByIdAndUpdate(event_id, { location: { coordinates: [lat, lgn] }, avatar, description, eventType, date })
+        .findByIdAndUpdate(event_id, { location: { coordinates: [lat, lgn] }, avatar, description, eventType, date }, { new: true })
         .populate('teachingMaterials')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error editing event', err }))
 })
 
+router.put('/:event_id/quit/:user_id', (req, res) => {
+    const { user_id, event_id } = req.params
+    // const { user_id } = req.session.user // ver que sale de aquí
+
+    Event
+        .findById(event_id)
+        .then(event => User.findByIdAndUpdate(user_id, { $pull: { studentData: { groupEvent: event._id } } }, { new: true }))
+        .then(response => res.json(response))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
+
+})
 
 module.exports = router
