@@ -6,9 +6,10 @@ const eventSchema = new Schema({
 
     date: { type: Date, required: true },
 
-    avatar: { type: String, required: true },
-
-    description: { type: String, required: true },
+    description: {
+        type: String,
+        // required: true
+    },
 
     eventType: { type: String, enum: ['individual', 'group'] },
 

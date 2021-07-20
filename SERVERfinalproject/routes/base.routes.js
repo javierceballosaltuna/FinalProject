@@ -7,7 +7,7 @@ const router = require("express").Router();
 const errorMessage = 'fields have been filled already'
 
 
-console.log('aqui se queda')
+
 router.get('/', (req, res) => {
     console.log('hey')
     res.send('hello')
@@ -32,7 +32,7 @@ router.post('/', (req, res) => {
 //STUDENT FILLING REST OF DETAILS (AS STUDENT)
 router.put("/:user_id", (req, res) => {
 
-    if (req.session.user.role === 'teacher') {
+    // if (req.session.user.role === 'teacher') {
         const { user_id } = req.params
         const { name, lastName, age, description, avatar, subject, groupEvent, individualEvent, teachingMaterials } = req.body;
         const teacherData = { name, lastName, age, description, avatar, subject, groupEvent, individualEvent, teachingMaterials }
@@ -47,9 +47,12 @@ router.put("/:user_id", (req, res) => {
                 console.log('lo ha creado')
             })
             .catch((err) => console.log(err));
-    }
+    })
 
-    else {
+    // else { COMENTAMOS HASTA QUE TENGAMOS SESION
+
+    router.put("/:user_id", (req, res) => {
+
         const { user_id } = req.params
         const { name, lastName, age, description, course, interests, tutorName, tutorLastName, personalId } = req.body;
         const legalTutor = { tutorName, tutorLastName, personalId }
@@ -65,8 +68,8 @@ router.put("/:user_id", (req, res) => {
                 console.log('lo ha creado')
             })
             .catch((err) => console.log(err));
-    }
-})
+    })
+// })COMENTAMOS HASTA Q ESTÉ LA SESSION INICIADA
 
 
 
