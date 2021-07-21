@@ -9,9 +9,9 @@ const userSchema = new Schema({
     password: { type: String, required: true },
 
     teacherData:  teacherSchema,
-
+    
     studentData: studentSchema,
-
+    
     role: { type: String, enum: ['student', 'teacher', 'admin'] }
 
 }, { timestamps: true })

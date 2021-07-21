@@ -12,7 +12,7 @@ module.exports = app => {
                 maxAge: 600000
             },
             store: MongoStore.create({
-                mongoUrl: process.env.MONGODB_URI || 'mongodb://localhost/basicAuth'
+                mongoUrl: process.env.DB_REMOTE || process.env.MONGODB_URI || "mongodb://localhost/finalproject"
             })
         })
     )
