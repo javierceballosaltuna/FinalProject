@@ -1,8 +1,8 @@
 module.exports = {
     isLoggedIn: (req, res, next) => {
-        req.session.currentUser ? next() : res.status(500).json({ code: 500, message: 'Log-in needed' })
+        req.session.currentUser ? next() : res.status(401).json({ code: 401, message: 'Please, log-in' })
     },
     checkRoles: (...allowedRoles) => (req, res, next) => {          // REST PARAMETERS
-        allowedRoles.includes(req.session.currentUser.role) ? next() : res.status(500).json({ code: 500, message: 'Restringed area' })
+        allowedRoles.includes(req.session.currentUser.role) ? next() : res.status(401).json({ code: 401, message: 'Restringed area' })
     }
 }
