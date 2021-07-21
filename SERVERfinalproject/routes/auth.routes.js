@@ -107,7 +107,7 @@ router.post('/', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 })
 
-router.put("/:user_id/", (req, res) => {
+router.put("/complete-resgistration/", (req, res) => {
 
     const { user_id } = req.params
 
