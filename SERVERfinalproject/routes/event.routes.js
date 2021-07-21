@@ -10,13 +10,14 @@ const Event = require('../models/Event.model')
 router.post('/group-sessions/create/:user_id', (req, res) => {
 
     const { date, description, lat, lgn } = req.body
-    const { user_id } = req.session.user // ver que sale de aquí
+    // const { user_id } = req.session.user // ver que sale de aquí
 
-    const{user_id}= req.params
+    const { user_id } = req.params
+    // const teacherData = { 'teacherData.groupEvent' }
 
     Event
-        .create({ location: { coordinates: [lat, lgn] }, description, eventType: 'group', date },)
-        .then(event => User.findByIdAndUpdate(user_id, { $push: { teacherData: { groupEvent: event._id } } }, { new: true }))
+        .create({ location: { coordinates: [lat, lgn] }, description, eventType: 'group', date })
+        .then(event => User.findByIdAndUpdate(user_id, { $push: { 'teacherData.groupEvent': event._id } }, { new: true }))
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 
@@ -48,22 +49,23 @@ router.get('/:event_id', (req, res) => { //FUNCIONA, POSTMAN
 })
 
 router.put('/:event_id/join/:user_id', (req, res) => {//FUNCIONA, POSTMAN
-    const { user_id } = req.params
+    const { user_id, event_id } = req.params
     //const { user_id } = req.session.user // ver que sale de aquí
 
     Event
-        .findById(req.params.event_id)
-        .then(event => User.findByIdAndUpdate(user_id, { $push: { studentData: { groupEvent: event._id } } }, { new: true }))
+        .findById(event_id)
+        .then(event => User.findByIdAndUpdate(user_id, { $push: { 'studentData.groupEvent': event_id } }, { new: true }))
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 
 })
 
 
-router.delete('/delete/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
-
+router.put('/cancel/:event_id', (req, res) => {
+    // isLoggedIn, checkRoles('teacher', 'admin'),
+    //PONER LÓGICA PARA EVENTOS PASADOS DE FECHA
     Event
-        .findByIdAndDelete(req.params.event_id)
+        .findByIdAndUpdate(req.params.event_id, { isActive: false }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error deleting an event', err }))
 })
@@ -86,7 +88,7 @@ router.put('/:event_id/quit/:user_id', (req, res) => {
 
     Event
         .findById(event_id)
-        .then(event => User.findByIdAndUpdate(user_id, { $pull: { studentData: { groupEvent: event._id } } }, { new: true }))
+        .then(() => User.findByIdAndUpdate(user_id, { $pull: { 'studentData.groupEvent': event_id } }, { new: true }))
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 

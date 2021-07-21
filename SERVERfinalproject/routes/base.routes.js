@@ -40,7 +40,7 @@ router.put("/:user_id/teacher", (req, res) => {
         User
             .findByIdAndUpdate(user_id,
                 // A REVISAR ESTO
-                { $push: { teacherData } }, { new: true })
+                { teacherData } , { new: true })
             .then((user) => {
                 // Bind the user to the session object
                 res.json(user)
@@ -61,7 +61,7 @@ router.put("/:user_id/teacher", (req, res) => {
         User
             .findByIdAndUpdate(user_id,
                 // A REVISAR ESTO
-                { $push: { studentData } }, { new: true })
+                 { studentData } , { new: true })
             .then((user) => {
                 // Bind the user to the session object
                 res.json(user)

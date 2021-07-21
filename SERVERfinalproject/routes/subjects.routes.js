@@ -53,9 +53,9 @@ router.put('/contact/:request_id/approve', (req, res) => {
             Event
                 .create({ date, avatar, description, eventType, location: { coordinates: [lat, lgn] } })
                 .then(event => {
-
-                    const StudentEventCreated = User.findByIdAndUpdate(request.student[0], { $push: { studentData: { individualEvent: event._id } } }, { new: true })
-                    const teacherEventCreated = User.findByIdAndUpdate(request.teacher[0], { $push: { teacherData: { individualEvent: event._id } } }, { new: true })
+//PROBAR A HACER REQUEST Y LUEGO ACEPTARLA
+                    const StudentEventCreated = User.findByIdAndUpdate(request.student, { $push: { 'studentData.individualEvent': event._id } }, { new: true })
+                    const teacherEventCreated = User.findByIdAndUpdate(request.teacher, { $push: { 'teacherData.individualEvent': event._id } }, { new: true })
 
                     return Promise.all([StudentEventCreated, teacherEventCreated])
                 })

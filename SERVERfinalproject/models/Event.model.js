@@ -11,6 +11,8 @@ const eventSchema = new Schema({
         required: true
     },
 
+    isActive: { type: Boolean, default: true },
+
     eventType: { type: String, enum: ['individual', 'group'] },
 
     teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }]
