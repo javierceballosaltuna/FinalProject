@@ -7,13 +7,10 @@ const User = require("../models/User.model")
 const Event = require('../models/Event.model')
 
 
-router.post('/group-sessions/create/:user_id', (req, res) => {
+router.post('/group-sessions/create/', (req, res) => {
 
     const { date, description, lat, lgn } = req.body
-    // const { user_id } = req.session.user // ver que sale de aquí
-
-    const { user_id } = req.params
-    // const teacherData = { 'teacherData.groupEvent' }
+    const { user_id } = req.session.user
 
     Event
         .create({ location: { coordinates: [lat, lgn] }, description, eventType: 'group', date })
@@ -39,7 +36,7 @@ router.get('/group-sessions', isLoggedIn, (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
 })
 
-router.get('/:event_id', (req, res) => { //FUNCIONA, POSTMAN
+router.get('/:event_id', (req, res) => {
 
     Event
         .findById(req.params.event_id)
@@ -48,9 +45,9 @@ router.get('/:event_id', (req, res) => { //FUNCIONA, POSTMAN
 
 })
 
-router.put('/:event_id/join/:user_id', (req, res) => {//FUNCIONA, POSTMAN
-    const { user_id, event_id } = req.params
-    //const { user_id } = req.session.user // ver que sale de aquí
+router.put('/:event_id/join/', (req, res) => {
+    const { event_id } = req.params
+    const { user_id } = req.session.user
 
     Event
         .findById(event_id)
@@ -61,8 +58,8 @@ router.put('/:event_id/join/:user_id', (req, res) => {//FUNCIONA, POSTMAN
 })
 
 
-router.put('/cancel/:event_id', (req, res) => {
-    // isLoggedIn, checkRoles('teacher', 'admin'),
+router.put('/cancel/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
+
     //PONER LÓGICA PARA EVENTOS PASADOS DE FECHA
     Event
         .findByIdAndUpdate(req.params.event_id, { isActive: false }, { new: true })
@@ -82,9 +79,9 @@ router.put('/edit/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, 
         .catch(err => res.status(500).json({ code: 500, message: 'Error editing event', err }))
 })
 
-router.put('/:event_id/quit/:user_id', (req, res) => {
-    const { user_id, event_id } = req.params
-    // const { user_id } = req.session.user // ver que sale de aquí
+router.put('/:event_id/quit/', (req, res) => {
+    const { event_id } = req.params
+    const { user_id } = req.session.user // ver que sale de aquí
 
     Event
         .findById(event_id)
