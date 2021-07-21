@@ -1,6 +1,6 @@
 const User = require('../models/User.model');
 const router = require("express").Router();
-const Request = require('./models/Request.model')
+const Request = require('../models/Request.model')
 
 router.get('/', (req, res) => {
 
@@ -44,7 +44,7 @@ router.put('/edit', (req, res) => {
 })
 
 
-router.detele('/delete', (req, res) => {
+router.delete('/delete', (req, res) => {
 
     const { user_id } = req.session.user
 
@@ -53,4 +53,6 @@ router.detele('/delete', (req, res) => {
         .then((response) => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error trying to delete your account', err }))
 })
+
+module.exports = router
 

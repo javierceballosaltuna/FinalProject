@@ -134,4 +134,6 @@ router.put("/:user_id/", (req, res) => {
     }
 })
 
+router.get('/logout', isLoggedIn, (req, res) => { req.session.destroy(() => res.json({ message: 'Logout successful' })) })
+
 module.exports = router
