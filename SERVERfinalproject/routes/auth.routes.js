@@ -73,12 +73,12 @@ router.post('/signup-teacher', (req, res) => {
 
             User
                 .create({ userName, password: hashPass, role: 'teacher' })
-                .then(() => res.json({ code: 200, message: 'User created' }))
+                .then(user => {
+                    req.session.user = user
+                    res.json(req.session.user)
+                    res.json({ code: 200, message: 'User created' })
+                })
                 .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
-
-
-            req.session.user = user
-            res.json(req.session.user)
 
         })
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
@@ -107,16 +107,16 @@ router.post('/', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 })
 
-router.put("/:user_id/", (req, res) => {
+router.put("/complete-registration/", (req, res) => {
 
-    const { user_id } = req.params
+    
 
-    if (req.session.currentUser.role === 'teacher') {
-        const { name, lastName, age, description, avatar, subject, groupEvent, individualEvent, teachingMaterials } = req.body
-        const teacherData = { name, lastName, age, description, avatar, subject, groupEvent, individualEvent, teachingMaterials }
+    if (req.session.user.role === 'teacher') {
+        const { name, lastName, age, description, avatar, subject } = req.body
+        const teacherData = { name, lastName, age, description, avatar, subject }
 
         User
-            .findByIdAndUpdate(user_id, { teacherData }, { new: true })
+            .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
             .then((user) => { res.json(user) })
             .catch((err) => console.log(err))
 
@@ -127,11 +127,13 @@ router.put("/:user_id/", (req, res) => {
         const studentData = { name, lastName, age, description, course, interests, legalTutor }
 
         User
-            .findByIdAndUpdate(user_id, { studentData }, { new: true })
+            .findByIdAndUpdate(req.session.user._id, { studentData }, { new: true })
             .then((user) => { res.json(user) })
             .catch((err) => console.log(err))
 
     }
 })
+
+
 
 module.exports = router
