@@ -22,6 +22,8 @@ const studentSchema = new Schema({
 
   groupEvent: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 
+  
+
 }, { timestamps: true })
 
 module.exports = studentSchema
