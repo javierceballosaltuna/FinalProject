@@ -46,17 +46,17 @@ router.get('/:event_id', (req, res) => {
 })
 
 router.put('/:event_id/join/', (req, res) => {
+
     const { event_id } = req.params
     const { user_id } = req.session.user
 
     Event
         .findById(event_id)
-        .then(event => User.findByIdAndUpdate(user_id, { $push: { 'studentData.groupEvent': event_id } }, { new: true }))
+        .then(() => User.findByIdAndUpdate(user_id, { $push: { 'studentData.groupEvent': event_id } }, { new: true }))
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 
 })
-
 
 router.put('/cancel/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
 
