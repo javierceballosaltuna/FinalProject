@@ -10,5 +10,5 @@ require('./config/middleware.config')(app)
 require("./config/session.config")(app)
 
 require('./routes')(app)
-
+require('./config/cron.config')
 module.exports = app
