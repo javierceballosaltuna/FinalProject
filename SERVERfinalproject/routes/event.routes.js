@@ -7,7 +7,7 @@ const User = require("../models/User.model")
 const Event = require('../models/Event.model')
 
 
-router.post('/group-sessions/create/', (req, res) => {
+router.post('/group-sessions/create/', isLoggedIn, checkRoles('teacher'), (req, res) => {
 
     const { date, description, lat, lgn } = req.body
     const { user_id } = req.session.user
@@ -20,7 +20,7 @@ router.post('/group-sessions/create/', (req, res) => {
 
 })
 
-router.get('/individual-sessions', isLoggedIn, (req, res) => {
+router.get('/individual-sessions', isLoggedIn,  (req, res) => {
 
     Event
         .find({ "eventType": "individual" })
@@ -28,7 +28,7 @@ router.get('/individual-sessions', isLoggedIn, (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading individual sessions', err }))
 })
 
-router.get('/group-sessions', isLoggedIn, (req, res) => {
+router.get('/group-sessions', isLoggedIn,  (req, res) => {
 
     Event
         .find({ "eventType": "group" })
@@ -36,7 +36,7 @@ router.get('/group-sessions', isLoggedIn, (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
 })
 
-router.get('/:event_id', (req, res) => {
+router.get('/:event_id', isLoggedIn,  (req, res) => {
 
     Event
         .findById(req.params.event_id)
@@ -45,8 +45,7 @@ router.get('/:event_id', (req, res) => {
 
 })
 
-router.put('/:event_id/join/', (req, res) => {
-
+router.put('/:event_id/join/', isLoggedIn, checkRoles('student'), (req, res) => {
     const { event_id } = req.params
     const { user_id } = req.session.user
 
@@ -79,7 +78,7 @@ router.put('/edit/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, 
         .catch(err => res.status(500).json({ code: 500, message: 'Error editing event', err }))
 })
 
-router.put('/:event_id/quit/', (req, res) => {
+router.put('/:event_id/quit/', isLoggedIn, (req, res) => {
     const { event_id } = req.params
     const { user_id } = req.session.user // ver que sale de aquí
 

@@ -84,7 +84,7 @@ router.post('/signup-teacher', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 })
 
-router.post('/', (req, res) => {
+router.post('/',  (req, res) => {
 
     const { userName, password } = req.body
 
@@ -107,7 +107,7 @@ router.post('/', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 })
 
-router.put("/complete-registration/", (req, res) => {
+router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student'), (req, res) => {
 
     
 

@@ -1,6 +1,7 @@
 const User = require("../models/User.model");
 const Request = require("../models/Request.model")
-const Event = require("../models/Event.model")
+const Event = require("../models/Event.model");
+const { isLoggedIn } = require("../middleware");
 const router = require("express").Router();
 
 
@@ -8,7 +9,7 @@ const router = require("express").Router();
 
 //SUBJECTS , LISTADO DE PROFESORES DISPONIBLES EN LA PLATAFORMA
 
-router.get('/subjects', (req, res) => {
+router.get('/subjects', isLoggedIn,  (req, res) => {
 
     console.log('entra en la ruta)')
     User
@@ -19,7 +20,7 @@ router.get('/subjects', (req, res) => {
 })
 
 //PARA LA REQUEST DE CLASE INDIVIDUAL A UN PROFESOR, EL USER ID ES EL DEL ALUMNO
-router.post('/contact/:teacher_id/:user_id', (req, res) => {
+router.post('/contact/:teacher_id/:user_id', isLoggedIn, checkRole('student'), (req, res) => {
 
     const { user_id, teacher_id } = req.params
     const { comment } = req.body
