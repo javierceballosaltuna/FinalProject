@@ -1,13 +1,15 @@
 const User = require("../models/User.model");
 const Request = require('../models/Request.model')
 const TeachingMaterial = require('../models/TeachingMaterial.model')
-const Event = require('../models/Event.model')
+const Event = require('../models/Event.model');
+const { checkRoles, isLoggedIn } = require("../middleware");
 const router = require("express").Router();
+
 
 //ADMIN PANEL
 
 
-router.get('/users', (req, res) => {
+router.get('/users', isLoggedIn, checkRoles('admin'), (req, res) => {
 
     User
         .find()
@@ -23,16 +25,16 @@ router.get('/users', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: `Error loading profile with ID: ${elm._id}`, err }))
 })
 
-router.get('/events', (req, res) => {
+router.get('/events', isLoggedIn, checkRoles('admin'), (req, res) => {
 
     Event
         .find()
         .populate('TeachingMaterial')
-        .then((response) => res.json(json))
+        .then((response) => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading events', err }))
 })
 
-router.get('/teachingMaterials', (req, res) => {
+router.get('/teachingMaterials', isLoggedIn, checkRoles('admin'),  (req, res) => {
 
     TeachingMaterial
         .find()
@@ -40,10 +42,10 @@ router.get('/teachingMaterials', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading teaching materials', err }))
 })
 
-router.get('/requests', (req, res) => {
+router.get('/requests', isLoggedIn, checkRoles('admin'),  (req, res) => {
 
     Request
-        .find() //ESTO TENGO QUE VERLOOOOOOOOOOOOOOOOOOOOOOO
+        .find() 
         .populate('User')
         .then((response => res.json(response)))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading requests', err }))

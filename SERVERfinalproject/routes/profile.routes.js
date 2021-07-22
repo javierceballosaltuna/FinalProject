@@ -1,8 +1,9 @@
 const User = require('../models/User.model');
 const router = require("express").Router();
-const Request = require('../models/Request.model')
+const Request = require('../models/Request.model');
+const { isLoggedIn, checkRoles } = require('../middleware');
 
-router.get('/', (req, res) => {
+router.get('/', isLoggedIn, (req, res) => {
 
     const user_id = req.session.user._id
 
@@ -34,7 +35,7 @@ router.get('/', (req, res) => {
 
 
 
-router.put('/edit', (req, res) => {
+router.put('/edit', isLoggedIn, (req, res) => {
 
     const { user_id } = req.session.user
 
@@ -62,7 +63,7 @@ router.put('/edit', (req, res) => {
     }
 })
 
-router.delete('/delete', (req, res) => {
+router.delete('/delete', isLoggedIn, (req, res) => {
 
     const user_id = req.session.user._id
 
