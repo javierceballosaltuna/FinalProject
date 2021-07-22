@@ -2,13 +2,14 @@ const router = require("express").Router()
 const bcrypt = require("bcrypt")
 const bcryptSalt = 10
 const User = require('../models/User.model')
+const { checkMongooseError } = require('./../utils')
 
 const { isLoggedIn, checkRoles } = require('./../middleware/index')
 
 
 router.post('/signup-student', (req, res) => {
 
-    const { userName, password } = req.body
+    const { userName, password, email } = req.body
 
     User
         .findOne({ userName })
@@ -33,7 +34,7 @@ router.post('/signup-student', (req, res) => {
             const hashPass = bcrypt.hashSync(password, salt)
 
             User
-                .create({ userName, password: hashPass, role: 'student' })
+                .create({ userName, password: hashPass, email, role: 'student' })
                 .then(user => {
                     req.session.user = user
                     res.json(req.session.user)
@@ -48,7 +49,7 @@ router.post('/signup-student', (req, res) => {
 
 router.post('/signup-teacher', (req, res) => {
 
-    const { userName, password } = req.body
+    const { userName, password, email } = req.body
 
     User
         .findOne({ userName })
@@ -73,7 +74,7 @@ router.post('/signup-teacher', (req, res) => {
             const hashPass = bcrypt.hashSync(password, salt)
 
             User
-                .create({ userName, password: hashPass, role: 'teacher' })
+                .create({ userName, password: hashPass, email, role: 'teacher' })
                 .then(user => {
                     req.session.user = user
                     res.json(req.session.user)
@@ -129,6 +130,7 @@ router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student
 
         User
             .findByIdAndUpdate(req.session.user._id, { studentData }, { new: true })
+            .lean()
             .then((user) => { res.json(user) })
             .catch(err => res.status(500).json({ code: 500, message: 'Error completing student profile', err }))
 

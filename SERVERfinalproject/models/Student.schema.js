@@ -2,22 +2,22 @@ const { Schema } = require("mongoose")
 
 const studentSchema = new Schema({
 
-  name: { type: String, required: true },
+  name: { type: String, required: [true, 'Name required'] },
   
-  lastName: { type: String, required: true },
+  lastName: { type: String, required: [true, 'lastName required'] },
   
-  age: { type: Number, required: true },
+  age: { type: Number, required: [true, 'Age required'] },
   
-  description: { type: String, required: true },
+  description: { type: String, required: [true, 'Description required'] },
   
-  course: { type: String, required: true },
+  course: { type: String, required: [true, 'Course required'] },
   
   interests: { type: String }, 
 
   legalTutor: {
-    tutorName: { type: String, required: true },
-    tutorLastName: { type: String, required: true },
-    personalId: { type: String, required: true }
+    tutorName: { type: String, required: [true, 'Tutor Name required'] },
+    tutorLastName: { type: String, required: [true, 'Tutor Last Name required'] },
+    personalId: { type: String, required: [true, 'Tutor Personal ID required'] }
   },
 
   teachers: [{ type: Schema.Types.ObjectId, ref: 'Teacher' }],

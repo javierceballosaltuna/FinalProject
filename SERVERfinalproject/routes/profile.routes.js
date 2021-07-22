@@ -12,11 +12,13 @@ router.get('/', isLoggedIn, (req, res) => {
 
         User
             .findById(user_id)
-            .populate('studentData.teachers studentData.Event')
+            .populate('studentData.teachers studentData.individualEvent studentData.groupEvent')
             .then((user) =>
 
                 Request
                     .find({ "student": `${user_id}` })
+                    .select('teacher isAccepted')
+                    .lean()
                     .then((request => res.json({ user, request })))
                     .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err })))
 
@@ -29,6 +31,8 @@ router.get('/', isLoggedIn, (req, res) => {
 
                 Request
                     .find({ "teacher": `${user_id}` })
+                    .select('student isAccepted isActive')
+                    .lean()
                     .then((request => res.json({ user, request })))
                     .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err })))
     }
@@ -47,6 +51,7 @@ router.put('/edit', isLoggedIn, (req, res) => {
 
         User
             .findByIdAndUpdate(user_id, { studentData }, { new: true })
+            .lean()
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ code: 500, message: 'Error trying to save changes (student)', err }))
 
@@ -57,7 +62,8 @@ router.put('/edit', isLoggedIn, (req, res) => {
 
         User
             .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
-            .then((user) => { res.json(user) })
+            .lean()
+            .then(response => res.json(response))
             .catch(err => res.status(500).json({ code: 500, message: 'Error trying to save changes (teacher)', err }))
 
     }
@@ -69,6 +75,7 @@ router.delete('/delete', isLoggedIn, (req, res) => {
 
     User
         .findByIdAndRemove(user_id)
+        .lean()
         .then(() => {
             req.session.destroy(() => res.json({ message: 'Logout successful' }))
             res.json({ message: 'user account deleted successfully' })

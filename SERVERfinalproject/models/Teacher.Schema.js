@@ -3,15 +3,15 @@ const studentSchema = require('./Student.schema')
 
 const teacherSchema = new Schema({
 
-  name: { type: String, required: true },
+  name: { type: String, required: [true, 'Name required'] },
 
-  lastName: { type: String, required: true },
+  lastName: { type: String, required: [true, 'Last Name required'] },
 
-  age: { type: Number, required: true },
+  age: { type: Number, required: [true, 'Age required'] },
 
-  description: { type: String, required: true },
+  description: { type: String, required: [true, 'Description required'] },
 
-  avatar: { type: String, required: true },
+  avatar: { type: String, required: [true, 'Avatar required'] },
 
   subject: [{
     type: String,

@@ -2,11 +2,11 @@ const { Schema, model } = require("mongoose")
 
 const teachingMaterialSchema = new Schema({
 
-    name: { type: String, required: true },
+    name: { type: String, required: [true, 'Name required'] },
 
     url: { type: String, required: true },
 
-    description: { type: String, required: true },
+    description: { type: String, required: [true, 'Description required'] },
 
     subject: {
         type: String,

@@ -2,11 +2,20 @@ const { Schema, model } = require("mongoose")
 
 const eventSchema = new Schema({
 
-    location: { type: { type: String }, coordinates: [Number] },
+    location: {
+        type: { type: String },
+        coordinates: [Number],
+        address: {
+            street: { type: String },
+            zipCode: { type: String },
+            city: { type: String },
+            country: { type: String }
+        }
+    },
 
-    date: { type: Date, required: true },
+    date: { type: Date, required: [true, 'Date required'] },
 
-    description: { type: String, required: true },
+    description: { type: String, required: [true, 'Description required'] },
 
     isActive: { type: Boolean, default: true },
 

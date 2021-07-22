@@ -11,10 +11,9 @@ const requestSchema = new Schema({
     
     isActive: { type: Boolean, default: true },
     
-    comment: { type: String, required: true }
+    comment: { type: String, required: [true, 'Comment required'] }
 
 }, { timestamps: true })
-
 
 const Request = model("Request", requestSchema)
 

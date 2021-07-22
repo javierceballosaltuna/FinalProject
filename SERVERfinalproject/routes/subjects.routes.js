@@ -3,12 +3,15 @@ const Request = require("../models/Request.model")
 const Event = require("../models/Event.model")
 const { isLoggedIn } = require("../middleware")
 const router = require("express").Router()
+const { checkMongooseError } = require('./../utils')
 
 
 router.get('/subjects', isLoggedIn,  (req, res) => {
 
     User
         .find({ "role": "teacher" })
+        .select('name avatar subject description')
+        .lean()
         .then((response) => { res.json(response) })
         .catch(err => res.status(500).json({ code: 500, message: 'Error trying to show all teachers', err }))
 
@@ -23,8 +26,9 @@ router.post('/contact/:teacher_id/', (req, res) => {
     Request
 
         .create({ student: user_id, teacher: teacher_id, comment })
+        .lean()
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error trying to send request', err }))
+        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 
 })
 
@@ -47,8 +51,9 @@ router.put('/contact/:request_id/approve', (req, res) => {
             return Promise.all([StudentEventCreated, teacherEventCreated])
             
         })
+        .lean()
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error trying to accept individual event request', err }))
+        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
         
     })
     
@@ -60,6 +65,7 @@ router.put('/contact/:request_id/decline', (req, res) => {
 
     Request
         .findByIdAndUpdate(request_id, { isActive: false }, { new: true })
+        .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error trying to decline individual event request', err }))
 

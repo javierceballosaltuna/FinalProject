@@ -4,9 +4,21 @@ const studentSchema = require('./Student.schema')
 
 const userSchema = new Schema({
 
-    userName: { type: String, required: true },
+    userName: { type: String, required: [true, 'Username required'] },
 
-    password: { type: String, required: true },
+    password: { type: String, required: [true, 'Password required'] },
+    
+    email: {
+        type: String,
+        unique: true,
+        required: [true, 'Please, add your email to continue'],
+        validate: {
+            validator: function (email) {
+                return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
+            },
+            message: props => `${props.value} is not a valid email`
+        }
+    },
 
     teacherData:  teacherSchema,
     
