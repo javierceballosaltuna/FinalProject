@@ -6,10 +6,7 @@ const eventSchema = new Schema({
 
     date: { type: Date, required: true },
 
-    description: {
-        type: String,
-        required: true
-    },
+    description: { type: String, required: true },
 
     isActive: { type: Boolean, default: true },
 
@@ -18,6 +15,7 @@ const eventSchema = new Schema({
     teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }]
 
 }, { timestamps: true })
+
 
 const Event = model("Event", eventSchema)
 

@@ -43,6 +43,7 @@ router.post('/signup-student', (req, res) => {
 
         })
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
+
 })
 
 router.post('/signup-teacher', (req, res) => {
@@ -82,6 +83,7 @@ router.post('/signup-teacher', (req, res) => {
 
         })
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
+
 })
 
 router.post('/', (req, res) => {
@@ -105,11 +107,10 @@ router.post('/', (req, res) => {
             res.json(req.session.user)
         })
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
+
 })
 
 router.put("/complete-registration/", (req, res) => {
-
-    
 
     if (req.session.user.role === 'teacher') {
         const { name, lastName, age, description, avatar, subject } = req.body
@@ -118,7 +119,7 @@ router.put("/complete-registration/", (req, res) => {
         User
             .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
             .then((user) => { res.json(user) })
-            .catch((err) => console.log(err))
+            .catch(err => res.status(500).json({ code: 500, message: 'Error completing teacher profile', err }))
 
     } else {
 
@@ -129,11 +130,13 @@ router.put("/complete-registration/", (req, res) => {
         User
             .findByIdAndUpdate(req.session.user._id, { studentData }, { new: true })
             .then((user) => { res.json(user) })
-            .catch((err) => console.log(err))
+            .catch(err => res.status(500).json({ code: 500, message: 'Error completing student profile', err }))
 
     }
+
 })
 
 router.get('/logout', isLoggedIn, (req, res) => { req.session.destroy(() => res.json({ message: 'Logout successful' })) })
+
 
 module.exports = router

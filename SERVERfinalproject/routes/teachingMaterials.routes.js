@@ -5,7 +5,6 @@ const TeachingMaterial = require('../models/TeachingMaterial.model')
 const { isLoggedIn, checkRoles } = require('../middleware/index')
 
 
-
 router.get('/', isLoggedIn, (req, res) => {
 
     TeachingMaterial
@@ -15,10 +14,10 @@ router.get('/', isLoggedIn, (req, res) => {
 
 })
 
-router.post('/create', isLoggedIn, checkRoles ('teacher'), (req, res) => {
+router.post('/create', isLoggedIn, checkRoles('teacher'), (req, res) => {
 
     const { name, url, description, subject } = req.body
-    const { user_id } = req.session.user // ver que sale de aquí
+    const { user_id } = req.session.user 
 
     TeachingMaterial
         .create({ name, url, description, subject })
@@ -37,15 +36,16 @@ router.get('/:material_id', isLoggedIn, (req, res) => {
 
 })
 
-router.delete('/delete/:material_id', isLoggedIn, checkRoles ('teacher', 'admin'), (req, res) => {
+router.delete('/delete/:material_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
 
     TeachingMaterial
         .findByIdAndDelete(req.params.material_id)
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error deleting teaching material', err }))
+
 })
 
-router.put('/edit/:material_id', isLoggedIn, checkRoles ('teacher', 'admin'), (req, res) => {
+router.put('/edit/:material_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
 
     const { material_id } = req.params
     const { name, url, description, subject } = req.body
@@ -53,7 +53,7 @@ router.put('/edit/:material_id', isLoggedIn, checkRoles ('teacher', 'admin'), (r
     TeachingMaterial
         .findByIdAndUpdate(material_id, { name, url, description, subject })
         .then(response => res.json(response))
-        .catch(err => res.status(500).json({ code: 500, message: 'Error editing event', err }))
+        .catch(err => res.status(500).json({ code: 500, message: 'Error editing teaching material', err }))
 
 })
 

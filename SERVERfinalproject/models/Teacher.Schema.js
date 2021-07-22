@@ -22,9 +22,10 @@ const teacherSchema = new Schema({
 
   individualEvent: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 
-  teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }],
+  teachingMaterials: [{ type: Schema.Types.ObjectId, ref: 'TeachingMaterial' }]
 
 }, { timestamps: true })
+
 
 module.exports = teacherSchema
 

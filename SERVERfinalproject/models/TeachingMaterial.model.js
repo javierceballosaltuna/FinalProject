@@ -10,10 +10,11 @@ const teachingMaterialSchema = new Schema({
 
     subject: {
         type: String,
-        enum: ['spanish', 'math', 'science', 'history', 'music', 'english', 'art', 'physical education', 'special needs'] //HAY QUE PONER TODAS LAS MATERIAS DISPONIBLES
+        enum: ['spanish', 'math', 'science', 'history', 'music', 'english', 'art', 'physical education', 'special needs'] 
     }
 
 }, { timestamps: true })
+
 
 const TeachingMaterial = model("TeachingMaterial", teachingMaterialSchema)
 

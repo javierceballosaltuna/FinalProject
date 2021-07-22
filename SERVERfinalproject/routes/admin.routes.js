@@ -4,8 +4,6 @@ const TeachingMaterial = require('../models/TeachingMaterial.model')
 const Event = require('../models/Event.model')
 const router = require("express").Router();
 
-//ADMIN PANEL
-
 
 router.get('/users', (req, res) => {
 
@@ -13,14 +11,8 @@ router.get('/users', (req, res) => {
         .find()
         .populate('studentData.teachers studentData.Event teacherData.teachingMaterials teacherData.Event')
         .then((response) => res.json(response))
-
-        // response.map(elm =>
-
-        //     Request
-        //         .find({ $or: [{ 'student': `${elm._id}` }, { 'teacher': `${elm._id}` }] }) //ESTO TENGO QUE VERLOOOOOOOOOOOOOOOOOOOOOOO
-        //         .select('isAccepted isActive')
-        //         .then((response => res.json(response)))
         .catch(err => res.status(500).json({ code: 500, message: `Error loading profile with ID: ${elm._id}`, err }))
+
 })
 
 router.get('/events', (req, res) => {
@@ -30,7 +22,8 @@ router.get('/events', (req, res) => {
         .populate('TeachingMaterial')
         .then((response) => res.json(json))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading events', err }))
-})
+
+    })
 
 router.get('/teachingMaterials', (req, res) => {
 
@@ -38,16 +31,18 @@ router.get('/teachingMaterials', (req, res) => {
         .find()
         .then((response) => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading teaching materials', err }))
-})
+
+    })
 
 router.get('/requests', (req, res) => {
 
     Request
-        .find() //ESTO TENGO QUE VERLOOOOOOOOOOOOOOOOOOOOOOO
+        .find()
         .populate('User')
         .then((response => res.json(response)))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading requests', err }))
-})
+
+    })
 
 module.exports = router
 

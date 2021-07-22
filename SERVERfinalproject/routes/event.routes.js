@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { isLoggedIn, checkRoles } = require('../middleware/index')
-
 const User = require("../models/User.model")
-
 const Event = require('../models/Event.model')
+
+const { isLoggedIn, checkRoles } = require('../middleware/index')
 
 
 router.post('/group-sessions/create/', (req, res) => {
@@ -26,6 +25,7 @@ router.get('/individual-sessions', isLoggedIn, (req, res) => {
         .find({ "eventType": "individual" })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading individual sessions', err }))
+
 })
 
 router.get('/group-sessions', isLoggedIn, (req, res) => {
@@ -34,6 +34,7 @@ router.get('/group-sessions', isLoggedIn, (req, res) => {
         .find({ "eventType": "group" })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
+
 })
 
 router.get('/:event_id', (req, res) => {
@@ -65,6 +66,7 @@ router.put('/cancel/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req
         .findByIdAndUpdate(req.params.event_id, { isActive: false }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error deleting an event', err }))
+
 })
 
 router.put('/edit/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
@@ -77,11 +79,13 @@ router.put('/edit/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, 
         .populate('teachingMaterials')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error editing event', err }))
+
 })
 
 router.put('/:event_id/quit/', (req, res) => {
+
     const { event_id } = req.params
-    const { user_id } = req.session.user // ver que sale de aquí
+    const { user_id } = req.session.user
 
     Event
         .findById(event_id)
@@ -90,5 +94,6 @@ router.put('/:event_id/quit/', (req, res) => {
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 
 })
+
 
 module.exports = router
