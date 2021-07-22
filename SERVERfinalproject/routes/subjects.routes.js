@@ -1,10 +1,11 @@
 const User = require("../models/User.model")
 const Request = require("../models/Request.model")
 const Event = require("../models/Event.model")
+const { isLoggedIn } = require("../middleware")
 const router = require("express").Router()
 
 
-router.get('/subjects', (req, res) => {
+router.get('/subjects', isLoggedIn,  (req, res) => {
 
     User
         .find({ "role": "teacher" })

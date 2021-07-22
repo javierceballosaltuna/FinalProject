@@ -86,7 +86,7 @@ router.post('/signup-teacher', (req, res) => {
 
 })
 
-router.post('/', (req, res) => {
+router.post('/',  (req, res) => {
 
     const { userName, password } = req.body
 
@@ -110,7 +110,7 @@ router.post('/', (req, res) => {
 
 })
 
-router.put("/complete-registration/", (req, res) => {
+router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student'), (req, res) => {
 
     if (req.session.user.role === 'teacher') {
         const { name, lastName, age, description, avatar, subject } = req.body

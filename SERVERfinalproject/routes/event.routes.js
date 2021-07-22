@@ -6,7 +6,7 @@ const Event = require('../models/Event.model')
 const { isLoggedIn, checkRoles } = require('../middleware/index')
 
 
-router.post('/group-sessions/create/', (req, res) => {
+router.post('/group-sessions/create/', isLoggedIn, checkRoles('teacher'), (req, res) => {
 
     const { date, description, lat, lgn } = req.body
     const { user_id } = req.session.user
@@ -19,7 +19,7 @@ router.post('/group-sessions/create/', (req, res) => {
 
 })
 
-router.get('/individual-sessions', isLoggedIn, (req, res) => {
+router.get('/individual-sessions', isLoggedIn,  (req, res) => {
 
     Event
         .find({ "eventType": "individual" })
@@ -28,7 +28,7 @@ router.get('/individual-sessions', isLoggedIn, (req, res) => {
 
 })
 
-router.get('/group-sessions', isLoggedIn, (req, res) => {
+router.get('/group-sessions', isLoggedIn,  (req, res) => {
 
     Event
         .find({ "eventType": "group" })
@@ -37,7 +37,7 @@ router.get('/group-sessions', isLoggedIn, (req, res) => {
 
 })
 
-router.get('/:event_id', (req, res) => {
+router.get('/:event_id', isLoggedIn,  (req, res) => {
 
     Event
         .findById(req.params.event_id)
@@ -46,8 +46,7 @@ router.get('/:event_id', (req, res) => {
 
 })
 
-router.put('/:event_id/join/', (req, res) => {
-
+router.put('/:event_id/join/', isLoggedIn, checkRoles('student'), (req, res) => {
     const { event_id } = req.params
     const { user_id } = req.session.user
 
