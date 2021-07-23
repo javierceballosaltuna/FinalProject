@@ -1,7 +1,16 @@
+import React from 'react';
+import './App.css';
+
 function App() {
   return (
-    <h1>Al lio niñooooooooo</h1>
-  )
+    <>
+      <h1>IRONBEERS</h1>
+
+      <Routes />
+      {/* nos vamos al index de rutas */}
+    </>
+  );
 }
+
 
 export default App
