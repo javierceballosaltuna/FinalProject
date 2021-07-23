@@ -1,12 +1,12 @@
 module.exports = (app) => {
   
-  app.use('/', require('./auth.routes'))
-  app.use('/', require('./admin.routes'))
-  app.use('/', require('./subjects.routes'))
-  app.use('/profile', require('./profile.routes'))
-  app.use('/events', require('./event.routes'))
-  app.use('/resources', require('./teachingMaterials.routes'))
-  app.use('/admin', require('./admin.routes'))
+  app.use('/api/', require('./auth.routes'))
+  app.use('/api/', require('./admin.routes'))
+  app.use('/api/', require('./subjects.routes'))
+  app.use('/api/profile', require('./profile.routes'))
+  app.use('/api/events', require('./event.routes'))
+  app.use('/api/resources', require('./teachingMaterials.routes'))
+  app.use('/api/admin', require('./admin.routes'))
 
 }
 

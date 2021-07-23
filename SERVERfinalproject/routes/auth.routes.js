@@ -138,6 +138,10 @@ router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student
 
 })
 
+router.post('/isloggedin', isLoggedIn, (req, res) => {
+    req.session.user ? res.json(req.session.user) : res.status(401).json({ code: 401, message: 'Unauthorized' })
+})
+
 router.get('/logout', isLoggedIn, (req, res) => { req.session.destroy(() => res.json({ message: 'Logout successful' })) })
 
 
