@@ -26,7 +26,6 @@ router.post('/contact/:teacher_id/', isLoggedIn, checkRoles('student'), (req, re
     Request
 
         .create({ student: user_id, teacher: teacher_id, comment })
-        .lean()
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 
@@ -40,24 +39,20 @@ router.put('/contact/:request_id/approve', isLoggedIn, checkRoles('teacher'), (r
     Request
         .findByIdAndUpdate(request_id, { isAccepted: true, isActive: false }, { new: true })
         .then(request => {
-
             Event
                 .create({ date, avatar, description, eventType, location: { coordinates: [lat, lgn] } })
                 .then(event => {
 
                     const StudentEventCreated = User.findByIdAndUpdate(request.student, { $push: { 'studentData.individualEvent': event._id } }, { new: true })
                     const teacherEventCreated = User.findByIdAndUpdate(request.teacher, { $push: { 'teacherData.individualEvent': event._id } }, { new: true })
-
                     Promise
                         .all([StudentEventCreated, teacherEventCreated])
-                        .then(userResponse => res.json(userResponse))
-                        .catch(err => res.status(500).json({ code: 500, message: 'Error trying to accept individual event request', err }))
-
+                        .then(response => res.json(response))
+                        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
                 })
-
         })
-        .lean()
-        .then((response, userResponse) => res.json(response, userResponse))
+        
+        .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 
 })
