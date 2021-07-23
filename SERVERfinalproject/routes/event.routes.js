@@ -60,9 +60,8 @@ router.put('/:event_id/join/', isLoggedIn, checkRoles('student'), (req, res) => 
     const { event_id } = req.params
     const { user_id } = req.session.user
 
-    Event
-        .findById(event_id)
-        .then(() => User.findByIdAndUpdate(user_id, { $push: { 'studentData.groupEvent': event_id } }, { new: true }))
+    User
+        .findByIdAndUpdate(user_id, { $push: { 'studentData.groupEvent': event_id } }, { new: true })
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
@@ -98,9 +97,8 @@ router.put('/:event_id/quit/', (req, res) => {
     const { event_id } = req.params
     const { user_id } = req.session.user
 
-    Event
-        .findById(event_id)
-        .then(() => User.findByIdAndUpdate(user_id, { $pull: { 'studentData.groupEvent': event_id } }, { new: true }))
+    User
+        .findByIdAndUpdate(user_id, { $pull: { 'studentData.groupEvent': event_id } }, { new: true })
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
