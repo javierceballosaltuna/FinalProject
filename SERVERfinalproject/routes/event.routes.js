@@ -26,7 +26,7 @@ router.get('/individual-sessions', isLoggedIn,  (req, res) => {
 
     Event
         .find({ "eventType": "individual" })
-        .select('date location.address.city')
+        .select('description date location.address.city')
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading individual sessions', err }))
@@ -37,7 +37,7 @@ router.get('/group-sessions', isLoggedIn,  (req, res) => {
 
     Event
         .find({ "eventType": "group" })
-        .select('date location.address.city')
+        .select('description date location.address.city')
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))

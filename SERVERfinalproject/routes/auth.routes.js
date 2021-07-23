@@ -87,7 +87,7 @@ router.post('/signup-teacher', (req, res) => {
 
 })
 
-router.post('/',  (req, res) => {
+router.post('/', (req, res) => {
 
     const { userName, password } = req.body
 

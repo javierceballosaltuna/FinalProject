@@ -29,7 +29,7 @@ router.get('/events', isLoggedIn, checkRoles('admin'), (req, res) => {
 
     })
 
-router.get('/teachingMaterials', isLoggedIn, checkRoles('admin'),  (req, res) => {
+router.get('/teaching-materials', isLoggedIn, checkRoles('admin'),  (req, res) => {
 
     TeachingMaterial
         .find()
