@@ -1,7 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import LoginForm from './LoginForm'
-import { Link } from 'react-router-dom'
-// import StudentSignupForm from './StudentSignupForm'
+import StudentSignupForm from './StudentSignupForm'
 // import TeacherSignupForm from './TeacherSignupForm'
 
 
@@ -22,11 +21,10 @@ const CredentialsCard = ({ history, handleAlert }) => {
                     <LoginForm history={history} handleAlert={handleAlert} />
 
                     <hr />
-                    <Link to="/" className="btn btn-dark"> Log-In</Link>
+                    
+                     <StudentSignupForm history={history} handleAlert={handleAlert} />
 
-                    {/* <StudentSignupForm history={history} handleAlert={handleAlert} />
-
-                    <TeacherSignupForm history={history} handleAlert={handleAlert} /> */}
+                    {/*<TeacherSignupForm history={history} handleAlert={handleAlert} /> */}
 
                 </Col>
 

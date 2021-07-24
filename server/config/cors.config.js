@@ -10,8 +10,6 @@ const corsOptions = {
     credentials: true
 }
 
-
-
 module.exports = app => {
     app.use(cors(corsOptions))
 }

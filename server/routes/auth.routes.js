@@ -112,8 +112,8 @@ router.post('/', (req, res) => {
 router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student'), (req, res) => {
 
     if (req.session.user.role === 'teacher') {
-        const { name, lastName, age, description, avatar, subject } = req.body
-        const teacherData = { name, lastName, age, description, avatar, subject }
+
+        const teacherData = { name, lastName, age, description, avatar, subject } = req.body
 
         User
             .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
@@ -122,8 +122,8 @@ router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student
 
     } else {
 
-        const { name, lastName, age, description, course, interests, tutorName, tutorLastName, personalId } = req.body
-        const legalTutor = { tutorName, tutorLastName, personalId }
+        const { name, lastName, age, description, course, interests } = req.body
+        const legalTutor = { tutorName, tutorLastName, personalId } = req.body
         const studentData = { name, lastName, age, description, course, interests, legalTutor }
 
         User

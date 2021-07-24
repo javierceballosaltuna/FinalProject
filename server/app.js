@@ -1,5 +1,5 @@
-require('dotenv/config')
 require('./db')
+require('dotenv/config')
 
 const express = require("express")
 const app = express()
@@ -11,4 +11,5 @@ require("./config/session.config")(app)
 
 require('./routes')(app)
 require('./config/cron.config')
+
 module.exports = app
