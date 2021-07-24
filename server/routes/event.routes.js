@@ -5,6 +5,7 @@ const Event = require('../models/Event.model')
 const { checkMongooseError } = require('../utils')
 
 const { isLoggedIn, checkRoles } = require('../middleware/index')
+const cdnUpload = require('../config/fileUpload.config')//HAY QUE VER EN EVENT CREATE SI METEMOS LOS TEACHING MATERIALS, HABRIA QUE POPULAR.
 
 
 router.post('/group-sessions/create/', isLoggedIn, checkRoles('teacher'), (req, res) => {

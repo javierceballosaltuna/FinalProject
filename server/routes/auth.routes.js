@@ -5,6 +5,7 @@ const User = require('../models/User.model')
 const { checkMongooseError } = require('../utils')
 
 const { isLoggedIn, checkRoles } = require('../middleware/index')
+const cdnUpload = require('../config/fileUpload.config')
 
 
 router.post('/signup-student', (req, res) => {
@@ -109,11 +110,11 @@ router.post('/', (req, res) => {
 
 })
 
-router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student'), (req, res) => {
+router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student'), cdnUpload.single('avatar'),(req, res) => {
 
     if (req.session.user.role === 'teacher') {
 
-        const teacherData = { name, lastName, age, description, avatar, subject } = req.body
+        const teacherData = { name, lastName, age, description, avatar: req.file.path, subject } = req.body
 
         User
             .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })

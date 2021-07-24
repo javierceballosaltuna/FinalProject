@@ -3,6 +3,7 @@ const router = require("express").Router()
 const Request = require('../models/Request.model')
 
 const { isLoggedIn } = require('../middleware')
+const cdnUpload = require('../config/fileUpload.config')
 
 router.get('/', (req, res) => {
 
@@ -32,7 +33,7 @@ router.get('/', (req, res) => {
     } 
 })
 
-router.put('/edit', isLoggedIn, (req, res) => {
+router.put('/edit', isLoggedIn, cdnUpload.single('avatar'),(req, res) => {
 
     const { user_id } = req.session.user
 
@@ -48,7 +49,7 @@ router.put('/edit', isLoggedIn, (req, res) => {
 
     } else {
 
-        const teacherData = { name, lastName, age, description, avatar, subject } = req.body
+        const teacherData = { name, lastName, age, description, avatar: req.file.path, subject } = req.body
 
         User
             .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
