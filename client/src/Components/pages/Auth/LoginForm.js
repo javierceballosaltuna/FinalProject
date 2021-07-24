@@ -1,7 +1,8 @@
 import { Component } from 'react'
-
+import { Link } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
 import AuthService from '../../../services/auth.services'
+
 
 class LoginForm extends Component {
 
@@ -34,9 +35,7 @@ class LoginForm extends Component {
                 this.props.handleAlert(`Hi, ${this.state.userName}.`)
                 this.setState(response.data)
             })
-            .catch(err => {
-                this.setState({ alert: { show: true, text: err.response.data.message } })
-            })
+            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
 
     render() {
@@ -56,9 +55,9 @@ class LoginForm extends Component {
                         <Form.Control type="password" value={this.state.password} onChange={e => this.handleInputChange(e)} name="password" />
                     </Form.Group>
 
-
+                    <Link to="/" className="btn btn-dark">
                     <Button variant="dark" type="submit">Log-In</Button>
-
+                    </Link>
 
                 </Form>
             </>
