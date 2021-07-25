@@ -11,7 +11,6 @@ class AllEvents extends Component {
 
         super()
         this.state = {
-
             events: undefined
         }
         this.EventsService = new EventsService
