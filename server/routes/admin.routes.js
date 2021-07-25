@@ -43,7 +43,7 @@ router.get('/requests', isLoggedIn, checkRoles('admin'),  (req, res) => {
 
     Request
         .find()
-        .populate('User')
+        .populate('student teacher')
         .lean()
         .then((response => res.json(response)))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading requests', err }))

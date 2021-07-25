@@ -5,7 +5,7 @@ import UsersService from '../../../services/user.services';
 
 
 
-class AllStudents extends Component {
+class AllUsers extends Component {
 
     constructor() {
 
@@ -43,11 +43,16 @@ class AllStudents extends Component {
                             {this.state.users.map(elm =>
 
                                 <Card style={{ width: '18rem' }}>
-                                    <Card.Img variant="top" src={elm.avatar} key={elm._id} />
+                                    <Card.Img variant="top" src={elm.teacherData.avatar} key={elm._id} />
                                     <Card.Body>
-                                        <Card.Title>{elm.name}</Card.Title>
+                                        <Card.Title>{elm.teacherData.name} {elm.studentData.name} ,
+                                            {elm.teacherData.lastName} {elm.studentData.lastName}
+                                        </Card.Title>
                                         <Card.Text>
-                                            {elm.description}
+                                            <h3>{elm.role}</h3>
+                                            <h4>{elm.studentData.age}{elm.teacherData.age}</h4>
+                                            <p>{elm.teacherData.description}
+                                                {elm.studentData.description}</p>
                                         </Card.Text>
                                         <Button variant="primary"><Link to={`/beers/${elm._id}`} style={{ color: 'white' }}>See more details</Link></Button>
                                     </Card.Body>
@@ -65,4 +70,4 @@ class AllStudents extends Component {
 
 }
 
-export default AllStudents
+export default AllUsers
