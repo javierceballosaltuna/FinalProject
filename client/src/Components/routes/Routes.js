@@ -3,16 +3,18 @@ import { Switch, Route } from 'react-router-dom'
 import CredentialsCard from '../pages/Auth/CredentialsCard'
 
 
-const Routes = ({ handleAlert }) => {
+const Routes = ({ storeUser, loggedUser, handleAlert }) => {
 
     return (
         <Switch>
-            {/* 
-            <Route path="/signup-student" />
-            <Route path="/signup-teacher" /> */}
-            <Route path="/" exact render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
-            {/* <Route path="/complete-registration" />
-            <Route path="/logout" />
+
+            <Route exact path="/signup-teacher" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
+            <Route exact path="/signup-student" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
+            <Route exact path="/" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
+            <Route path="/complete-registration" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
+            
+            
+            {/*
             
             <Route path="/profile"   />
             <Route path="/profile/edit"   />

@@ -1,7 +1,6 @@
 import { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
-import AuthService from '../../../services/auth.services'
+import AuthService from '../../../services/auth.service'
 
 
 class LoginForm extends Component {
@@ -16,7 +15,7 @@ class LoginForm extends Component {
                 text: ' '
             }
         }
-        this.AuthService = new AuthService()
+        this.authService = new AuthService()
     }
 
 
@@ -28,14 +27,31 @@ class LoginForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        this.AuthService
-            .login(this.state)
-            .then(response => {
-                this.props.history.push('/')
-                this.props.handleAlert(`Hi, ${this.state.userName}.`)
-                this.setState(response.data)
+
+        const { userName, password } = this.state
+
+        this.authService
+            .login(userName, password)
+            .then(loggedUserfromServer => {
+                this.props.storeUser(loggedUserfromServer.data)
+                this.props.history.push('/')        
             })
-            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
+            .catch(err => console.log(err))
+    
+
+            // .then(response => {
+            //     console.log(response)
+            //     this.props.storeUser(response.data)
+            //     this.props.handleAlert(`Hi, ${response.data.userName}`)
+
+            //     if (this.props.history.location.pathname !== '/login') {
+            //         this.props.closeModal()
+            //         this.props.history.push(this.props.history.location.pathname)
+            //     } else {
+            //         this.props.history.push('/')
+            //     }
+            // })
+            // .catch(err => this.setState({ alert: { show: true, text: err } }))
     }
 
     render() {
@@ -55,9 +71,7 @@ class LoginForm extends Component {
                         <Form.Control type="password" value={this.state.password} onChange={e => this.handleInputChange(e)} name="password" />
                     </Form.Group>
 
-                    <Link to="/" className="btn btn-dark">
-                    <Button variant="dark" type="submit">Log-In</Button>
-                    </Link>
+                    <Button style={{ marginTop: '20px', width: '100%' }} variant="dark" type="submit">Log-In</Button>
 
                 </Form>
             </>

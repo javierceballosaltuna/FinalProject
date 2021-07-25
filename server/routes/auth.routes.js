@@ -104,6 +104,7 @@ router.post('/', (req, res) => {
 
             req.session.user = user
             res.json(req.session.user)
+            console.log('ha iniciado sesión')
         })
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 
