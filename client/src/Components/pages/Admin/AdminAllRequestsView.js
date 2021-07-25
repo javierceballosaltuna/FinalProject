@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Card, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import RequestsService from '../../../services/Request.services'
+import RequestsService from '../../../services/Request.service'
 
 
 

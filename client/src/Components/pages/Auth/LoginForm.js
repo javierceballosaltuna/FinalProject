@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Form, Button, Alert } from 'react-bootstrap'
-import AuthService from '../../../services/auth.services'
+import AuthService from '../../../services/auth.service'
 
 
 class LoginForm extends Component {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Card, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import EventsService from '../../../services/event.services';
+import EventsService from '../../../services/event.service';
 
 
 
