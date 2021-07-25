@@ -1,7 +1,5 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import LoginForm from './LoginForm'
-// import StudentSignupForm from './StudentSignupForm'
-// import TeacherSignupForm from './TeacherSignupForm'
 
 
 const CredentialsCard = ({ history, handleAlert }) => {
@@ -21,12 +19,6 @@ const CredentialsCard = ({ history, handleAlert }) => {
                     <LoginForm history={history} handleAlert={handleAlert} />
 
                     <hr />
-
-                    
-                    {/*
-                    <StudentSignupForm history={history} handleAlert={handleAlert} />
-
-                    <TeacherSignupForm history={history} handleAlert={handleAlert} /> */}
 
                 </Col>
 

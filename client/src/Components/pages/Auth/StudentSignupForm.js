@@ -1,7 +1,6 @@
 import { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { Form, Button, Alert } from 'react-bootstrap'
-import AuthService from '../../../services/auth.services'
+import AuthService from '../../../services/auth.service'
 
 class StudentSignupForm extends Component {
 
@@ -35,7 +34,7 @@ class StudentSignupForm extends Component {
     handleSubmit(e) {
         e.preventDefault()
         this.AuthService
-            .studentSignup(this.state)
+            .completeRegistration(this.state)
             .then(response => {
                 this.props.history.push('/complete-registration')
                 this.setState(response.data)
@@ -95,9 +94,7 @@ class StudentSignupForm extends Component {
                         <Form.Control type="text" value={this.state.personalId} onChange={e => this.handleInputChange(e)} name="personalId" />
                     </Form.Group>
 
-                    <Link to="/" className="btn btn-dark">
-                    <Button variant="dark" type="submit">Complete your student profile</Button>
-                    </Link>
+                    <Button variant="dark" type="submit">Complete your student registration</Button>
 
                 </Form>
             </>
