@@ -1,7 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import LoginForm from './LoginForm'
-// import StudentSignupForm from './StudentSignupForm'
-// import TeacherSignupForm from './TeacherSignupForm'
+import logo from './../../../assets/Images/logo_transparent.png'
 
 
 const CredentialsCard = ({ history, handleAlert }) => {
@@ -14,19 +13,13 @@ const CredentialsCard = ({ history, handleAlert }) => {
 
                 <Col md={6}>
 
-                    <h1>LOGO</h1>
+                    <img src={logo} className="rounded mr-2" alt="logo" style={{ width: 250, height: 250 }} />
 
                     <hr />
 
                     <LoginForm history={history} handleAlert={handleAlert} />
 
                     <hr />
-
-                    
-                    {/*
-                    <StudentSignupForm history={history} handleAlert={handleAlert} />
-
-                    <TeacherSignupForm history={history} handleAlert={handleAlert} /> */}
 
                 </Col>
 

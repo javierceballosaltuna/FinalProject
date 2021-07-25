@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Card, Button, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import TeachingMaterialsService from '../../../services/TeachingMaterial.services'
+import TeachingMaterialsService from '../../../services/TeachingMaterial.service'
 
 
 
