@@ -4,6 +4,7 @@ const TeachingMaterial = require('../models/TeachingMaterial.model')
 
 const { checkMongooseError } = require('../utils')
 const { isLoggedIn, checkRoles } = require('../middleware/index')
+const cdnUpload = require('../config/fileUpload.config')
 
 
 router.get('/', isLoggedIn, (req, res) => {
@@ -17,13 +18,13 @@ router.get('/', isLoggedIn, (req, res) => {
 
 })
 
-router.post('/create', isLoggedIn, checkRoles('teacher'), (req, res) => {
+router.post('/create', isLoggedIn, checkRoles('teacher'), cdnUpload.single('url'), (req, res) => {
 
-    const { name, url, description, subject } = req.body
+    const { name, description, subject } = req.body
     const { user_id } = req.session.user 
 
     TeachingMaterial
-        .create({ name, url, description, subject })
+        .create({ name, url: req.file.path, description, subject })
         .then(teachingMaterial => User.findByIdAndUpdate(user_id, { $push: { 'teacherData.teachingMaterials': teachingMaterial._id } }))
         .lean()
         .then(response => res.json(response))
@@ -51,13 +52,13 @@ router.delete('/delete/:material_id', isLoggedIn, checkRoles('teacher', 'admin')
 
 })
 
-router.put('/edit/:material_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
+router.put('/edit/:material_id', isLoggedIn, checkRoles('teacher', 'admin'), cdnUpload.single('url'), (req, res) => {
 
     const { material_id } = req.params
-    const { name, url, description, subject } = req.body
+    const { name,  description, subject } = req.body
 
-    TeachingMaterial
-        .findByIdAndUpdate(material_id, { name, url, description, subject })
+    TeachingMaterial 
+        .findByIdAndUpdate(material_id, { name, url: req.file.path, description, subject })
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error editing teaching material', err }))
