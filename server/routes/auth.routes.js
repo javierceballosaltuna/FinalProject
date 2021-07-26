@@ -117,7 +117,7 @@ router.put("/complete-registration/",
 
         if (req.session.user.role === 'teacher') {
 
-            const teacherData = { name, lastName, age, description, avatar: req.file.path, subject } = req.body
+            const teacherData = { name, lastName, age, description, subject } = req.body //FALTA AVATAR
 
             User
                 .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })

@@ -6,6 +6,8 @@ import EventDetails from '../pages/Events/EventDetails'
 import Profile from '../pages/Profile/ProfileView'
 import CreateEventForm from '../pages/Events/CreateEvent'
 import EditEvent from '../pages/Events/EditEvent'
+import SubjectsList from '../pages/Subjects/SubjectsList'
+
 
 
 
@@ -28,12 +30,13 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/events/details/:event_id" render={props => <EventDetails {...props} />} />
             <Route path="/events/edit/:event_id" render={props => <EditEvent {...props} />} />
 
+            <Route path="/subjects" render={(props) => <SubjectsList {...props}/>}   />
             {/*
             
             <Route path="/profile/edit"   />
             <Route path="/profile/delete"   />
 
-            <Route path="/subjects"   />
+            
             <Route path="/contact/:teacher_id"   />
             <Route path="/contact/request/approve"   />
             <Route path="/contact/request/decline"   />

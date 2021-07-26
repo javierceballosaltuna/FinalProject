@@ -11,19 +11,20 @@ class Profile extends Component {
         super(props)
         this.state = {
 
+<<<<<<< HEAD
             user: this.props.loggedUser
         }
         console.log(this.props)
+=======
+              user: this.props.loggedUser
+        }
+
+>>>>>>> javi
         //this.UsersService = new UsersService()
 
 
     }
 
-    // componentDidMount() {
-
-    //     this.getOneUser()
-
-    // }
 
 
 
