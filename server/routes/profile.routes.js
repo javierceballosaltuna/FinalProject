@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
       
         Promise
             .all([getStudentDetails, getRequestDetails])
-            .then(response => console.log(response[1]))
+            .then(response => res.json(response))
             .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err }))    
 
     } else {

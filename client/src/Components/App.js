@@ -31,7 +31,7 @@ class App extends Component {
   fetchUser = () => {
     this.authService
       .isLoggedIn()
-      .then(response => this.setState({ loggedUser: response.data }))
+      .then(response => this.setState({ loggedUser: response.data }, console.log(response.data)))
       .catch(() => this.setState({ loggedUser: undefined }))
     
   }

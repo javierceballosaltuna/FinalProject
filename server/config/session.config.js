@@ -9,7 +9,7 @@ module.exports = app => {
             saveUninitialized: false,
             cookie: {
                 httpOnly: true,
-                maxAge: 600000000
+                maxAge: 60000000000
             },
             store: MongoStore.create({
                 mongoUrl: process.env.DB_REMOTE
