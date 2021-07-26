@@ -1,6 +1,8 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import CredentialsCard from '../pages/Auth/CredentialsCard'
+import Profile from '../pages/Profile/ProfileView'
+
 
 
 const Routes = ({ storeUser, loggedUser, handleAlert }) => {
@@ -12,11 +14,11 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route exact path="/signup-student" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route exact path="/" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route path="/complete-registration" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
-            
+            <Route path="/profile" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser}  />}  />
             
             {/*
             
-            <Route path="/profile"   />
+            
             <Route path="/profile/edit"   />
             <Route path="/profile/delete"   />
 

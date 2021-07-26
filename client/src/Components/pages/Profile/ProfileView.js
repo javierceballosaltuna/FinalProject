@@ -1,42 +1,40 @@
 import React, { Component } from 'react';
-import { Row, Card, Button, Container } from 'react-bootstrap';
+import { Row, Card, Button, Container, Col, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import UsersService from '../../../services/user.service';
-import RequestsService from '../../../services//Request.service';
+
 
 
 class Profile extends Component {
 
-    constructor() {
-        super()
-        this.state()
+    constructor(storeUser) {
 
-        user: undefined
-        request: undefined
+        super(storeUser)
+        this.state = {
 
+            user: storeUser
+        }
+       
         this.UsersService = new UsersService()
-        this.RequestsService = new RequestsService()
+ console.log(storeUser)
+        
     }
 
 
 
     componentDidMount() {
-        //ESTO NO LO TENEMOS COMO PARAM
-        const { user_id } = this.props.match.params
 
-        this.UsersService
-            .getOneUser(user_id)
-            .then(response => this.setState({ user: response.data }))
-            .catch(err => console.log(err))
-
-        // this.RequestsService
-        //     .getOneUser(user_id)
-        //     .then(response => this.setState({ user: response.data }))
-        //     .catch(err => console.log(err))
-
+        this.getUserProfile()
 
     }
 
+    getUserProfile(user) {
+
+        this.UsersService
+            .getOneUser(user._id)
+            .then(response => this.setState({ user: response.data }))
+            .catch(err => console.log(err))
+    }
 
 
     render() {
@@ -52,20 +50,21 @@ class Profile extends Component {
                         <Row>
                             <Col>
                                 <Card style={{ width: '18rem' }}>
-                                    <Card.Img variant="top" src={this.state.teacherData.avatar} key={elm._id} />
+                                   
+                                    <Card.Img variant="top" src={this.state.user[0].teacherData.avatar} key={this.state.user._id} />
 
                                     <Card.Body>
                                         {/* VERIFICAR QUE EL ACCESO AL NAME DEL TEACHER O STUDENT ES ESTE, PORQUE TEACHER SOLO ES ACCESO AL MODELO USER, POR TANTO
                                         ES NECESARIO TB PONER DESPUÉS STUDENTDATA O TEACHERDATA PARA EL NAME, SUBSCHEMA */}
-                                        <Card.Title>{this.state.user.studentData.name}{this.state.user.teacherData.name}'s Profile</Card.Title>
+                                        <Card.Title>{this.state.user[0].studentData.name}{this.state.user[0].teacherData.name}'s Profile</Card.Title>
                                         <Card.Text>
-                                            <h4>{this.state.user.studentData.name}{this.state.user.teacherData.name}
-                                                {this.state.user.studentData.lastName}{this.state.user.teacherData.lastName}</h4>
+                                            <h4>{this.state.user[0].studentData.name}{this.state.user[0].teacherData.name}
+                                                {this.state.user[0].studentData.lastName}{this.state.user[0].teacherData.lastName}</h4>
 
-                                            <h4>{this.state.user.role}</h4>
-                                            <p>{this.state.user.studentData.description}{this.state.user.teacherData.description}</p>
+                                            <h4>{this.state.user[0].role}</h4>
+                                            <p>{this.state.user[0].studentData.description}{this.state.user[0].teacherData.description}</p>
                                         </Card.Text>
-                                        <Button variant="primary"><Link to={`/beers/${elm._id}`} style={{ color: 'white' }}>See more details</Link></Button>
+                                        <Button variant="primary"><Link to={`/beers/${this.state.user._id}`} style={{ color: 'white' }}>See more details</Link></Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -78,13 +77,13 @@ class Profile extends Component {
                                         <h3>1 to 1 sessions</h3>
                                         <ListGroup variant="flush">
                                             {/* PONER SLO LOS ACTIVOS, CONDICIONAL AQUI */}
-                                            <ListGroup.Item>{elm.studentData.individualEvent}{elm.teacherData.individualEvent}</ListGroup.Item>
+                                            <ListGroup.Item>{elm[0].studentData.individualEvent}{elm[0].teacherData.individualEvent}</ListGroup.Item>
 
                                         </ListGroup>
                                         <h3>Group sessions</h3>
                                         <ListGroup variant="flush">
 
-                                            <ListGroup.Item>{elm.studentData.groupEvent}{elm.teacherData.groupEvent}</ListGroup.Item>
+                                            <ListGroup.Item>{elm[0].studentData.groupEvent}{elm[0].teacherData.groupEvent}</ListGroup.Item>
 
                                         </ListGroup>
                                     </>
@@ -92,16 +91,20 @@ class Profile extends Component {
 
                                 <hr></hr>
                                 {
-                                    this.state.request.map(elm =>
-                                        <>
-                                            <h3>Requests</h3>
-                                            <ListGroup variant="flush">
+                                    this.state.request.map(elm => {
+                                        if (elm[1].isActive = true) {
+                                            (<>
+                                                <h3>Requests</h3>
+                                                <ListGroup variant="flush">
 
-                                                <ListGroup.Item>{elm.student}: "{elm.comment}"</ListGroup.Item>
+                                                    <ListGroup.Item>{elm[1].student}: "{elm[1].comment}"</ListGroup.Item>
 
-                                            </ListGroup>
+                                                </ListGroup>
 
-                                        </>
+                                            </>)
+                                        }
+                                    }
+
                                     )}
 
 
