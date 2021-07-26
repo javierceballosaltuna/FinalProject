@@ -12,9 +12,9 @@ import SubjectCard from './SubjectCard'
 
 class SubjectsList extends Component {
 
-    constructor(props) {
+    constructor() {
 
-        super(props)
+        super()
         this.state = {
             subjects: undefined,
 
@@ -26,7 +26,7 @@ class SubjectsList extends Component {
 
         this.SubjectsService
             .getAllSubjects()
-            .then(response => this.setState({ subjects: response.data }))
+            .then(response => this.setState({ subjects: response.data }, console.log(response.data)))
             // .then(response =>  console.log(response.data))
             .catch(err => console.log(err))
 
@@ -49,7 +49,7 @@ class SubjectsList extends Component {
 
                 <Container>
                     <Row>
-                        {this.state.subjects.map(elm => <SubjectCard key={elm._id} name={elm.teacherData.name} _id={elm._id} lastName={elm.teacherData.lastName} subject={elm.teacherData.subject} description={elm.teacherData.description} />)}
+                        {this.state.subjects.map(elm => <SubjectCard key={elm._id} name={elm.teacherData.name} _id={elm._id} lastName={elm.teacherData.lastName} subject={elm.teacherData.subject} description={elm.teacherData.description} avatar={ elm.teacherData.avatar}/>)}
                     </Row>
                 </Container>
 

@@ -11,17 +11,11 @@ class Profile extends Component {
         super(props)
         this.state = {
 
-<<<<<<< HEAD
-            user: this.props.loggedUser
-        }
-        console.log(this.props)
-=======
               user: this.props.loggedUser
         }
 
->>>>>>> javi
         //this.UsersService = new UsersService()
-
+console.log(this.state.user)
 
     }
 
@@ -52,7 +46,7 @@ class Profile extends Component {
                             <Col>
                                 <Card style={{ width: '18rem' }}>
 
-                                    <Card.Img variant="top" src={this.state.user.teacherData.avatar} key={this.state.user._id} />
+                                    <Card.Img variant="top" src={this.state.user[0].teacherData.avatar} key={this.state.user._id} />
 
                                     <Card.Body>
                                         {/* VERIFICAR QUE EL ACCESO AL NAME DEL TEACHER O STUDENT ES ESTE, PORQUE TEACHER SOLO ES ACCESO AL MODELO USER, POR TANTO
