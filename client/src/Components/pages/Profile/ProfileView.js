@@ -1,43 +1,42 @@
 import React, { Component } from 'react';
 import { Row, Card, Button, Container, Col, ListGroup } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import UsersService from '../../../services/user.service';
-
 
 
 class Profile extends Component {
 
-    constructor(storeUser) {
+    constructor(props) {
 
-        super(storeUser)
+        super(props)
         this.state = {
 
-            user: storeUser
+              user:this.props.loggedUser
         }
-       
-        this.UsersService = new UsersService()
- console.log(storeUser)
-        
-    }
+console.log(this.props)
+        //this.UsersService = new UsersService()
 
-
-
-    componentDidMount() {
-
-        this.getUserProfile()
 
     }
 
-    getUserProfile(user) {
+    // componentDidMount() {
 
-        this.UsersService
-            .getOneUser(user._id)
-            .then(response => this.setState({ user: response.data }))
-            .catch(err => console.log(err))
-    }
+    //     this.getOneUser()
+
+    // }
+
+
+
+    // getOneUser(loggedUser) {
+
+    //     this.UsersService
+    //         .getOneUser(this.props.loggedUser._id)
+    //         .then(response => this.setState({ user: response.data }, console.log(response.data)))
+    //         .catch(err => console.log(err))
+    // }
 
 
     render() {
+
 
         return (
 
@@ -50,8 +49,8 @@ class Profile extends Component {
                         <Row>
                             <Col>
                                 <Card style={{ width: '18rem' }}>
-                                   
-                                    <Card.Img variant="top" src={this.state.user[0].teacherData.avatar} key={this.state.user._id} />
+
+                                    <Card.Img variant="top" src={this.state.user.teacherData.avatar} key={this.state.user._id} />
 
                                     <Card.Body>
                                         {/* VERIFICAR QUE EL ACCESO AL NAME DEL TEACHER O STUDENT ES ESTE, PORQUE TEACHER SOLO ES ACCESO AL MODELO USER, POR TANTO
