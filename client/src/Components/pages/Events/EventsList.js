@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Row, Container, Alert } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import EventsService from '../../../services/event.service'
 import Spinner from '../../shared/Spinner'
 import EventCard from './EventCard'

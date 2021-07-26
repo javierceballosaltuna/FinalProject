@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { Row, Card, Button, Container, Col, ListGroup } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Row, Card, Button, Container, Col, ListGroup } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import Spinner from '../../shared/Spinner'
 
 
 class Profile extends Component {
@@ -10,9 +11,9 @@ class Profile extends Component {
         super(props)
         this.state = {
 
-              user:this.props.loggedUser
+            user: this.props.loggedUser
         }
-console.log(this.props)
+        console.log(this.props)
         //this.UsersService = new UsersService()
 
 
@@ -42,7 +43,7 @@ console.log(this.props)
 
             !this.state.user
                 ?
-                <h3>LOADING PROFILE...</h3>
+                <Spinner />
                 :
                 (<>
                     <Container>
@@ -91,8 +92,8 @@ console.log(this.props)
                                 <hr></hr>
                                 {
                                     this.state.request.map(elm => {
-                                        if (elm[1].isActive = true) {
-                                            (<>
+                                        {/* if (elm[1].isActive = true) { */}
+                                            <>
                                                 <h3>Requests</h3>
                                                 <ListGroup variant="flush">
 
@@ -100,13 +101,11 @@ console.log(this.props)
 
                                                 </ListGroup>
 
-                                            </>)
-                                        }
+                                            </>
+                                        {/* } */}
                                     }
-
-                                    )}
-
-
+                                    )
+                                }
 
                             </Col>
                         </Row>

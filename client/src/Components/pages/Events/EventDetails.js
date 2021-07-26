@@ -15,19 +15,26 @@ class EventDetails extends Component {
                 show: false,
                 text: ' '
             },
+            joinButton: undefined,
             showModal: false
         }
         this.eventsService = new EventsService()
     }
 
-    componentDidMount() {
+    getEventDetails = () => {
 
         const { event_id } = this.props.match.params
 
-        this.coastersService
+        this.eventsService
             .getEventDetails(event_id)
             .then(response => this.setState({ event: response.data }))
             .catch(err => console.log(err))
+            
+    }
+
+    componentDidMount() {
+
+        this.getEventDetails()
     }
 
     render() {
@@ -44,19 +51,14 @@ class EventDetails extends Component {
                             <Row className="justify-content-around">
                                 <Col md={6}>
                                     <h1>{this.state.event.eventType} Event that takes place on {this.state.event.location.city}</h1>
-                                    <p>Description: {this.state.event.description}</p>
-
                                     <hr />
-
                                     <p>What is the event about?</p>
-                                    <p>{this.state.coaster.description}</p>
+                                    <p>{this.state.event.description}</p>
                                     <hr />
                                     <p>Where?</p>
                                     <p>Aquí va la API de Google Maps</p>
 
                                     <hr />
-
-                                    <Link to="/events/:sessions" className="btn btn-dark">Back</Link>
 
                                 </Col>
 
@@ -67,9 +69,8 @@ class EventDetails extends Component {
                             </Row>
                     }
 
+                <Link to="/events/group-sessions" className="btn btn-dark">Back</Link>
                 </Container>
-                <Link to="/signup">Join</Link>
-                <Link to="/signup">Not an account yet? Sign up</Link>
             </>
         )
     }

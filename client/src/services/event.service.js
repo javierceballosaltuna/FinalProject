@@ -9,8 +9,8 @@ class EventsService {
     }
 
     getAllEvents = () => this.app.get('/admin/events')
-    getEventDetails = () => this.app.get('/events/details/:event_id')
-    createGroupEvent = () => this.app.post('/events/group-sessions/create/')
+    getEventDetails = event_id => this.app.get(`/events/details/${event_id}`)
+    createGroupEvent = eventDetails => this.app.post('/events/group-sessions/create', eventDetails)
     getIndividualEvents = () => this.app.get('/events/individual-sessions')
     getGroupEvents = () => this.app.get('/events/group-sessions')
     joinEvent = () => this.app.put('/events/join/:event_id')

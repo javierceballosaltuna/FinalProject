@@ -4,6 +4,10 @@ import CredentialsCard from '../pages/Auth/CredentialsCard'
 import EventsList from '../pages/Events/EventsList'
 import EventDetails from '../pages/Events/EventDetails'
 import Profile from '../pages/Profile/ProfileView'
+import CreateEventForm from '../pages/Events/CreateEvent'
+import EditEvent from '../pages/Events/EditEvent'
+
+
 
 
 
@@ -19,10 +23,11 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             
             <Route exact path="/profile/" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser} />} />
             
-            <Route path="/events/:sessions" render={props => <EventsList {...props} />} />
-            <Route path="/events/group-sessions/create" render={() => <EventsList />} />
+            <Route exact path="/events/:sessions" render={props => <EventsList {...props} />} />
+            <Route path="/events/group-sessions/create" render={props => <CreateEventForm {...props} />} />
             <Route path="/events/details/:event_id" render={props => <EventDetails {...props} />} />
-            
+            <Route path="/events/edit/:event_id" render={props => <EditEvent {...props} />} />
+
             {/*
             
             <Route path="/profile/edit"   />
@@ -33,10 +38,6 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/contact/request/approve"   />
             <Route path="/contact/request/decline"   />
 
-            <Route path="/events/group-sessions"   />
-            <Route path="/events/group-sessions/create"   />
-            <Route path="/events/individual-sessions"   />
-            <Route path="/events/:event_id"   />
             <Route path="/events/:event_id/join"   />
             <Route path="/events/:event_id/quit"   />
             <Route path="/events/cancel/:event_id"   />

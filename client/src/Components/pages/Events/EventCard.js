@@ -1,4 +1,4 @@
-import { Card, Col, Container } from 'react-bootstrap'
+import { Card, Col, Container, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 const EventCard = ({ description, _id, date, city }) => {
@@ -8,7 +8,7 @@ const EventCard = ({ description, _id, date, city }) => {
             <Card >
                 <Container>
                     <Link to={`/events/details/${_id}`} style={{ width: '100%' }}>
-                        See details
+                        <Button variant="dark" block >See details</Button>
                     </Link>
                 </Container>
                 <Container className="product-caption">
