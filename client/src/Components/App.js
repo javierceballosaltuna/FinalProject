@@ -17,8 +17,6 @@ class App extends Component {
 
     this.authService = new AuthService()
 
-    console.log(this.state.loggedUser)
-
   }
 
 

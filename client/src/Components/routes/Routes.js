@@ -18,12 +18,11 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/complete-registration" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route path="/profile" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser}  />}  />
             
-            <Route path="/events/group-sessions" exact render={() => <EventsList />} />
-            <Route path="/events/individual-sessions" exact render={() => <EventsList />} />
+            <Route path="/events/:sessions" render={props => <EventsList {...props} />} />
             <Route path="/events/group-sessions/create" render={() => <EventsList />} />
-            <Route path="/events/:event_id" render={props => <EventDetails {...props} />} />
-            {/*
+            <Route path="/events/details/:event_id" render={props => <EventDetails {...props} />} />
             
+            {/*
             
             <Route path="/profile/edit"   />
             <Route path="/profile/delete"   />

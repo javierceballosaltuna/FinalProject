@@ -9,12 +9,12 @@ class EventsService {
     }
 
     getAllEvents = () => this.app.get('/admin/events')
-    getEventDetails = () => this.app.get('/events/:event_id')
+    getEventDetails = () => this.app.get('/events/details/:event_id')
     createGroupEvent = () => this.app.post('/events/group-sessions/create/')
     getIndividualEvents = () => this.app.get('/events/individual-sessions')
     getGroupEvents = () => this.app.get('/events/group-sessions')
-    joinEvent = () => this.app.put('/events/:event_id/join/')
-    leaveEvent = () => this.app.put('/events/:event_id/quit/')
+    joinEvent = () => this.app.put('/events/join/:event_id')
+    leaveEvent = () => this.app.put('/events/quit/:event_id')
     editEvent = () => this.app.put('/events/edit/:event_id')
     cancelEvent = () => this.app.put('/events/cancel/:event_id')
 

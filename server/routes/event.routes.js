@@ -30,7 +30,7 @@ router.get('/individual-sessions', (req, res) => {
     // isLoggedIn,  
 
     Event
-        .find()
+        .find({ eventType: "individual" })
         // .find({ eventType: "individual" })
         // .select('description date location.address.city')
         .then(response => res.json(response))
@@ -42,27 +42,25 @@ router.get('/group-sessions', (req, res) => {
     //  isLoggedIn,  
 
     Event
-        .find({ "eventType": "group" })
+        .find({ eventType: "group" })
         .select('description date location.address.city')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
 
 })
 
-router.get('/:event_id', (req, res) => {
+router.get('/details/:event_id', (req, res) => {
     //  isLoggedIn,  
-
 
     Event
         .findById(req.params.event_id)
-        .select('location date description')
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading event', err }))
 
 })
 
-router.put('/:event_id/join/', (req, res) => {
+router.put('/join/:event_id', (req, res) => {
     //  isLoggedIn,  checkRoles('student'), 
 
     const { event_id } = req.params
@@ -104,7 +102,7 @@ router.put('/edit/:event_id', (req, res) => {
 
 })
 
-router.put('/:event_id/quit/', (req, res) => {
+router.put('/quit/:event_id', (req, res) => {
 
     const { event_id } = req.params
     const { user_id } = req.session.user

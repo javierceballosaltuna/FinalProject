@@ -1,39 +1,50 @@
 import React, { Component } from 'react'
-import { Row, Container } from 'react-bootstrap'
+import { Row, Container, Alert } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import EventsService from '../../../services/event.service'
 import Spinner from '../../shared/Spinner'
 import EventCard from './EventCard'
 
 class EventsList extends Component {
 
-    constructor() {
+    constructor(props) {
 
-        super()
+        super(props)
         this.state = {
-            events: undefined
+            events: undefined,
+            alert: {
+                show: false,
+                text: ' '
+            }
         }
         this.eventsService = new EventsService()
     }
 
-    getGroupEvents = () => {
-        this.eventsService
-            .getGroupEvents()
-            .then(response => console.log(response))
-               // this.setState({ events: response.data }))
-            .catch(err => console.log(err))
-    }
-
     getIndividualEvents = () => {
+
         this.eventsService
             .getIndividualEvents()
-            // .then(response => this.setState({ events: response.data }))
-            .then(response => console.log(response))
-            .catch(err => console.log(err))
+            .then(response => this.setState({ events: response.data }))
+            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
+
+    }
+
+
+    getGroupEvents = () => {
+
+        this.eventsService
+            .getGroupEvents()
+            .then(response => this.setState({ events: response.data }))
+            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
+
     }
 
     componentDidMount = () => {
-        // meter condicional para renderizar uno u otro
-        this.getIndividualEvents()
+
+        const { sessions } = this.props.match.params
+
+        if (sessions === 'individual-sessions') { this.getIndividualEvents() } else if (sessions === 'group-sessions') { this.getGroupEvents() }
+
     }
 
     render() {
@@ -45,14 +56,15 @@ class EventsList extends Component {
                 <Spinner />
                 :
                 (
-                <>
-                    <Container>
-                        <Row>
-                            {this.state.events.map(elm => <EventCard key={elm._id} description={elm.description} _id={elm._id} date={elm.date} city={elm.location.address.city} />)}
-                        </Row>
-                    </Container>
+                    <>
+                    <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
+                        <Container>
+                            <Row>
+                                {this.state.events.map(elm => <EventCard key={elm._id} description={elm.description} _id={elm._id} date={elm.date} />)}
+                            </Row>
+                        </Container>
 
-                </>
+                    </>
                 )
         )
     }
