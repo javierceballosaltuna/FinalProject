@@ -3,9 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 import CredentialsCard from '../pages/Auth/CredentialsCard'
 import EventsList from '../pages/Events/EventsList'
 import EventDetails from '../pages/Events/EventDetails'
-
-
-
+import Profile from '../pages/Profile/ProfileView'
 
 
 
@@ -18,7 +16,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/signup-student" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route exact path="/" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route path="/complete-registration" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
-            
+            <Route path="/profile" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser}  />}  />
             
             <Route path="/events/group-sessions" exact render={() => <EventsList />} />
             <Route path="/events/individual-sessions" exact render={() => <EventsList />} />
@@ -26,7 +24,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/events/:event_id" render={props => <EventDetails {...props} />} />
             {/*
             
-            <Route path="/profile"   />
+            
             <Route path="/profile/edit"   />
             <Route path="/profile/delete"   />
 

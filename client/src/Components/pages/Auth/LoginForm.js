@@ -31,6 +31,7 @@ class LoginForm extends Component {
         this.authService
             .login(this.state)
             .then(response => {
+                console.log(response)
                 this.props.storeUser(response.data)
                 this.props.handleAlert(`Hi, ${response.data.userName}`)
 

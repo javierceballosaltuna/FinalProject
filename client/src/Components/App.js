@@ -9,8 +9,16 @@ class App extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { loggedUser: null, showAlert: false, alertText: '' }
+    this.state = {
+      loggedUser: null,
+      showAlert: false,
+      alertText: ''
+    }
+
     this.authService = new AuthService()
+
+    console.log(this.state.loggedUser)
+
   }
 
 
@@ -27,10 +35,13 @@ class App extends Component {
       .isLoggedIn()
       .then(response => this.setState({ loggedUser: response.data }))
       .catch(() => this.setState({ loggedUser: undefined }))
+    
   }
+
 
   componentDidMount() {
     this.fetchUser()
+    
   }
 
   render() {
