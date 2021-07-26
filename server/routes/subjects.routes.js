@@ -6,11 +6,11 @@ const router = require("express").Router()
 const { checkMongooseError } = require('../utils')
 
 
-router.get('/subjects', isLoggedIn, (req, res) => {
+router.get('/subjects',  (req, res) => {
 
     User
         .find({ role: "teacher" })
-        .select('name avatar subject description')
+        .select('teacherData.name teacherData.lastName teacherData.avatar teacherData.subject teacherData.description')
         .lean()
         .then((response) => { res.json(response) })
         .catch(err => res.status(500).json({ code: 500, message: 'Error trying to show all teachers', err }))

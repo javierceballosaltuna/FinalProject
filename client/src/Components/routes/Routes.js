@@ -4,6 +4,7 @@ import CredentialsCard from '../pages/Auth/CredentialsCard'
 import EventsList from '../pages/Events/EventsList'
 import EventDetails from '../pages/Events/EventDetails'
 import Profile from '../pages/Profile/ProfileView'
+import SubjectsList from '../pages/Subjects/SubjectsList'
 
 
 
@@ -22,13 +23,13 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/events/:sessions" render={props => <EventsList {...props} />} />
             <Route path="/events/group-sessions/create" render={() => <EventsList />} />
             <Route path="/events/details/:event_id" render={props => <EventDetails {...props} />} />
-            
+            <Route path="/subjects" render={(props) => <SubjectsList {...props}/>}   />
             {/*
             
             <Route path="/profile/edit"   />
             <Route path="/profile/delete"   />
 
-            <Route path="/subjects"   />
+            
             <Route path="/contact/:teacher_id"   />
             <Route path="/contact/request/approve"   />
             <Route path="/contact/request/decline"   />

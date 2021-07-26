@@ -10,19 +10,14 @@ class Profile extends Component {
         super(props)
         this.state = {
 
-              user:this.props.loggedUser
+              user: this.props.loggedUser
         }
-console.log(this.props)
+
         //this.UsersService = new UsersService()
 
 
     }
 
-    // componentDidMount() {
-
-    //     this.getOneUser()
-
-    // }
 
 
 
