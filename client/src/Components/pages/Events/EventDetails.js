@@ -1,4 +1,3 @@
-import './ProductDetails.css'
 import { Component } from 'react'
 import EventsService from '../../../services/event.service'
 

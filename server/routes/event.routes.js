@@ -8,7 +8,9 @@ const { isLoggedIn, checkRoles } = require('../middleware/index')
 const cdnUpload = require('../config/fileUpload.config')//HAY QUE VER EN EVENT CREATE SI METEMOS LOS TEACHING MATERIALS, HABRIA QUE POPULAR.
 
 
-router.post('/group-sessions/create/', isLoggedIn, checkRoles('teacher'), (req, res) => {
+router.post('/group-sessions/create/', (req, res) => {
+
+    // isLoggedIn, checkRoles('teacher'),
 
     const { date, description, lat, lgn } = req.body
     const address = { street, zipCode, city, country } = req.body
@@ -23,29 +25,33 @@ router.post('/group-sessions/create/', isLoggedIn, checkRoles('teacher'), (req, 
 
 })
 
-router.get('/individual-sessions', isLoggedIn,  (req, res) => {
+router.get('/individual-sessions', (req, res) => {
+
+    // isLoggedIn,  
 
     Event
-        .find({ eventType: "individual" })
-        .select('description date location.address.city')
-        .lean()
+        .find()
+        // .find({ eventType: "individual" })
+        // .select('description date location.address.city')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading individual sessions', err }))
 
 })
 
-router.get('/group-sessions', isLoggedIn,  (req, res) => {
+router.get('/group-sessions', (req, res) => {
+    //  isLoggedIn,  
 
     Event
-        .find({ eventType: "group" })
+        .find({ "eventType": "group" })
         .select('description date location.address.city')
-        .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
 
 })
 
-router.get('/:event_id', isLoggedIn,  (req, res) => {
+router.get('/:event_id', (req, res) => {
+    //  isLoggedIn,  
+
 
     Event
         .findById(req.params.event_id)
@@ -56,8 +62,9 @@ router.get('/:event_id', isLoggedIn,  (req, res) => {
 
 })
 
-router.put('/:event_id/join/', isLoggedIn, checkRoles('student'), (req, res) => {
-    
+router.put('/:event_id/join/', (req, res) => {
+    //  isLoggedIn,  checkRoles('student'), 
+
     const { event_id } = req.params
     const { user_id } = req.session.user
 
@@ -69,7 +76,9 @@ router.put('/:event_id/join/', isLoggedIn, checkRoles('student'), (req, res) => 
 
 })
 
-router.put('/cancel/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
+router.put('/cancel/:event_id', (req, res) => {
+    //  isLoggedIn, checkRoles('teacher', 'admin'),
+
 
     Event
         .findByIdAndUpdate(req.params.event_id, { isActive: false }, { new: true })
@@ -79,7 +88,9 @@ router.put('/cancel/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req
 
 })
 
-router.put('/edit/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, res) => {
+router.put('/edit/:event_id', (req, res) => {
+    //  isLoggedIn, checkRoles('teacher', 'admin'),
+
 
     const { event_id } = req.params
     const { date, description, lat, lgn } = req.body

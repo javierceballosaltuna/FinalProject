@@ -18,8 +18,10 @@ class App extends Component {
     this.setState({ showAlert, alertText })
   }
 
+  //actualiza el user
   storeUser = loggedUser => this.setState({ loggedUser })
-
+  
+  //recupera el user del backend
   fetchUser = () => {
     this.authService
       .isLoggedIn()

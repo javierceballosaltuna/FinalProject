@@ -111,38 +111,44 @@ router.post('/', (req, res) => {
 
 })
 
-router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student'), cdnUpload.single('avatar'),(req, res) => {
+router.put("/complete-registration/",
+    //isLoggedIn, checkRoles('teacher', 'student'), 
+    cdnUpload.single('avatar'), (req, res) => {
 
-    if (req.session.user.role === 'teacher') {
+        if (req.session.user.role === 'teacher') {
 
-        const teacherData = { name, lastName, age, description, avatar: req.file.path, subject } = req.body
+            const teacherData = { name, lastName, age, description, avatar: req.file.path, subject } = req.body
 
-        User
-            .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
-            .then((user) => { res.json(user) })
-            .catch(err => res.status(500).json({ code: 500, message: 'Error completing teacher profile', err }))
+            User
+                .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
+                .then((user) => { res.json(user) })
+                .catch(err => res.status(500).json({ code: 500, message: 'Error completing teacher profile', err }))
 
-    } else {
+        } else {
 
-        const { name, lastName, age, description, course, interests } = req.body
-        const legalTutor = { tutorName, tutorLastName, personalId } = req.body
-        const studentData = { name, lastName, age, description, course, interests, legalTutor }
+            const { name, lastName, age, description, course, interests } = req.body
+            const legalTutor = { tutorName, tutorLastName, personalId } = req.body
+            const studentData = { name, lastName, age, description, course, interests, legalTutor }
 
-        User
-            .findByIdAndUpdate(req.session.user._id, { studentData }, { new: true })
-            .lean()
-            .then((user) => { res.json(user) })
-            .catch(err => res.status(500).json({ code: 500, message: 'Error completing student profile', err }))
+            User
+                .findByIdAndUpdate(req.session.user._id, { studentData }, { new: true })
+                .lean()
+                .then((user) => { res.json(user) })
+                .catch(err => res.status(500).json({ code: 500, message: 'Error completing student profile', err }))
 
-    }
+        }
 
-})
+    })
 
-router.post('/isloggedin', isLoggedIn, (req, res) => {
-    req.session.user ? res.json(req.session.user) : res.status(401).json({ code: 401, message: 'Unauthorized' })
-})
+router.post('/isloggedin',
+    //isLoggedIn, 
+    (req, res) => {
+        req.session.user ? res.json(req.session.user) : res.status(401).json({ code: 401, message: 'Unauthorized' })
+    })
 
-router.get('/logout', isLoggedIn, (req, res) => { req.session.destroy(() => res.json({ message: 'Logout successful' })) })
+router.get('/logout', 
+// isLoggedIn, 
+(req, res) => { req.session.destroy(() => res.json({ message: 'Logout successful' })) })
 
 
 module.exports = router

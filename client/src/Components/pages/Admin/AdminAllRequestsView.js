@@ -14,7 +14,7 @@ class AllRequests extends Component {
 
             requests: undefined
         }
-        this.RequestsService = new RequestsService
+        this.RequestsService = new RequestsService()
     }
 
     getAllRequests = () => {

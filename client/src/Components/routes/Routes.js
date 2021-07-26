@@ -1,6 +1,12 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import CredentialsCard from '../pages/Auth/CredentialsCard'
+import EventsList from '../pages/Events/EventsList'
+import EventDetails from '../pages/Events/EventDetails'
+
+
+
+
 
 
 const Routes = ({ storeUser, loggedUser, handleAlert }) => {
@@ -8,12 +14,16 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
     return (
         <Switch>
 
-            <Route exact path="/signup-teacher" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
-            <Route exact path="/signup-student" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
+            <Route path="/signup-teacher" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
+            <Route path="/signup-student" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route exact path="/" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route path="/complete-registration" render={props => <CredentialsCard storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             
             
+            <Route path="/events/group-sessions" exact render={() => <EventsList />} />
+            <Route path="/events/individual-sessions" exact render={() => <EventsList />} />
+            <Route path="/events/group-sessions/create" render={() => <EventsList />} />
+            <Route path="/events/:event_id" render={props => <EventDetails {...props} />} />
             {/*
             
             <Route path="/profile"   />
