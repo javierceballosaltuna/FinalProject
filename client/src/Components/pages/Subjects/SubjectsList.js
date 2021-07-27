@@ -84,7 +84,7 @@ class SubjectsList extends Component {
                             <Modal.Title>Make a request</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <CoasterForm refreshSubjects={this.getAllSubjects} closeModal={() => this.setState({ modal: false })} />
+
                         </Modal.Body>
                         </Modal>
 

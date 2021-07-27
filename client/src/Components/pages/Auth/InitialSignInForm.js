@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Form, Button, Alert } from 'react-bootstrap'
-import AuthService from '../../../service/auth.service'
+import AuthService from '../../../services/auth.service'
 
 class InitialSignupForm extends Component {
 
@@ -26,14 +26,13 @@ class InitialSignupForm extends Component {
 
 
     handleSubmit(e) {
-        e.preventDefault()
 
-        // poner condición de que si es teacher o student, se aplique el método studentSignup o el de teacherSignup
+        e.preventDefault()
 
         this.authService
             .studentSignup(this.state)
             .then(() => {
-                this.props.history.push('/signup')
+                this.props.history.push('/complete-registration')
                 this.props.handleAlert(`Welcome back, ${this.state.userName}`)
             })
             .catch(err => {
@@ -62,7 +61,7 @@ class InitialSignupForm extends Component {
                         <Form.Control type="email" value={this.state.email} onChange={e => this.handleInputChange(e)} name="email" />
                     </Form.Group>
 
-                    <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Sign-up</Button>
+                    <Button variant="outline-dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Sign-up</Button>
                 </Form>
             </>
         )

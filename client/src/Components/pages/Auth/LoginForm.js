@@ -58,7 +58,7 @@ class LoginForm extends Component {
                         <Form.Control type="password" value={this.state.password} onChange={e => this.handleInputChange(e)} name="password" />
                     </Form.Group>
 
-                    <Button style={{ marginTop: '20px', width: '100%' }} variant="dark" type="submit">Log-In</Button>
+                    <Button style={{ marginTop: '20px', width: '100%' }} variant="outline-dark" type="submit">Log-In</Button>
 
                 </Form>
             </>

@@ -13,9 +13,8 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
 
     return (
         <Switch>
-
-            <Route path="/signup-teacher" render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
-            <Route path="/signup-student" render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
+        
+            <Route path="/signup" render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
             <Route exact path="/" render={props => <CredentialsCard {...props} storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route path="/complete-registration" render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
             
@@ -30,7 +29,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/events/cancel/:event_id"   />
             <Route path="/events/edit/:event_id"   />
 
-            <Route path="/subjects" render={() => <SubjectsList />}   />
+            {/* <Route path="/subjects" render={() => <SubjectsList />}   /> */}
             {/*
             
             <Route path="/profile/edit"   />
