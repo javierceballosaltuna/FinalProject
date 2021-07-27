@@ -9,12 +9,12 @@ class AuthService {
         })
     }
 
-    login = userDetails => this.app.post('/', userDetails)
+    login = (userName, password) => this.app.post('/', {userName, password})
     studentSignup = userDetails => this.app.post('/signup-student', userDetails)
     teacherSignup = userDetails => this.app.post('/signup-teacher', userDetails)
     completeRegistration = userDetails => this.app.put('/complete-registration', userDetails )
     logout = () => this.app.get('/logout')
-    isLoggedIn = () => this.app.post('/isLoggedIn')
+    isLoggedIn = () => this.app.post('/isloggedin')
 }
 
 export default AuthService

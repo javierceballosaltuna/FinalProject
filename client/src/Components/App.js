@@ -7,10 +7,10 @@ import Alert from './shared/Alert'
 
 class App extends Component {
 
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
     this.state = {
-      loggedUser: null,
+      loggedUser: undefined,
       showAlert: false,
       alertText: ''
     }
@@ -25,7 +25,7 @@ class App extends Component {
   }
 
   //actualiza el user
-  storeUser = loggedUser => this.setState({ loggedUser })
+  
   
   //recupera el user del backend
   fetchUser = () => {
@@ -36,20 +36,19 @@ class App extends Component {
     
   }
 
+  componentDidMount = () => this.fetchUser()
 
-  componentDidMount() {
-    this.fetchUser()
-    
-  }
+  storeUser = loggedUser => this.setState({ loggedUser })
 
   render() {
+
     return (
       (
         <>
 
           <main style={{ flex: '1' }}>
 
-            <Routes style={{ marginTop: "10px" }} storeUser={user => this.storeUser(user)} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} />
+            <Routes style={{ marginTop: "10px" }} storeUser={this.storeUser} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} />
 
             <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />
 

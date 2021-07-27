@@ -19,30 +19,26 @@ class LoginForm extends Component {
     }
 
 
-    handleInputChange(e) {
+    handleInputChange = e => {
         const { name, value } = e.target
         this.setState({ [name]: value })
     }
 
 
-    handleSubmit(e) {
+    handleSubmit = e => {
         e.preventDefault()
 
+        const { userName, password } = this.state
+
         this.authService
-            .login(this.state)
+            .login(userName, password)
             .then(response => {
                 console.log(response)
                 this.props.storeUser(response.data)
-                this.props.handleAlert(`Hi, ${response.data.userName}`)
-
-                if (this.props.history.location.pathname !== '/') {
-                    this.props.closeModal()
-                    this.props.history.push(this.props.history.location.pathname)
-                } else {
-                    this.props.history.push('/')
-                }
+                this.props.history.push('/events/group-sessions')
             })
-            .catch(err => this.setState({ alert: { show: true, text: err } }))
+            .catch(err => console.log(err))
+        // .catch(err => this.setState({ alert: { show: true, text: err } }))
     }
 
     render() {
@@ -50,7 +46,7 @@ class LoginForm extends Component {
             <>
                 <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
 
-                <Form onSubmit={e => this.handleSubmit(e)}>
+                <Form onSubmit={this.handleSubmit}>
 
                     <Form.Group controlId="userName">
                         <Form.Label>Username</Form.Label>

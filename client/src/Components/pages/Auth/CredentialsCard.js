@@ -1,9 +1,10 @@
 import { Container, Row, Col } from 'react-bootstrap'
 import LoginForm from './LoginForm'
+import { Link } from 'react-router-dom'
 import logo from './../../../assets/Images/logo_transparent.png'
 
 
-const CredentialsCard = ({ history, handleAlert }) => {
+const CredentialsCard = ({ history, handleAlert, storeUser }) => {
 
     return (
 
@@ -17,9 +18,11 @@ const CredentialsCard = ({ history, handleAlert }) => {
 
                     <hr />
 
-                    <LoginForm history={history} handleAlert={handleAlert} />
+                    <LoginForm storeUser={storeUser} history={history} handleAlert={handleAlert} />
 
                     <hr />
+
+                    <Link to="/signup" className="btn btn-dark">Sign-In as Teacher</Link>
 
                 </Col>
 

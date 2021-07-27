@@ -6,7 +6,9 @@ class StudentSignupForm extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
+        this.state =
+        {
+
             name: '',
             lastName: '',
             age: '',
@@ -19,6 +21,7 @@ class StudentSignupForm extends Component {
                 show: false,
                 text: ' '
             }
+
         }
         this.AuthService = new AuthService()
     }
@@ -38,7 +41,7 @@ class StudentSignupForm extends Component {
                 this.props.history.push('/complete-registration')
                 this.setState(response.data)
             })
-            .catch(err =>  this.setState({ alert: { show: true, text: err.response.data.message } }))
+            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
 
     render() {

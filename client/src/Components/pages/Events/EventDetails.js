@@ -63,11 +63,17 @@ class EventDetails extends Component {
 
 
     componentDidMount() {
-
         this.getEventDetails()
-        this.leaveEvent()
-        this.joinEvent()
     }
+
+    // isInEvent() {
+    //     this.state.event
+    //     this.props.loggedUser
+    // }
+    
+//submit form
+//onchange si hay un input
+//componentDidMount si quieres pedir info al cargar la pagina
 
     render() {
 
@@ -96,9 +102,7 @@ class EventDetails extends Component {
 
                                 <Col md={4}>
                                     <p>Wanna join?</p>
-                                    <Link to={`${this.state.button.url + this.state.event._id}`} className={`btn ${this.state.button.classColor}`}>
-                                        <Button onSubmit={e => this.handleSubmit(e)} style={{ marginTop: '20px', width: '100%' }} type="submit">{this.state.button.title}</Button>
-                                    </Link>
+                                    <Button onClick={this.joinEvent} style={{ marginTop: '20px', width: '100%' }} type="submit">{this.state.button.title}</Button>
                                 </Col>
                             </Row>
                     }
