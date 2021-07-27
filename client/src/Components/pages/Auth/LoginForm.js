@@ -35,7 +35,7 @@ class LoginForm extends Component {
             .then(response => {
                 console.log(response)
                 this.props.storeUser(response.data)
-                this.props.history.push('/events/group-sessions')
+                this.props.history.push('/profile')
             })
             .catch(err => console.log(err))
         // .catch(err => this.setState({ alert: { show: true, text: err } }))
