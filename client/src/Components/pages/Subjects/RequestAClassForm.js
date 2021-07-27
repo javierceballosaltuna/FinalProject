@@ -2,7 +2,7 @@ import { Component } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import RequestService from '../../../services/Request.service'
 
-class CoasterForm extends Component {
+class RequestForm extends Component {
 
     constructor() {
         super()
@@ -75,4 +75,4 @@ class CoasterForm extends Component {
     }
 }
 
-export default CoasterForm
+export default RequestForm

@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { Container, Row, Button, Modal, Col } from 'react-bootstrap'
 import SubjectsService from '../../../services/subject.service'
+import RequestForm from './RequestAClassForm'
 import SubjectCard from './SubjectCard'
+
 
 
 
@@ -84,7 +86,7 @@ class SubjectsList extends Component {
                             <Modal.Title>Make a request</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <CoasterForm refreshSubjects={this.getAllSubjects} closeModal={() => this.setState({ modal: false })} />
+                            <RequestForm refreshSubjects={this.getAllSubjects} closeModal={() => this.setState({ modal: false })} />
                         </Modal.Body>
                         </Modal>
 
