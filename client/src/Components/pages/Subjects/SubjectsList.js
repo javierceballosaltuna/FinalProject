@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Row } from 'react-bootstrap'
+import { Container, Row, Button, Modal, Col } from 'react-bootstrap'
 import SubjectsService from '../../../services/subject.service'
 import SubjectCard from './SubjectCard'
 
@@ -17,6 +17,8 @@ class SubjectsList extends Component {
         super()
         this.state = {
             subjects: undefined,
+            modal: false,
+            //MODAL
 
         }
         this.SubjectsService = new SubjectsService()
@@ -46,14 +48,47 @@ class SubjectsList extends Component {
                 <h3>LOADING...</h3>
                 :
 
+                (<>
+                    <Container>
+                        <Row>
+                            {this.state.subjects.map(elm =>
+                                <>
+                                    <Col>
+                                        <SubjectCard
+                                            key={elm._id}
+                                            name={elm.teacherData.name}
+                                            _id={elm._id} lastName={elm.teacherData.lastName}
+                                            subject={elm.teacherData.subject}
+                                            description={elm.teacherData.description}
+                                            avatar={elm.teacherData.avatar} />
 
-                <Container>
-                    <Row>
-                        {this.state.subjects.map(elm => <SubjectCard key={elm._id} name={elm.teacherData.name} _id={elm._id} lastName={elm.teacherData.lastName} subject={elm.teacherData.subject} description={elm.teacherData.description} avatar={ elm.teacherData.avatar}/>)}
-                    </Row>
-                </Container>
+                                        <Button onClick={() => this.setState({ modal: true })} variant="primary" style={{ marginBottom: '20px' }}>Request</Button>
+                                    </Col>
+                                </>
+
+                            )}
 
 
+
+                            {/* AQUÍ IRÁ EL MODAL CON LA SOLICITUD, COMENTARIO */}
+
+                          
+                        </Row>
+
+
+                    </Container>
+
+
+                      <Modal Modal show = { this.state.modal } onHide = {() => this.setState({modal: false })}>
+                        <Modal.Header>
+                            <Modal.Title>Make a request</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <CoasterForm refreshSubjects={this.getAllSubjects} closeModal={() => this.setState({ modal: false })} />
+                        </Modal.Body>
+                        </Modal>
+
+                </>)
 
 
         )
@@ -62,3 +97,22 @@ class SubjectsList extends Component {
 }
 
 export default SubjectsList
+
+//MODAL 
+    // (<>
+    //     
+
+    //     <Row>
+    //         {this.state.coasters.map(elm => <CoasterCard {...elm} />)}
+    //     </Row>
+
+    //     <Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
+    //         <Modal.Header>
+    //             <Modal.Title>Nueva Montaña rusa</Modal.Title>
+    //         </Modal.Header>
+    //         <Modal.Body>
+    //             <CoasterForm refreshCoasters={this.loadCoasters} closeModal={() => this.setState({ modal: false })} />
+    //         </Modal.Body>
+    //     </Modal>
+    // </>
+    // )

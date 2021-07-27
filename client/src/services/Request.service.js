@@ -10,8 +10,10 @@ class RequestsService {
     }
 
     getAllRequests = () => this.app.get('/admin/requests')
+    createRequest = (teacher_id, loggedUser, comment) => this.app.post(`/contact/${teacher_id}/`, loggedUser, comment)
+
     // getOneRequest = () => this.app.get('/resources/:material_id')
-    
+
 
 }
 
