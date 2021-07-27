@@ -117,7 +117,7 @@ router.put("/complete-registration/",
 
         if (req.session.user.role === 'teacher') {
 
-            const teacherData = { name, lastName, age, description, subject } = req.body //FALTA AVATAR
+            const teacherData = { name, lastName, age, description, avatar, subject } = req.body
 
             User
                 .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
@@ -128,7 +128,7 @@ router.put("/complete-registration/",
 
             const { name, lastName, age, description, course, interests } = req.body
             const legalTutor = { tutorName, tutorLastName, personalId } = req.body
-            const studentData = { name, lastName, age, description, course, interests, legalTutor }
+            const studentData = { name, lastName, age, description, course, legalTutor }
 
             User
                 .findByIdAndUpdate(req.session.user._id, { studentData }, { new: true })

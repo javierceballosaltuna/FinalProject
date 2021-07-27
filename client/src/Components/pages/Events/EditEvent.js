@@ -9,12 +9,12 @@ class EditEvent extends Component {
         super(props)
         this.state = {
             event: {
-                date: this.state.date,
-                description: this.state.description,
-                street: this.state.street,
-                zipCode: this.state.zipCode,
-                city: this.state.city,   
-                country: this.state.country,
+                date: props.state.date,
+                description: props.state.description,
+                street: props.state.street,
+                zipCode: props.state.zipCode,
+                city: props.state.city,
+                country: props.state.country,
             }
         }
         this.eventsService = new EventsService()
@@ -50,25 +50,43 @@ class EditEvent extends Component {
                     <Modal.Body>
                         <Form onSubmit={e => this.handleSubmit(e)}>
                             <Form.Row as={Row}>
-                                <Form.Group as={Col} controlId="formGridEmail">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" value={this.state.product.name} onChange={e => this.handleInputChange(e)} name="name" />
+                                <Form.Group as={Col} controlId="date">
+                                    <Form.Label>When will the event take place?</Form.Label>
+                                    <Form.Control type="date" value={this.state.date} onChange={e => this.handleInputChange(e)} name="date" />
                                 </Form.Group>
                             </Form.Row>
                             <Form.Row as={Row}>
-                                <Form.Group as={Col} controlId="formGridEmail">
-                                    <Form.Label>Description</Form.Label>
-                                    <Form.Control type="textarea" value={this.state.product.description} onChange={e => this.handleInputChange(e)} name="description" />
+                                <Form.Group as={Col} controlId="description">
+                                    <Form.Label>Please, enter a short description:</Form.Label>
+                                    <Form.Control as="textarea" rows={2} value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
                                 </Form.Group>
                             </Form.Row>
-                            <Form.Group controlId="category">
-                                <Form.Label>Select Category</Form.Label>
-                                <Form.Control as="select" value={this.state.product.category} name="category" onChange={e => this.handleInputChange(e)}>
-                                    <option>{this.state.product.category.name}</option>
-                                    {this.state.categoryOptions.map(elm => <option key={elm._id} value={elm._id} > {elm.name}</option>)}
-                                </Form.Control>
-                            </Form.Group>
-                            <Button type="submit" variant="dark">Save changes</Button>
+                            <Form.Row as={Row}>
+                                <Form.Group as={Col} controlId="street">
+                                    <Form.Label>Street</Form.Label>
+                                    <Form.Control type="text" value={this.state.email} onChange={e => this.handleInputChange(e)} name="street" />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row as={Row}>
+                                <Form.Group as={Col} controlId="zipCode">
+                                    <Form.Label>Zip Code</Form.Label>
+                                    <Form.Control type="text" value={this.state.zipCode} onChange={e => this.handleInputChange(e)} name="zipCode" />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row as={Row}>
+                                <Form.Group as={Col} controlId="city">
+                                    <Form.Label>City</Form.Label>
+                                    <Form.Control type="text" value={this.state.city} onChange={e => this.handleInputChange(e)} name="city" />
+                                </Form.Group>
+                            </Form.Row>
+                            <Form.Row as={Row}>
+                                <Form.Group as={Col} controlId="country">
+                                    <Form.Label>Country</Form.Label>
+                                    <Form.Control type="text" value={this.state.country} onChange={e => this.handleInputChange(e)} name="country" />
+                                </Form.Group>
+                            </Form.Row>
+
+                            <Button type="submit" variant="dark">Update event</Button>
                         </Form>
                     </Modal.Body>
                 </>

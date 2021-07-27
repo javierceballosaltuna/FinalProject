@@ -68,7 +68,7 @@ class CreateEventForm extends Component {
 
                                 <Form.Group controlId="street">
                                     <Form.Label>Street</Form.Label>
-                                    <Form.Control type="text" value={this.state.email} onChange={e => this.handleInputChange(e)} name="street" />
+                                    <Form.Control type="text" value={this.state.street} onChange={e => this.handleInputChange(e)} name="street" />
                                 </Form.Group>
 
                                 <Form.Group controlId="zipCode">

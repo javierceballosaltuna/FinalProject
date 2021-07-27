@@ -13,11 +13,10 @@ class EventsService {
     createGroupEvent = eventDetails => this.app.post('/events/group-sessions/create', eventDetails)
     getIndividualEvents = () => this.app.get('/events/individual-sessions')
     getGroupEvents = () => this.app.get('/events/group-sessions')
-    joinEvent = () => this.app.put('/events/join/:event_id')
-    leaveEvent = () => this.app.put('/events/quit/:event_id')
-    editEvent = () => this.app.put('/events/edit/:event_id')
-    cancelEvent = () => this.app.put('/events/cancel/:event_id')
-
+    joinEvent = event_id => this.app.put(`/events/join/${event_id}`)
+    leaveEvent = event_id => this.app.put(`/events/quit/${event_id}`)
+    editEvent = (event_id, eventDetails) => this.app.put(`/events/edit/${event_id}`, eventDetails)
+    cancelEvent = event_id => this.app.put(`/events/cancel/${event_id}`)
 
 }
 

@@ -37,7 +37,7 @@ class TeacherSignupForm extends Component {
                 this.props.history.push('/complete-registration')
                 this.setState(response.data)
             })
-            .catch(err =>  this.setState({ alert: { show: true, text: err.response.data.message } }))
+            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
 
     render() {
@@ -77,7 +77,14 @@ class TeacherSignupForm extends Component {
                         <Form.Control type="text" value={this.state.subject} onChange={e => this.handleInputChange(e)} name="subject" />
                     </Form.Group>
 
-                    <Button variant="dark" type="submit">Complete your teacher registration</Button>
+                    <Form.Group controlId="subject">
+                        <Form.Label>What kind of subjects do you want to teach?</Form.Label>
+                        <Form.Control as="select" value={this.state.subject} name="subject" onChange={e => this.handleInputChange(e)}>
+                            {this.state.subject.map(elm => <option> {elm}</option>)}
+                        </Form.Control>
+                    </Form.Group>
+
+                    <Button variant="dark" type="submit">Complete your registration</Button>
 
                 </Form>
             </>

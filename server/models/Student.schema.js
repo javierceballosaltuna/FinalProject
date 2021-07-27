@@ -11,8 +11,6 @@ const studentSchema = new Schema({
   description: { type: String, required: [true, 'Description required'] },
   
   course: { type: String, required: [true, 'Course required'] },
-  
-  interests: { type: String }, 
 
   legalTutor: {
     tutorName: { type: String, required: [true, 'Tutor Name required'] },

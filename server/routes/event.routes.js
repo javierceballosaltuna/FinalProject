@@ -30,7 +30,7 @@ router.get('/individual-sessions', (req, res) => {
     // isLoggedIn,  
 
     Event
-        .find({ eventType: "individual" })
+        .find({ eventType: "individual", isActive: "true" })
         // .find({ eventType: "individual" })
         // .select('description date location.address.city')
         .then(response => res.json(response))
@@ -42,7 +42,7 @@ router.get('/group-sessions', (req, res) => {
     //  isLoggedIn,  
 
     Event
-        .find({ eventType: "group" })
+        .find({ eventType: "group", isActive: "true" })
         .select('description date location.address.city')
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading group sessions', err }))
@@ -52,8 +52,10 @@ router.get('/group-sessions', (req, res) => {
 router.get('/details/:event_id', (req, res) => {
     //  isLoggedIn,  
 
+    const { event_id } = req.params
+
     Event
-        .findById(req.params.event_id)
+        .findById(event_id)
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error loading event', err }))
@@ -77,9 +79,10 @@ router.put('/join/:event_id', (req, res) => {
 router.put('/cancel/:event_id', (req, res) => {
     //  isLoggedIn, checkRoles('teacher', 'admin'),
 
+    const { event_id } = req.params
 
     Event
-        .findByIdAndUpdate(req.params.event_id, { isActive: false }, { new: true })
+        .findByIdAndUpdate(event_id, { isActive: false }, { new: true })
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error deleting an event', err }))
@@ -88,7 +91,6 @@ router.put('/cancel/:event_id', (req, res) => {
 
 router.put('/edit/:event_id', (req, res) => {
     //  isLoggedIn, checkRoles('teacher', 'admin'),
-
 
     const { event_id } = req.params
     const { date, description, lat, lgn } = req.body

@@ -12,7 +12,6 @@ class StudentSignupForm extends Component {
             age: '',
             description: '',
             course: '',
-            interests: '',
             tutorName: '',
             tutorLastName: '',
             personalId: '',
@@ -74,27 +73,22 @@ class StudentSignupForm extends Component {
                         <Form.Control type="text" value={this.state.course} onChange={e => this.handleInputChange(e)} name="course" />
                     </Form.Group>
 
-                    <Form.Group controlId="interests">
-                        <Form.Label>Set your interests</Form.Label>
-                        <Form.Control type="text" value={this.state.interests} onChange={e => this.handleInputChange(e)} name="interests" />
-                    </Form.Group>
-
                     <Form.Group controlId="tutorName">
-                        <Form.Label>Tutor Name</Form.Label>
+                        <Form.Label>Legal Tutor Name</Form.Label>
                         <Form.Control type="text" value={this.state.tutorName} onChange={e => this.handleInputChange(e)} name="tutorName" />
                     </Form.Group>
 
                     <Form.Group controlId="tutorLastName">
-                        <Form.Label>Tutor Last Name</Form.Label>
+                        <Form.Label>Legal Tutor Last Name</Form.Label>
                         <Form.Control type="text" value={this.state.tutorLastName} onChange={e => this.handleInputChange(e)} name="tutorLastName" />
                     </Form.Group>
 
                     <Form.Group controlId="personalId">
-                        <Form.Label>Tutor Personal ID</Form.Label>
+                        <Form.Label>Legal Tutor Personal ID</Form.Label>
                         <Form.Control type="text" value={this.state.personalId} onChange={e => this.handleInputChange(e)} name="personalId" />
                     </Form.Group>
 
-                    <Button variant="dark" type="submit">Complete your student registration</Button>
+                    <Button variant="dark" type="submit">Complete your registration</Button>
 
                 </Form>
             </>
