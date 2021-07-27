@@ -5,7 +5,7 @@ const SubjectCard = ({ description, _id, name, lastName, subject, avatar }) => {
 
     return (
         
-        <Col md={3}>
+        <Col md={6}>
             <Card >
                 <Container className="product-caption">
                     <Card.Body>
@@ -13,8 +13,7 @@ const SubjectCard = ({ description, _id, name, lastName, subject, avatar }) => {
                         <Card.Title style={{ fontSize: '1em' }}>Request a class with {name} {lastName} </Card.Title>
                         <Card.Text style={{ fontSize: '1em' }}> Subject: <strong>[{subject}]</strong> 
                         <hr></hr>    {description}</Card.Text>
-                        <Button variant="primary">Request</Button>
-                        {/* AQUÍ IRÁ EL MODAL CON LA SOLICITUD, COMENTARIO */}
+                        
                     </Card.Body>
                 </Container>
             </Card>
