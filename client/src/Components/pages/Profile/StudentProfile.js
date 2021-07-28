@@ -9,7 +9,7 @@ const StudentProfile = ({user}) => {
 
     return (
         <>
-console.log({user})
+
         <Container>
             <Row>
                 <Col>
