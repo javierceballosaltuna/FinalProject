@@ -28,12 +28,9 @@ class LoginForm extends Component {
     handleSubmit = e => {
         e.preventDefault()
 
-        const { userName, password } = this.state
-
         this.authService
-            .login(userName, password)
+            .login(this.state)
             .then(response => {
-                console.log(response)
                 this.props.storeUser(response.data)
                 this.props.history.push('/profile')
             })
@@ -58,7 +55,7 @@ class LoginForm extends Component {
                         <Form.Control type="password" value={this.state.password} onChange={e => this.handleInputChange(e)} name="password" />
                     </Form.Group>
 
-                    <Button style={{ marginTop: '20px', width: '100%' }} variant="outline-dark" type="submit">Log-In</Button>
+                    <Button style={{ marginTop: '20px', width: '100%' }} variant="outline-dark" type="submit">Log-in</Button>
 
                 </Form>
             </>

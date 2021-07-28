@@ -4,13 +4,12 @@ const studentSchema = require('./Student.schema')
 
 const userSchema = new Schema({
 
-    userName: { type: String, required: [true, 'Username required'] },
+    userName: { type: String, required: [true, 'Username required'], unique: true },
 
     password: { type: String, required: [true, 'Password required'] },
     
     email: {
         type: String,
-        unique: true,
         required: [true, 'Please, add your email to continue'],
         validate: {
             validator: function (email) {
@@ -30,5 +29,4 @@ const userSchema = new Schema({
 
 
 const User = model("User", userSchema)
-
 module.exports = User

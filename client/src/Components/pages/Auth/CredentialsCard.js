@@ -33,16 +33,10 @@ class CredentialsCard extends Component {
 
                         <hr />
 
-                        <Button onClick={() => this.setState({ modal: true })} style={{ marginTop: '20px', width: '100%' }} variant="outline-dark" type="submit">Sign-up</Button>
+                        <Button onClick={() => this.setState({ modal: true })} style={{ marginTop: '10px', width: '100%', marginBottom: '30px' }} variant="outline-dark" type="submit">Sign-up</Button>
 
                         <Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
-                            <Modal.Header className="justify-content-around">
-                                <Button style={{ marginTop: '20px'}} variant="outline-dark" type="submit">I'm a teacher</Button>
-                                <Button style={{ marginTop: '20px'}} variant="outline-dark" type="submit">I'm a student</Button>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <InitialSignInForm closeModal={() => this.setState({ modal: false })} />
-                            </Modal.Body>
+                            <InitialSignInForm closeModal={() => this.setState({ modal: false })} storeUser={this.props.storeUser} history={this.props.history} handleAlert={this.props.handleAlert}/>
                         </Modal>
 
                     </Col>

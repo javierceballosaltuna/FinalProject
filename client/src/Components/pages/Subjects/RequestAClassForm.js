@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
-import RequestService from '../../../services/Request.service'
+import RequestService from '../../../services/request.service'
 
 class RequestForm extends Component {
 

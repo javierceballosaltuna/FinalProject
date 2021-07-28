@@ -35,7 +35,7 @@ const Navigation = ({ loggedUser, storeUser }) => {
                             <NavDropdown.Item as={Link} to="/">Login</NavDropdown.Item>
                             <NavDropdown.Item as={Link} to="/">Sign up</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item >Log out</NavDropdown.Item>
+                            <NavDropdown.Item onClick={() => logout()}>Log out</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                 </Navbar.Collapse>

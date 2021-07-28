@@ -9,7 +9,7 @@ class AuthService {
         })
     }
 
-    login = (userName, password) => this.app.post('/', {userName, password})
+    login = userDetails => this.app.post('/', userDetails)
     studentSignup = userDetails => this.app.post('/signup-student', userDetails)
     teacherSignup = userDetails => this.app.post('/signup-teacher', userDetails)
     completeRegistration = userDetails => this.app.put('/complete-registration', userDetails )

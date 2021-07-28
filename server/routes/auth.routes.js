@@ -10,24 +10,29 @@ const cdnUpload = require('../config/fileUpload.config')
 
 router.post('/signup-student', (req, res) => {
 
-    const { userName, password, email } = req.body
+    const { userName, password, email, role } = req.body
 
     User
         .findOne({ userName })
         .then(user => {
 
             if (user) {
-                res.status(400).json({ code: 400, message: 'User already exists' })
+                res.status(400).json({ code: 400, message: 'This username already exists. :(' })
                 return
             }
 
             if (password.length === 0) {
-                res.status(400).json({ code: 400, message: 'Please, enter a password' })
+                res.status(400).json({ code: 400, message: 'Please, enter a password.' })
                 return
             }
 
             if (password.length < 5) {
-                res.status(400).json({ code: 400, message: 'Password should be more than 5 characters' })
+                res.status(400).json({ code: 400, message: 'Please, enter a password with at least 5 characters.' })
+                return
+            }
+
+            if (!role) {
+                res.status(400).json({ code: 400, message: 'Please, choose if your want to sign-up as teacher or as student!' })
                 return
             }
 
@@ -35,7 +40,7 @@ router.post('/signup-student', (req, res) => {
             const hashPass = bcrypt.hashSync(password, salt)
 
             User
-                .create({ userName, password: hashPass, email, role: 'student' })
+                .create({ userName, password: hashPass, email, role })
                 .then(user => {
                     req.session.user = user
                     res.json(req.session.user)
@@ -49,14 +54,14 @@ router.post('/signup-student', (req, res) => {
 
 router.post('/signup-teacher', (req, res) => {
 
-    const { userName, password, email } = req.body
-
+    const { userName, password, email, role } = req.body
+  
     User
         .findOne({ userName })
-        .then(user => {
-
+        .then((user) => {
+            console.log(user)
             if (user) {
-                res.status(400).json({ code: 400, message: 'User already exists' })
+                res.status(400).json({ code: 400, message: 'This username already exists. :(' })
                 return
             }
 
@@ -70,11 +75,16 @@ router.post('/signup-teacher', (req, res) => {
                 return
             }
 
+            if (!role) {
+                res.status(400).json({ code: 400, message: 'Please, choose if your want to sign-up as teacher or as student!' })
+                return
+            }
+
             const salt = bcrypt.genSaltSync(bcryptSalt)
             const hashPass = bcrypt.hashSync(password, salt)
 
             User
-                .create({ userName, password: hashPass, email, role: 'teacher' })
+                .create({ userName, password: hashPass, email, role })
                 .then(user => {
                     req.session.user = user
                     res.json(req.session.user)
