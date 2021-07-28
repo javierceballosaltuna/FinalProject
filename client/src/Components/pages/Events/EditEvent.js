@@ -15,9 +15,9 @@ class EditEvent extends Component {
                         street: props.event.location.address.street,
                         zipCode: props.event.location.address.zipCode,
                         city: props.event.location.address.city,
-                        country: props.event.country
+                        country: props.event.location.address.country
                     }
-                },
+                }
 
             }
         }
@@ -27,6 +27,23 @@ class EditEvent extends Component {
     handleInputChange(e) {
         const { name, value } = e.target
         this.setState({ event: { ...this.state.event, [name]: value } })
+    }
+
+
+    handleAddressChange(e) {
+        const { name, value } = e.target
+        this.setState({ event: { 
+            ...this.state.event, 
+            location: {
+                address: {
+                    ...this.state.event.location.address,
+                    [name]: value 
+                }
+            }
+            }
+        }
+            )
+        
     }
 
     handleSubmit(e) {
@@ -63,25 +80,25 @@ class EditEvent extends Component {
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="street">
                                 <Form.Label>Street</Form.Label>
-                                <Form.Control type="text" value={this.state.event.location.address.street} onChange={e => this.handleInputChange(e)} name="street" />
+                                <Form.Control type="text" value={this.state.event.location.address.street} onChange={e => this.handleAddressChange(e)}  name="street" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="zipCode">
                                 <Form.Label>Zip Code</Form.Label>
-                                <Form.Control type="text" value={this.state.event.zipCode} onChange={e => this.handleInputChange(e)} name="zipCode" />
+                                <Form.Control type="text" value={this.state.event.location.address.zipCode} onChange={e => this.handleAddressChange(e)} name="zipCode" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="city">
                                 <Form.Label>City</Form.Label>
-                                <Form.Control type="text" value={this.state.event.city} onChange={e => this.handleInputChange(e)} name="city" />
+                                <Form.Control type="text" value={this.state.event.location.address.city} onChange={e => this.handleAddressChange(e)} name="city" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="country">
                                 <Form.Label>Country</Form.Label>
-                                <Form.Control type="text" value={this.state.country} onChange={e => this.handleInputChange(e)} name="country" />
+                                <Form.Control type="text" value={this.state.event.location.address.country} onChange={e => this.handleAddressChange(e)} name="country" />
                             </Form.Group>
                         </Form.Row>
 

@@ -13,17 +13,17 @@ import CompleteRegistration from '../pages/Auth/CompleteRegistration'
 
 const Routes = ({ storeUser, loggedUser, handleAlert }) => {
 
-    
+
 
     return (
         <Switch>
-        
+
             <Route exact path="/" render={props => <CredentialsCard {...props} storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route path="/complete-registration" render={props => <CompleteRegistration storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
-            
+
             <Route path="/profile" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser} storeUser={storeUser}{...props} />} />
-            
-            <Route exact path="/events/:sessions" render={props => <EventsList {...props} />} />
+
+            <Route exact path="/events/:sessions" render={props => <EventsList {...props} loggedUser={loggedUser} />} />
             <Route exact path="/events/group-events/create" render={props => <CreateEventForm {...props} />} />
             <Route path="/events/details/:event_id" render={props => <EventDetails loggedUser={loggedUser} {...props} />} />
             <Route path="/events/edit/:event_id" render={props => <EditEvent {...props} />} />
