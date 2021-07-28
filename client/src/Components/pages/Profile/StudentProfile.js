@@ -4,54 +4,54 @@ import { Link } from 'react-router-dom'
 
 // import Spinner from '../../shared/Spinner'
 
-const StudentProfile = (user) => {
+const StudentProfile = (props) => {
 
 
     return (
         <>
 
-        <Container>
-            <Row>
-                <Col>
-                    <Card style={{ width: '18rem' }} key={user.user._id}>
-                        <Card.Body>
+            <Container>
+                <Row>
+                    <Col>
+                        <Card style={{ width: '18rem' }} key={props.user._id}>
+                            <Card.Body>
 
-                            <Card.Title>{user.user.studentData.name} {user.user.studentData.lastName}'s Profile</Card.Title>
-
-
-                            <Card.Text>
+                                <Card.Title>{props.user.studentData.name} {props.user.studentData.lastName}'s Profile</Card.Title>
 
 
-                                <h4>{user.user.role}</h4>
-                                <p>{user.user.studentData.description}</p>
-                            </Card.Text>
-                            <Button variant="primary"><Link to={`/beers/${user.user._id}`} style={{ color: 'white' }}>See more details</Link></Button>
-                        </Card.Body>
+                                <Card.Text>
 
-                    </Card>
-                </Col>
 
-                <Col>
+                                    <h4>{props.user.role}</h4>
+                                    <p>{props.user.studentData.description}</p>
+                                </Card.Text>
+                                <Button variant="primary"><Link to={`/beers/${props.user._id}`} style={{ color: 'white' }}>See more details</Link></Button>
+                            </Card.Body>
 
-                    {user.user.studentData.individualEvent.map(elm =>
-                        <>
-                            <h3>1 to 1 sessions</h3>
-                            <ListGroup variant="flush">
+                        </Card>
+                    </Col>
 
-                                <ListGroup.Item>{elm.studentData.individualEvent}</ListGroup.Item>
+                    <Col>
 
-                            </ListGroup>
-                            <h3>Group sessions</h3>
-                            <ListGroup variant="flush">
+                        {props.user.studentData.individualEvent.map(elm =>
+                            <>
+                                <h3>1 to 1 sessions</h3>
+                                <ListGroup variant="flush">
 
-                                <ListGroup.Item>{elm.studentData.groupEvent}</ListGroup.Item>
+                                    <ListGroup.Item>{elm.studentData.individualEvent}</ListGroup.Item>
 
-                            </ListGroup>
-                        </>
-                    )}
+                                </ListGroup>
+                                <h3>Group sessions</h3>
+                                <ListGroup variant="flush">
 
-                    <hr></hr>
-                    
+                                    <ListGroup.Item>{elm.studentData.groupEvent}</ListGroup.Item>
+
+                                </ListGroup>
+                            </>
+                        )}
+
+                        <hr></hr>
+
                         {/* // user.map(elm => {
 
                         //     <>
@@ -68,10 +68,10 @@ const StudentProfile = (user) => {
                         
                     }) */}
 
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
             </Container>
-            </>
+        </>
     )
 }
 

@@ -17,12 +17,13 @@ router.get('/subjects',  (req, res) => {
 
 })
 
-router.post('/contact/:teacher_id/', isLoggedIn, checkRoles('student'), (req, res) => {
-
+router.post('/contact/:teacher_id/',  (req, res) => {
+// isLoggedIn, checkRoles('student'),
     const { teacher_id } = req.params
     const { comment } = req.body
     const user_id = req.session.user._id
-
+    console.log('hace la llamada')
+    console.log(req.body)
     Request
 
         .create({ student: user_id, teacher: teacher_id, comment })
@@ -31,16 +32,18 @@ router.post('/contact/:teacher_id/', isLoggedIn, checkRoles('student'), (req, re
 
 })
 
-router.put('/contact/:request_id/approve', isLoggedIn, checkRoles('teacher'), (req, res) => {
+router.put('/contact/:request_id/approve', (req, res) => {
+    //isLoggedIn, checkRoles('teacher'),
 
     const { request_id } = req.params
-    const { date, avatar, description, eventType, lat, lgn } = req.body
+    const address = { street, zipCode, city, country } = req.body
+    const { date, avatar, description, eventType } = req.body
 
     Request
         .findByIdAndUpdate(request_id, { isAccepted: true, isActive: false }, { new: true })
         .then(request => {
             Event
-                .create({ date, avatar, description, eventType, location: { coordinates: [lat, lgn] } })
+                .create({ date, avatar, description, eventType, location: { coordinates: [lat, lgn], address } })
                 .then(event => {
 
                     const StudentEventCreated = User.findByIdAndUpdate(request.student, { $push: { 'studentData.individualEvent': event._id } }, { new: true })

@@ -32,7 +32,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/events/cancel/:event_id"   />
             <Route path="/events/edit/:event_id"   />
 
-            {/* <Route path="/subjects" render={() => <SubjectsList />}   /> */}
+            <Route path="/subjects" render={() => <SubjectsList loggedUser={loggedUser }/>}   />
             {/*
             
             <Route path="/profile/edit"   />

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import UsersService from '../../../services/user.service';
 import StudentProfile from './StudentProfile';
 import TeacherProfile from './TeacherProfile';
+import RequestsService from '../../../services/request.service';
 
 
 
@@ -18,6 +19,7 @@ class Profile extends Component {
 
 
         this.UsersService = new UsersService()
+        this.RequestsService = new RequestsService()
 
     }
 
@@ -45,6 +47,15 @@ class Profile extends Component {
     //     }
     // }
 
+    handleApprove = (request_id) => {
+        this.RequestsService
+            .approveRequest(request_id)
+            .then((response) => console.log(response.data))
+            // this.setState({ request: response.data }))
+            .catch(err => console.log(err))
+    }
+
+
     componentDidMount() {
         this.getOneUser()
     }
@@ -54,23 +65,26 @@ class Profile extends Component {
 
         return (
 
-
-            this.state.user?.role === 'teacher'
+            this.state.user ? (this.state.user.role === 'teacher'
                 ?
-
-
                 <>
                     <h1>buenassss</h1>
-                    <TeacherProfile user={this.state.user} request={this.state.request}/>
+                    <TeacherProfile handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
                     {/* <h1>{this.showProfileByRole}</h1> */}
 
                 </>
                 :
-                null
-            
-            
-            
+                <>
+                    <h1>buenassss</h1>
+                    <StudentProfile handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
+                </>)
+                : null
         )
+
+
+
+
+
     }
 }
 
