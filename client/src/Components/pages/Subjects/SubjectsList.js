@@ -1,40 +1,37 @@
 import React, { Component } from 'react'
-import { Container, Row, Button, Modal, Col } from 'react-bootstrap'
+import { Container, Row, Button, Modal, Col, Spinner } from 'react-bootstrap'
 import SubjectsService from '../../../services/subject.service'
-import RequestForm from './RequestAClassForm'
 import SubjectCard from './SubjectCard'
-
-
-
-
-// import { Link } from 'react-router-dom'
-// import EventsService from '../../../services/event.service'
-// import Spinner from '../../shared/Spinner'
-// import EventCard from './EventCard'
 
 class SubjectsList extends Component {
 
-    constructor() {
+    constructor(props) {
 
-        super()
+        super(props)
         this.state = {
+
+            user: undefined,
             subjects: undefined,
             modal: false,
+
             //MODAL
 
         }
         this.SubjectsService = new SubjectsService()
+        console.log(this.props)
+
     }
 
     getAllSubjects = () => {
 
         this.SubjectsService
             .getAllSubjects()
-            .then(response => this.setState({ subjects: response.data }, console.log(response.data)))
+            .then(response => this.setState({ subjects: response.data, user: this.props.loggedUser }))
             // .then(response =>  console.log(response.data))
             .catch(err => console.log(err))
 
     }
+
 
     componentDidMount = () => {
 
@@ -47,52 +44,31 @@ class SubjectsList extends Component {
 
             !this.state.subjects
                 ?
-                <h3>LOADING...</h3>
+                <Spinner />
                 :
 
                 (<>
                     <Container>
                         <Row>
-                            {this.state.subjects.map(elm =>
-                                <>
-                                    <Col>
-                                        <SubjectCard
-                                            key={elm._id}
-                                            name={elm.teacherData.name}
-                                            _id={elm._id} lastName={elm.teacherData.lastName}
-                                            subject={elm.teacherData.subject}
-                                            description={elm.teacherData.description}
-                                            avatar={elm.teacherData.avatar} />
+                            {this.state.subjects.map((elm) =>
 
-                                        <Button onClick={() => this.setState({ modal: true })} variant="primary" style={{ marginBottom: '20px' }}>Request</Button>
-                                    </Col>
-                                </>
+                                <Col>
+                                    <SubjectCard
+
+                                        key={elm._id}
+                                        name={elm.teacherData.name}
+                                        _id={elm._id} lastName={elm.teacherData.lastName}
+                                        subject={elm.teacherData.subject}
+                                        description={elm.teacherData.description}
+                                        avatar={elm.teacherData.avatar}
+                                        student={this.props.loggedUser} />
+                                </Col>
+
 
                             )}
-
-
-
-                            {/* AQUÍ IRÁ EL MODAL CON LA SOLICITUD, COMENTARIO */}
-
-
                         </Row>
-
-
                     </Container>
-
-
-                    <Modal Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
-                        <Modal.Header>
-                            <Modal.Title>Make a request</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <RequestForm refreshSubjects={this.getAllSubjects} closeModal={() => this.setState({ modal: false })} />
-                        </Modal.Body>
-                    </Modal>
-
                 </>)
-
-
         )
     }
 

@@ -1,10 +1,11 @@
+
 import { Component } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import RequestService from '../../../services/request.service'
 import SubjectCard from './SubjectCard'
 
 
-class RequestAClassForm extends Component {
+class IndSessionForm extends Component {
 
     constructor(props) {
         super(props)
@@ -67,4 +68,7 @@ class RequestAClassForm extends Component {
     }
 }
 
-export default RequestAClassForm
+export default IndSessionForm
+
+
+
