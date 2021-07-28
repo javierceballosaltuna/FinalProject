@@ -1,75 +1,77 @@
 import React from 'react'
-import { Row, Card, Button, Container, Col, Im } from 'react-bootstrap'
+import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import Spinner from '../../shared/Spinner'
 
-const StudentProfile = (user) => {
+const StudentProfile = ({user}) => {
 
 
     return (
-
+        <>
+console.log({user})
         <Container>
             <Row>
                 <Col>
                     <Card style={{ width: '18rem' }}>
                         <Card.Body>
 
-                            <Card.Title>{user.user.studentData.name}{user.user.studentData.lastName}'s Profile</Card.Title>
+                            <Card.Title>{user.studentData.name} {user.studentData.lastName}'s Profile</Card.Title>
 
 
                             <Card.Text>
 
 
-                                <h4>{user.user.role}</h4>
-                                <p>{user.user.studentData.description}</p>
+                                <h4>{user.role}</h4>
+                                <p>{user.studentData.description}</p>
                             </Card.Text>
-                            <Button variant="primary"><Link to={`/beers/${user.user._id}`} style={{ color: 'white' }}>See more details</Link></Button>
+                            <Button variant="primary"><Link to={`/beers/${user._id}`} style={{ color: 'white' }}>See more details</Link></Button>
                         </Card.Body>
 
                     </Card>
                 </Col>
 
-                {/* <Col>
+                <Col>
 
-                    {this.state.user.map(elm =>
+                    {user.studentData.individualEvent.map(elm =>
                         <>
                             <h3>1 to 1 sessions</h3>
                             <ListGroup variant="flush">
 
-                                <ListGroup.Item>{elm[0].teacherData.individualEvent}</ListGroup.Item>
+                                <ListGroup.Item>{elm.studentData.individualEvent}</ListGroup.Item>
 
                             </ListGroup>
                             <h3>Group sessions</h3>
                             <ListGroup variant="flush">
 
-                                <ListGroup.Item>{elm[0].teacherData.groupEvent}</ListGroup.Item>
+                                <ListGroup.Item>{elm.studentData.groupEvent}</ListGroup.Item>
 
                             </ListGroup>
                         </>
                     )}
 
                     <hr></hr>
-                    {
-                        this.state.request.map(elm => {
+                    
+                        {/* // user.map(elm => {
 
-                            <>
-                                <h3>Requests</h3>
-                                <ListGroup variant="flush">
+                        //     <>
+                        //         <h3>Requests</h3>
+                        //         <ListGroup variant="flush">
 
-                                    <ListGroup.Item>{elm[1].student}: "{elm[1].comment}"</ListGroup.Item>
+                        //             <ListGroup.Item>{elm.student}: "{elm.comment}"</ListGroup.Item>
 
-                                </ListGroup>
+                        //         </ListGroup>
 
-                            </>
+                        //     </>
 
-                        }
-                        )
-                    }
+                        
+                        
+                    }) */}
 
-                </Col> */}
+                </Col>
             </Row>
-        </Container>
+            </Container>
+            </>
     )
 }
 

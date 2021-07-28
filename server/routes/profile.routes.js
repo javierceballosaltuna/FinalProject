@@ -12,7 +12,7 @@ router.get('/user', (req, res) => {
     if (req.session.user.role === 'student') {
 
         const getStudentDetails = User.findById(user_id).populate('studentData.teachers studentData.individualEvent studentData.groupEvent')
-        const getRequestDetails = Request.find({ "student": `${user_id}` }).select('teacher isAccepted')
+        const getRequestDetails = Request.find({ "student": `${user_id}` }).select('teacher isAccepted student')
       
         Promise
             .all([getStudentDetails, getRequestDetails])

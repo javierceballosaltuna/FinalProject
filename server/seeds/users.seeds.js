@@ -1173,7 +1173,7 @@ const users = [{
         }
     }, {
         "userName": "eoduilleaint",
-        "password": "QK2ClpC",
+        "password": hashPass,
         "email": "eoduilleaint@is.gd",
         "role": "student",
         "studentData": {
@@ -1195,6 +1195,7 @@ const users = [{
 
 //como archivo aparte de la app, seeds hay que ejecutarlo en la consola manualmente para que introduzca los datos en la BBDD
 //node users.seeds.js
+
 
 User
     .create(users)
