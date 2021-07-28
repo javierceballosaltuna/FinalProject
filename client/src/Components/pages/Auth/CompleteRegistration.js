@@ -2,7 +2,7 @@ import { Component } from 'react'
 import StudentSignupForm from './StudentSignupForm'
 import TeacherSignupForm from './TeacherSignupForm'
 
-class CredentialsCard extends Component {
+class CompleteRegistration extends Component {
 
     constructor(props) {
         super(props)
@@ -11,17 +11,22 @@ class CredentialsCard extends Component {
         }
     }
 
+    consolelog = () => {
+        console.log(this.state.user)
+    }
+
+
     render() {
 
         return (
 
-            (this.state.user.role === 'student') ? <StudentSignupForm /> : null
-            (this.state.user.role === 'teacher') ? <TeacherSignupForm /> : null
-            
+            <h1>hola</h1>
 
+            // (this.state.user.role === 'student') ? <StudentSignupForm /> : null
+            //     (this.state.user.role === 'teacher') ? <TeacherSignupForm /> : null
 
         )
     }
 }
 
-export default CredentialsCard
+export default CompleteRegistration

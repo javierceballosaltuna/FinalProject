@@ -7,6 +7,8 @@ import Profile from '../pages/Profile/ProfileView'
 import CreateEventForm from '../pages/Events/CreateEvent'
 import EditEvent from '../pages/Events/EditEvent'
 import SubjectsList from '../pages/Subjects/SubjectsList'
+import CompleteRegistration from '../pages/Auth/CompleteRegistration'
+
 
 
 const Routes = ({ storeUser, loggedUser, handleAlert }) => {
@@ -17,7 +19,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
         <Switch>
         
             <Route exact path="/" render={props => <CredentialsCard {...props} storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
-            <Route path="/complete-registration" render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
+            <Route path="/complete-registration" render={props => <CompleteRegistration storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             
             <Route path="/profile" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser} storeUser={storeUser}{...props} />} />
             
