@@ -26,10 +26,6 @@ class App extends Component {
     this.setState({ showAlert, alertText })
   }
 
-  //actualiza el user
-  
-  
-  //recupera el user del backend
   fetchUser = () => {
     this.authService
       .isLoggedIn()
@@ -47,7 +43,7 @@ class App extends Component {
     return (
       (
         <>
-          {/* {this.state.loggedUser === undefined ? Spinner : App} */}
+        
           <main style={{ flex: '1' }}>
 
             <Navigation style={{ marginTop: "10px" }} storeUser={this.storeUser} loggedUser={this.state.loggedUser} />

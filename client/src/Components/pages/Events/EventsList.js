@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Row, Container, Alert } from 'react-bootstrap'
+import { Row, Container, Alert, Button } from 'react-bootstrap'
 import EventsService from '../../../services/event.service'
+import { Link } from 'react-router-dom'
 import Spinner from '../../shared/Spinner'
 import EventCard from './EventCard'
 
@@ -56,6 +57,9 @@ class EventsList extends Component {
                 :
                 (
                     <>
+                    <Link to={'/events/group-events/create'} style={{ width: '100%' }}>
+                        <Button variant="dark" block >Create Event</Button>
+                    </Link>
                     <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                         <Container>
                             <Row>

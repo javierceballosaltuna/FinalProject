@@ -1,8 +1,9 @@
 import { Component } from 'react'
 import { Link } from 'react-router-dom'
 import EventsService from '../../../services/event.service'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
 import Spinner from '../../shared/Spinner'
+import EditEvent from './EditEvent'
 
 
 class EventDetails extends Component {
@@ -88,7 +89,12 @@ class EventDetails extends Component {
                             :
                             <Row className="justify-content-around">
                                 <Col md={6}>
-                                    <h1>{this.state.event.eventType} Event that takes place on {this.state.event.location.city}</h1>
+                                    <h1>{this.state.event.eventType} Event that takes place on {this.state.event.location.address.city}</h1>
+                                    
+                                    <Button variant="outline-info" onClick={() => this.setState({ showModal: true })}>Edit Event</Button>
+                                    <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
+                                        <EditEvent handleAlert={this.props.handleAlert} event={this.state.event} closeModal={() => this.setState({ showModal: false })} />
+                                    </Modal>
                                     <hr />
                                     <p>What is the event about?</p>
                                     <p>{this.state.event.description}</p>

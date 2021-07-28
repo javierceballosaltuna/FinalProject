@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import { Row, Modal, Col, Form, Button } from 'react-bootstrap'
 import EventsService from '../../../services/event.service'
-import Spinner from '../../shared/Spinner'
 
 class EditEvent extends Component {
 
@@ -9,12 +8,17 @@ class EditEvent extends Component {
         super(props)
         this.state = {
             event: {
-                date: props.state.date,
-                description: props.state.description,
-                street: props.state.street,
-                zipCode: props.state.zipCode,
-                city: props.state.city,
-                country: props.state.country,
+                date: props.event.date,
+                description: props.event.description,
+                location: {
+                    address: {
+                        street: props.event.location.address.street,
+                        zipCode: props.event.location.address.zipCode,
+                        city: props.event.location.address.city,
+                        country: props.event.country
+                    }
+                },
+
             }
         }
         this.eventsService = new EventsService()
@@ -29,10 +33,9 @@ class EditEvent extends Component {
         e.preventDefault()
         this.eventsService
             .editEvent(this.props.event._id, this.state.event)
-            .then(response => {
+            .then(() => {
                 this.props.closeModal()
-                this.props.fetchProduct()
-                this.props.handleAlert(`${this.state.event._id} has been updated`)
+                this.props.handleAlert(`Event with id:${this.state.event._id} has been updated`)
             })
             .catch(err => console.log(err))
     }
@@ -41,55 +44,51 @@ class EditEvent extends Component {
 
         return (
 
-            !this.state.categoryOptions
-                ?
-                <Spinner />
-                :
-                <>
-                    <Modal.Header> <Modal.Title>Edit Your Event</Modal.Title> </Modal.Header>
-                    <Modal.Body>
-                        <Form onSubmit={e => this.handleSubmit(e)}>
-                            <Form.Row as={Row}>
-                                <Form.Group as={Col} controlId="date">
-                                    <Form.Label>When will the event take place?</Form.Label>
-                                    <Form.Control type="date" value={this.state.date} onChange={e => this.handleInputChange(e)} name="date" />
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row as={Row}>
-                                <Form.Group as={Col} controlId="description">
-                                    <Form.Label>Please, enter a short description:</Form.Label>
-                                    <Form.Control as="textarea" rows={2} value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row as={Row}>
-                                <Form.Group as={Col} controlId="street">
-                                    <Form.Label>Street</Form.Label>
-                                    <Form.Control type="text" value={this.state.email} onChange={e => this.handleInputChange(e)} name="street" />
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row as={Row}>
-                                <Form.Group as={Col} controlId="zipCode">
-                                    <Form.Label>Zip Code</Form.Label>
-                                    <Form.Control type="text" value={this.state.zipCode} onChange={e => this.handleInputChange(e)} name="zipCode" />
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row as={Row}>
-                                <Form.Group as={Col} controlId="city">
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control type="text" value={this.state.city} onChange={e => this.handleInputChange(e)} name="city" />
-                                </Form.Group>
-                            </Form.Row>
-                            <Form.Row as={Row}>
-                                <Form.Group as={Col} controlId="country">
-                                    <Form.Label>Country</Form.Label>
-                                    <Form.Control type="text" value={this.state.country} onChange={e => this.handleInputChange(e)} name="country" />
-                                </Form.Group>
-                            </Form.Row>
+            <>
+                <Modal.Header> <Modal.Title>Edit Your Event</Modal.Title> </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={e => this.handleSubmit(e)}>
+                        <Form.Row as={Row}>
+                            <Form.Group as={Col} controlId="date">
+                                <Form.Label>When will the event take place?</Form.Label>
+                                <Form.Control type="date" value={this.state.event.date} onChange={e => this.handleInputChange(e)} name="date" />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row as={Row}>
+                            <Form.Group as={Col} controlId="description">
+                                <Form.Label>Please, enter a short description:</Form.Label>
+                                <Form.Control as="textarea" rows={2} value={this.state.event.description} onChange={e => this.handleInputChange(e)} name="description" />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row as={Row}>
+                            <Form.Group as={Col} controlId="street">
+                                <Form.Label>Street</Form.Label>
+                                <Form.Control type="text" value={this.state.event.location.address.street} onChange={e => this.handleInputChange(e)} name="street" />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row as={Row}>
+                            <Form.Group as={Col} controlId="zipCode">
+                                <Form.Label>Zip Code</Form.Label>
+                                <Form.Control type="text" value={this.state.event.zipCode} onChange={e => this.handleInputChange(e)} name="zipCode" />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row as={Row}>
+                            <Form.Group as={Col} controlId="city">
+                                <Form.Label>City</Form.Label>
+                                <Form.Control type="text" value={this.state.event.city} onChange={e => this.handleInputChange(e)} name="city" />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row as={Row}>
+                            <Form.Group as={Col} controlId="country">
+                                <Form.Label>Country</Form.Label>
+                                <Form.Control type="text" value={this.state.country} onChange={e => this.handleInputChange(e)} name="country" />
+                            </Form.Group>
+                        </Form.Row>
 
-                            <Button type="submit" variant="dark">Update event</Button>
-                        </Form>
-                    </Modal.Body>
-                </>
+                        <Button type="submit" variant="dark">Update event</Button>
+                    </Form>
+                </Modal.Body>
+            </>
         )
     }
 }
