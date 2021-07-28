@@ -10,7 +10,7 @@ class UsersService {
     }
 
     getAllUsers = () => this.app.get('/admin/users')
-    getOneUser = (loggedUser) => this.app.get('/profile', loggedUser)
+    getOneUser = () => this.app.get('/profile')
     //habra que ver si tenemos que meterlo como param al final...
     
 

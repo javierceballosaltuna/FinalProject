@@ -47,7 +47,7 @@ class App extends Component {
     return (
       (
         <>
-
+          {/* {this.state.loggedUser === undefined ? Spinner : App} */}
           <main style={{ flex: '1' }}>
 
             <Navigation style={{ marginTop: "10px" }} storeUser={this.storeUser} loggedUser={this.state.loggedUser} />

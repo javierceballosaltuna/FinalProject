@@ -1,20 +1,21 @@
 import React from 'react'
-import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem} from 'react-bootstrap'
+import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import Spinner from '../../shared/Spinner'
 
 const TeacherProfile = (user) => {
 
-
+    console.log(user)
     return (
 
         <Container>
             <Row>
                 <Col>
                     <Card style={{ width: '18rem' }}>
-                       
-                        <Card.Img variant="top" src={user.user.teacherData.avatar} key={user._id} />
+                        <h1>hola</h1>
+
+                        <Card.Img variant="top" src={user.user.teacherData.avatar} key={user.user._id} />
 
 
                         <Card.Body>
@@ -36,41 +37,60 @@ const TeacherProfile = (user) => {
 
 
                 <Col>
-                    {user.user.teacherData.groupEvent.map(elm =>
+                    <h3>1 to 1 sessions:</h3>
+                    {user.user.teacherData.individualEvent.map(elm =>
                         <>
-                            <h3>1 to 1 sessions</h3>
-                            <ListGroup variant="flush">
 
-                                <ListGroup.Item>{elm.date}</ListGroup.Item>
 
-                            </ListGroup>
-                            <h3>Group sessions</h3>
-                            <ListGroup variant="flush">
+                            <ListGroup variant="flush" key={elm._id}>
 
-                                <ListGroup.Item>{elm.description}</ListGroup.Item>
+                                <ListGroup.Item><p>{elm.date}</p></ListGroup.Item>
+                                <ListGroup.Item><p>{elm.description}</p></ListGroup.Item>
 
                             </ListGroup>
+
+
                         </>
                     )}
 
                     <hr></hr>
-                    {/* {
-                    this.state.request.map(elm => {
-
+                    <h3>Group sessions:</h3>
+                    {user.user.teacherData.groupEvent.map(elm =>
                         <>
-                            <h3>Requests</h3>
-                            <ListGroup variant="flush">
 
-                                <ListGroup.Item>{elm[1].student}: "{elm[1].comment}"</ListGroup.Item>
+
+                            <ListGroup variant="flush" key={elm._id}>
+
+                                <ListGroup.Item><p>{elm.date}</p></ListGroup.Item>
+                                <ListGroup.Item><p>{elm.description}</p></ListGroup.Item>
 
                             </ListGroup>
 
+
                         </>
+                    )}
+
+                    <hr></hr>
+                    <h3>Requests:</h3>
+
+
+                    {
+                        user.request.map(elm => {
+                            { console.log(elm.teacher.teacherData.name, elm.student.studentData.name) }
+                            // if ((elm.isAccepted = false) && (elm.isActive = true)) {
+
+                                <ListGroup variant="flush" key={elm._id}>
+
+                                    <ListGroup.Item><p>{elm.teacher.teacherData.name}: "{elm.comment}"</p></ListGroup.Item>
+
+                                </ListGroup>
+
+
+                            // }
+                        })
 
                     }
-                    )
-                } 
-                */}
+
 
                 </Col>
             </Row>

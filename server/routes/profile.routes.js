@@ -5,25 +5,25 @@ const Request = require('../models/Request.model')
 const { isLoggedIn } = require('../middleware')
 const cdnUpload = require('../config/fileUpload.config')
 
-router.get('/user', (req, res) => {
+router.get('/', (req, res) => {
 
     const user_id = req.session.user._id
 
     if (req.session.user.role === 'student') {
 
         const getStudentDetails = User.findById(user_id).populate('studentData.teachers studentData.individualEvent studentData.groupEvent')
-        const getRequestDetails = Request.find({ "student": `${user_id}` }).select('teacher isAccepted student')
+        const getRequestDetails = Request.find({ "student": `${user_id}` }).populate('student teacher')
       
         Promise
             .all([getStudentDetails, getRequestDetails])
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err }))    
 
-    } else {
+    } else if (req.session.user.role === 'teacher'){
 
-        const getTeacherDetails = User.findById(user_id).populate('teacherData.TeachingMaterial teacherData.Event')
-        const getRequestDetails = Request.find({ "teacher": `${user_id}` }).select('student isAccepted isActive')
-
+        const getTeacherDetails = User.findById(user_id).populate('teacherData.individualEvent teacherData.teachingMaterials teacherData.groupEvent')
+        const getRequestDetails = Request.find({ "teacher": `${user_id}` }).populate('student teacher')
+        console.log(getTeacherDetails, getRequestDetails)
         Promise
             .all([getTeacherDetails, getRequestDetails])
             .then(response => res.json(response))
