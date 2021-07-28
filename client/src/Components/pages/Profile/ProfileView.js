@@ -27,25 +27,11 @@ class Profile extends Component {
 
         this.UsersService
             .getOneUser()
-            .then(response => this.setState({ user: response.data[0], request: response.data[1] }, console.log(response.data)))
+            .then(response => this.setState({ user: response.data[0], request: response.data[1] }))
             .catch(err => console.log(err))
 
     }
 
-
-
-    // showProfileByRole = () => {
-
-    //     console.log(this.state.user)
-
-    //     if (this.state.user.role === 'teacher') {
-    //         <TeacherProfile user={this.state.user} request={this.state.request} />
-    //     }
-    //     if (this.state.user.role === 'student') {
-    //         <StudentProfile user={this.state.user} request={this.state.request} />
-
-    //     }
-    // }
 
     handleApprove = (request_id) => {
         this.RequestsService

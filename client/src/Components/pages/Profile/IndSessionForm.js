@@ -1,8 +1,7 @@
-
 import { Component } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import RequestService from '../../../services/request.service'
-import SubjectCard from './SubjectCard'
+
 
 
 class IndSessionForm extends Component {

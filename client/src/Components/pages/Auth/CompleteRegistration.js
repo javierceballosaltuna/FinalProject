@@ -11,20 +11,22 @@ class CompleteRegistration extends Component {
         }
     }
 
-    consolelog = () => {
-        console.log(this.state.user)
-    }
-
 
     render() {
 
         return (
 
-            <h1>hola</h1>
+            this.state.user ? (this.state.user.role === 'teacher'
+                ?
+                <>
+                    <TeacherSignupForm handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
 
-            // (this.state.user.role === 'student') ? <StudentSignupForm /> : null
-            //     (this.state.user.role === 'teacher') ? <TeacherSignupForm /> : null
-
+                </>
+                :
+                <>
+                    <StudentSignupForm handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
+                </>)
+                : null
         )
     }
 }

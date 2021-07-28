@@ -38,7 +38,7 @@ class StudentSignupForm extends Component {
         this.AuthService
             .completeRegistration(this.state)
             .then(response => {
-                this.props.history.push('/complete-registration')
+                this.props.history.push('/profile')
                 this.setState(response.data)
             })
             .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
