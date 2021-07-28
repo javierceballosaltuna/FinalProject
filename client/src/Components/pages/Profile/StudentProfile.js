@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 import Spinner from '../../shared/Spinner'
 
-const StudentProfile = ({user}) => {
+const StudentProfile = (user) => {
 
 
     return (
@@ -13,19 +13,19 @@ console.log({user})
         <Container>
             <Row>
                 <Col>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '18rem' }} key={user.user._id}>
                         <Card.Body>
 
-                            <Card.Title>{user.studentData.name} {user.studentData.lastName}'s Profile</Card.Title>
+                            <Card.Title>{user.user.studentData.name} {user.user.studentData.lastName}'s Profile</Card.Title>
 
 
                             <Card.Text>
 
 
-                                <h4>{user.role}</h4>
-                                <p>{user.studentData.description}</p>
+                                <h4>{user.user.role}</h4>
+                                <p>{user.user.studentData.description}</p>
                             </Card.Text>
-                            <Button variant="primary"><Link to={`/beers/${user._id}`} style={{ color: 'white' }}>See more details</Link></Button>
+                            <Button variant="primary"><Link to={`/beers/${user.user._id}`} style={{ color: 'white' }}>See more details</Link></Button>
                         </Card.Body>
 
                     </Card>
@@ -33,7 +33,7 @@ console.log({user})
 
                 <Col>
 
-                    {user.studentData.individualEvent.map(elm =>
+                    {user.user.studentData.individualEvent.map(elm =>
                         <>
                             <h3>1 to 1 sessions</h3>
                             <ListGroup variant="flush">

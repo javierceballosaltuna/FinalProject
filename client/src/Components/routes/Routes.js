@@ -11,6 +11,7 @@ import SubjectsList from '../pages/Subjects/SubjectsList'
 
 const Routes = ({ storeUser, loggedUser, handleAlert }) => {
 
+    
 
     return (
         <Switch>
@@ -18,7 +19,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route exact path="/" render={props => <CredentialsCard {...props} storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route path="/complete-registration" render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
             
-            <Route exact path="/profile" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser} storeUser={storeUser}{...props} />} />
+            <Route path="/profile" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser} storeUser={storeUser}{...props} />} />
             
             <Route exact path="/events/:sessions" render={props => <EventsList {...props} />} />
             <Route path="/events/group-sessions/create" render={props => <CreateEventForm {...props} />} />
