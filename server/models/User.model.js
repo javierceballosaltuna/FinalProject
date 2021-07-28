@@ -23,7 +23,7 @@ const userSchema = new Schema({
     
     studentData: studentSchema,
     
-    role: { type: String, enum: ['student', 'teacher', 'admin'] }
+    role: { type: String, enum: ['student', 'teacher', 'admin'], required: [true, 'Role required'] }
 
 }, { timestamps: true })
 

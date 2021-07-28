@@ -15,7 +15,6 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
     return (
         <Switch>
         
-            <Route path="/signup" render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
             <Route exact path="/" render={props => <CredentialsCard {...props} storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
             <Route path="/complete-registration" render={props => <CredentialsCard history={props.history} handleAlert={handleAlert} />} />
             
