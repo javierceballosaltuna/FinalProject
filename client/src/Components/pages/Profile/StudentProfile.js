@@ -2,7 +2,7 @@ import React from 'react'
 import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import Spinner from '../../shared/Spinner'
+// import Spinner from '../../shared/Spinner'
 
 const StudentProfile = (user) => {
 

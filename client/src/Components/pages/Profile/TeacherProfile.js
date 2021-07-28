@@ -2,7 +2,7 @@ import React from 'react'
 import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import Spinner from '../../shared/Spinner'
+
 
 const TeacherProfile = (user) => {
 
@@ -44,8 +44,8 @@ const TeacherProfile = (user) => {
 
                             <ListGroup variant="flush" key={elm._id}>
 
-                                <ListGroup.Item><p>{elm.date}</p></ListGroup.Item>
-                                <ListGroup.Item><p>{elm.description}</p></ListGroup.Item>
+                                <ListGroup.Item key={elm._id}>{elm.date}</ListGroup.Item>
+                                <ListGroup.Item >{elm.description}</ListGroup.Item>
 
                             </ListGroup>
 
@@ -61,8 +61,8 @@ const TeacherProfile = (user) => {
 
                             <ListGroup variant="flush" key={elm._id}>
 
-                                <ListGroup.Item><p>{elm.date}</p></ListGroup.Item>
-                                <ListGroup.Item><p>{elm.description}</p></ListGroup.Item>
+                                <ListGroup.Item key={elm._id}>{elm.date}</ListGroup.Item>
+                                <ListGroup.Item >{elm.description}</ListGroup.Item>
 
                             </ListGroup>
 
@@ -71,23 +71,23 @@ const TeacherProfile = (user) => {
                     )}
 
                     <hr></hr>
-                    <h3>Requests:</h3>
+                    <h3>Individual Session Requests:</h3>
 
 
                     {
-                        user.request.map(elm => {
-                            { console.log(elm.teacher.teacherData.name, elm.student.studentData.name) }
+                        user.request.map(elm => 
+                            // { console.log(elm.teacher.teacherData.name, elm.student.studentData.name) }
                             // if ((elm.isAccepted = false) && (elm.isActive = true)) {
 
                                 <ListGroup variant="flush" key={elm._id}>
 
-                                    <ListGroup.Item><p>{elm.teacher.teacherData.name}: "{elm.comment}"</p></ListGroup.Item>
+                                    <ListGroup.Item key={elm._id}>{elm.teacher.teacherData.name}: "{elm.comment}"</ListGroup.Item>
 
                                 </ListGroup>
 
 
                             // }
-                        })
+                        )
 
                     }
 
