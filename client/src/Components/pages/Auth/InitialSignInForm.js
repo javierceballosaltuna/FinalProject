@@ -53,7 +53,8 @@ class InitialSignupForm extends Component {
         if (this.state.role === 'teacher') {
             this.authService
                 .teacherSignup(this.state)
-                .then(() => {
+                .then((res) => {
+                    this.props.storeUser(res.data)
                     this.props.history.push('/complete-registration')
                     this.props.handleAlert(`Welcome, ${this.state.userName}`)
                 })
@@ -64,7 +65,8 @@ class InitialSignupForm extends Component {
         } else if (this.state.role === 'student') {
             this.authService
                 .studentSignup(this.state)
-                .then(() => {
+                .then((res) => {
+                    this.props.storeUser(res.data)
                     this.props.history.push('/complete-registration')
                     this.props.handleAlert(`Welcome, ${this.state.userName}`)
                 })

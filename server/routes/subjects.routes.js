@@ -17,23 +17,20 @@ router.get('/subjects', (req, res) => {
 
 })
 
-router.post('/contact/:teacher_id/', (req, res) => {
-    // isLoggedIn, checkRoles('student'),
+router.post('/contact/:teacher_id/', isLoggedIn, checkRoles('student'), (req, res) => {
+
     const { teacher_id } = req.params
     const { comment } = req.body
     const user_id = req.session.currentUser._id
-    console.log('hace la llamada')
-    console.log(req.body)
-    Request
 
+    Request
         .create({ student: user_id, teacher: teacher_id, comment })
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 
 })
 
-router.put('/contact/:request_id/approve', (req, res) => {
-    //isLoggedIn, checkRoles('teacher'),
+router.put('/contact/:request_id/approve', isLoggedIn, checkRoles('teacher'), (req, res) => {
 
     const { request_id } = req.params
     const address = { street, zipCode, city, country } = req.body

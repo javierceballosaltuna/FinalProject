@@ -1,6 +1,8 @@
 import { Component } from 'react'
 import { Form, Button, Alert } from 'react-bootstrap'
 import AuthService from '../../../services/auth.service'
+import UploadsService from '../../../services/uploads.service'
+import Spinner from '../../shared/Spinner'
 
 class TeacherSignupForm extends Component {
 
@@ -17,9 +19,11 @@ class TeacherSignupForm extends Component {
             alert: {
                 show: false,
                 text: ' '
-            }
+            },
+            loading: false
         }
         this.AuthService = new AuthService()
+        this.uploadsService = new UploadsService()
     }
 
 
@@ -35,9 +39,35 @@ class TeacherSignupForm extends Component {
             .completeRegistration(this.state)
             .then(response => {
                 this.props.history.push('/profile')
-                this.setState(response.data)
+                this.setState({
+                    name: '',
+                    lastName: '',
+                    age: '',
+                    description: '',
+                    avatar: '',
+                    subject: ''
+                })
             })
-            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
+            // .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
+            .catch(err => console.log('este es el error', err))
+    }
+
+    handleFileUpload = e => {
+
+        this.setState({ loading: true })
+
+        const uploadData = new FormData()
+        uploadData.append('imageData', e.target.files[0])
+
+        this.uploadsService
+            .uploadImage(uploadData)
+            .then(response => {
+                this.setState({
+                    loading: false,
+                    avatar: response.data.cloudinary_url
+                })
+            })
+            .catch(err => console.log(err))
     }
 
     render() {
@@ -69,22 +99,30 @@ class TeacherSignupForm extends Component {
 
                     <Form.Group controlId="avatar">
                         <Form.Label>Please, upload your avatar</Form.Label>
-                        <Form.Control type="text" value={this.state.avatar} onChange={e => this.handleInputChange(e)} name="avatar" />
-                    </Form.Group>
-
-                    <Form.Group controlId="subject">
-                        <Form.Label>What kind of subjects do you want to teach?</Form.Label>
-                        <Form.Control type="text" value={this.state.subject} onChange={e => this.handleInputChange(e)} name="subject" />
+                        <Form.Control type="file" onChange={this.handleFileUpload} />
                     </Form.Group>
 
                     <Form.Group controlId="subject">
                         <Form.Label>What kind of subjects do you want to teach?</Form.Label>
                         <Form.Control as="select" value={this.state.subject} name="subject" onChange={e => this.handleInputChange(e)}>
-                            {this.state.subject.map(elm => <option> {elm}</option>)}
+                            <option value="spanish"> Spanish </option>
+                            <option value="math"> Math </option>
+                            <option value="science"> Science </option>
+                            <option value="history"> History </option>
+                            <option value="music"> Music </option>
+                            <option value="volvo"> English </option>
+                            <option value="volvo"> Art </option>
+                            <option value="volvo"> English </option>
+                            <option value="physical education"> Physical Education </option>
+                            <option value="special needs"> Special Needs </option>
                         </Form.Control>
                     </Form.Group>
 
-                    <Button variant="dark" type="submit">Complete your registration</Button>
+                    {this.state.loading && <Spinner />}
+
+                    <Button variant="dark" type="submit" disabled={this.state.loading}>
+                    {this.state.loading ? 'Uploading avatar...' : 'Complete your registration'}
+                    </Button>
 
                 </Form>
             </>

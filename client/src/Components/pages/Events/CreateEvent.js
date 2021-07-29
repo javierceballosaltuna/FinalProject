@@ -33,7 +33,10 @@ class CreateEventForm extends Component {
         e.preventDefault()
         this.eventsService
             .createGroupEvent(this.state)
-            .then(response => this.setState(response.data))
+            .then(response => {
+                this.props.history.push('/profile')
+                console.log(response.data)
+            })
             .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
 

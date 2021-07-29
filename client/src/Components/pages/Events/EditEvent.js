@@ -24,6 +24,7 @@ class EditEvent extends Component {
         this.eventsService = new EventsService()
     }
 
+
     handleInputChange(e) {
         const { name, value } = e.target
         this.setState({ event: { ...this.state.event, [name]: value } })
@@ -51,8 +52,10 @@ class EditEvent extends Component {
         this.eventsService
             .editEvent(this.props.event._id, this.state.event)
             .then(() => {
-                this.props.closeModal()
-                this.props.handleAlert(`Event with id:${this.state.event._id} has been updated`)
+                //this.props.handleAlert(`Event with id:${this.state.event._id} has been updated`)
+                this.props.updateDetails().then( x => {
+                    this.props.closeModal()
+                })
             })
             .catch(err => console.log(err))
     }
