@@ -52,7 +52,7 @@ class SubjectsList extends Component {
                         <Row>
                             {this.state.subjects.map((elm) =>
 
-                                <Col>
+                                <Col style={{objectFit: 'cover'}}>
                                     <SubjectCard
 
                                         key={elm._id}

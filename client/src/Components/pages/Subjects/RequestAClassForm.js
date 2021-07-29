@@ -49,7 +49,7 @@ class RequestAClassForm extends Component {
 
                     <Form.Group controlId="student">
                         <Form.Label>Student</Form.Label>
-                        <Form.Control type="text" value={this.props.student.studentData.name} onChange={this.handleInputChange} name="student" disabled />
+                        <Form.Control type="text" value={this.props.student.studentData.name}onChange={this.handleInputChange} name="student" disabled />
                     </Form.Group>
 
                     <Form.Group controlId="comment">

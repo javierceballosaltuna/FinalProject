@@ -35,9 +35,12 @@ class IndSessionForm extends Component {
     handleSubmit(e) {
         e.preventDefault()
         this.RequestService
-            .approveRequest(this.state, {formDetails: this.state})
+            
+            .approveRequest(this.props.requestId, {formDetails: this.state})
             .then(response => {
-                this.setState(response.data)
+                this.props.closeModal()
+                console.log(response)
+                // this.setState(response.data)
             })
             .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
@@ -86,7 +89,7 @@ class IndSessionForm extends Component {
                                     <Form.Control type="text" value={this.state.country} onChange={e => this.handleInputChange(e)} name="country" />
                                 </Form.Group>
 
-                                <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Send session details</Button>
+                                <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Confirm session </Button>
 
                             </Form>
                         </Col>
