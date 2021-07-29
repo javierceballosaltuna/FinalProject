@@ -6,7 +6,7 @@ const router = require("express").Router()
 const { checkMongooseError } = require('../utils')
 
 
-router.get('/subjects',  (req, res) => {
+router.get('/subjects', (req, res) => {
 
     User
         .find({ role: "teacher" })
@@ -17,8 +17,8 @@ router.get('/subjects',  (req, res) => {
 
 })
 
-router.post('/contact/:teacher_id/',  (req, res) => {
-// isLoggedIn, checkRoles('student'),
+router.post('/contact/:teacher_id/', (req, res) => {
+    // isLoggedIn, checkRoles('student'),
     const { teacher_id } = req.params
     const { comment } = req.body
     const user_id = req.session.currentUser._id
@@ -38,26 +38,25 @@ router.put('/contact/:request_id/approve', (req, res) => {
     const { request_id } = req.params
     const address = { street, zipCode, city, country } = req.body
     const { date, description } = req.body
-console.log('hace la llamada')
+    console.log(date, description, 'hace la llamada')
+
+    let request
+
     Request
         .findByIdAndUpdate(request_id, { isAccepted: true, isActive: false }, { new: true })
-        
-        .then((request) => {
-            Event
+        .then((requestFound) => {
+            request = requestFound
+            return Event
                 .create({ date, description, eventType: 'individual', location: { address } }, console.log('crea el evento'))
-                .then(event => {
-
-                    const StudentEventCreated = User.findByIdAndUpdate(request.student, { $push: { 'studentData.individualEvent': event._id } }, { new: true })
-                    const teacherEventCreated = User.findByIdAndUpdate(request.teacher, { $push: { 'teacherData.individualEvent': event._id } }, { new: true })
-                    console.log(request.student.userName)
-                    return Promise
-                        .all([StudentEventCreated, teacherEventCreated])
-                        // .then(response => res.json(response))
-                        // .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
-                })
-                // .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
         })
-        
+        .then(event => {
+
+            const StudentEventCreated = User.findByIdAndUpdate(request.student, { $push: { 'studentData.individualEvent': event._id } }, { new: true })
+            const teacherEventCreated = User.findByIdAndUpdate(request.teacher, { $push: { 'teacherData.individualEvent': event._id } }, { new: true })
+            console.log(request.student.userName)
+            return Promise
+                .all([StudentEventCreated, teacherEventCreated])
+        })
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 

@@ -66,7 +66,7 @@ class TeacherProfile extends Component {
 
 
                     <Col>
-                        <h3>1 to 1 sessions:</h3>
+                        <h3>Future sessions:</h3>
                         {this.props.user.teacherData.individualEvent.map(elm =>
 
                             <Table style={{
@@ -83,6 +83,7 @@ class TeacherProfile extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
+                                        
                                         <td>{elm.description}</td>
                                         <td>{elm.date}</td>
                                     </tr>
@@ -148,7 +149,7 @@ class TeacherProfile extends Component {
                                                 <Modal.Title>Make a request</Modal.Title>
                                             </Modal.Header>
                                             <Modal.Body>
-                                                <IndSessionForm props={this.props} requestId={this.state.requestId} closeModal={() => this.setState({ modal: false })} />
+                                                <IndSessionForm props={this.props} updateProfile={ this.props.updateProfile}requestId={this.state.requestId} closeModal={() => this.setState({ modal: false })} />
                                             </Modal.Body>
                                         </Modal>
                                     </>
