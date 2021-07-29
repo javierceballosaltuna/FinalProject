@@ -46,7 +46,6 @@ class SubjectsList extends Component {
                 ?
                 <Spinner />
                 :
-
                 (<>
                     <Container>
                         <Row>
@@ -55,7 +54,6 @@ class SubjectsList extends Component {
 
                                 return elm.teacherData ?
                                     <Col md={4}>
-
                                         <SubjectCard
 
                                             key={elm._id}
@@ -66,10 +64,7 @@ class SubjectsList extends Component {
                                             avatar={elm.teacherData.avatar}
                                             student={this.props.loggedUser}
                                         /> </Col> : null
-
-                            }
-                            )}
-
+                            })}
                         </Row>
                     </Container>
                 </>)

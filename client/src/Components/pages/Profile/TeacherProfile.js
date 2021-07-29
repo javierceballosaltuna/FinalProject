@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal, Table, Image } from 'react-bootstrap'
 
 import RequestsService from '../../../services/request.service';
+import EditTeacherProfile from './EditTeacherProfile';
 import IndSessionForm from './IndSessionForm';
 
 
@@ -62,6 +63,11 @@ class TeacherProfile extends Component {
                             </Card.Body>
 
                         </Card>
+                        <hr></hr>
+                        <Button variant="outline-info" onClick={() => this.setState({ showModal: true })}>Edit Profile</Button>
+                        <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
+                            <EditTeacherProfile handleAlert={this.props.handleAlert} profile={this.props.user} updateProfile={this.props.updateProfile} closeModal={() => this.setState({ showModal: false })} />
+                        </Modal>
                     </Col>
 
 
