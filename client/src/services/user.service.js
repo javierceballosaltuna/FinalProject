@@ -11,6 +11,7 @@ class UsersService {
 
     getAllUsers = () => this.app.get('/admin/users')
     getOneUser = () => this.app.get('/profile')
+    editProfile = (profileData) => this.app.put('/profile/edit', profileData)
     //habra que ver si tenemos que meterlo como param al final...
     
 

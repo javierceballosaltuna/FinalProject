@@ -19,15 +19,15 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
         <Switch>
 
             <Route exact path="/" render={props => <CredentialsCard loggedUser={loggedUser} {...props} storeUser={storeUser} history={props.history} handleAlert={handleAlert} />} />
-            <Route path="/complete-registration" render={props => <CompleteRegistration loggedUser={loggedUser} history={props.history} handleAlert={handleAlert} />} />
+            <Route path="/complete-registration" render={props => loggedUser ? <CompleteRegistration loggedUser={loggedUser} history={props.history} handleAlert={handleAlert} /> : <Redirect to="/" />} />
 
-            <Route path="/profile" render={(props) => <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser} storeUser={storeUser}{...props} />} />
+            <Route path="/profile" render={(props) => loggedUser ? <Profile history={props.history} handleAlert={handleAlert} loggedUser={loggedUser} storeUser={storeUser}{...props} /> : <Redirect to="/" />} />
 
-            <Route exact path="/events/:sessions" render={props => <EventsList {...props} loggedUser={loggedUser} />} />
-            <Route exact path="/events/group-events/create" render={props => <CreateEventForm {...props} history={props.history} />} />
+            <Route exact path="/events/:sessions" render={props => loggedUser ? <EventsList {...props} loggedUser={loggedUser} /> : <Redirect to="/" />} />
+            <Route exact path="/events/group-events/create" render={props => loggedUser ? <CreateEventForm {...props} history={props.history} /> : <Redirect to="/" />} />
             <Route path="/events/details/:event_id" render={props => loggedUser ? <EventDetails loggedUser={loggedUser} history={props.history} {...props} /> : <Redirect to="/" />} />
-
-            <Route path="/subjects" render={() => <SubjectsList loggedUser={loggedUser }/>}   />
+           
+            <Route path="/subjects" render={() => loggedUser.role === 'student' ? <SubjectsList loggedUser={loggedUser} /> : <Redirect to="/" />} />
             {/*
             
             <Route path="/profile/edit"   />
