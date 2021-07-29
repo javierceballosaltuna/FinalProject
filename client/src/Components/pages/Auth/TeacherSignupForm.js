@@ -105,7 +105,7 @@ class TeacherSignupForm extends Component {
                                         </Row>
 
                                         <Form.Group controlId="description">
-                                            <Form.Control placeholder="How would you describe yourself?" className="roundBox" type="text" value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
+                                            <Form.Control placeholder="How would you describe yourself?" className="roundBox" as="textarea" value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
                                         </Form.Group>
                                         <Form.Group controlId="avatar" className="mb-3 uploadFile">
                                             <Form.Label>Please, upload your avatar:</Form.Label>
@@ -132,7 +132,7 @@ class TeacherSignupForm extends Component {
                                     {this.state.loading && <Spinner />}
 
 
-                                    <Button className='roundBox mainButton' variant="dark" type="submit" disabled={this.state.loading}>
+                                    <Button style={{ width: '100%', marginTop: '20px', marginBottom: '30px' }} className='roundBox mainButton' variant="outline-dark" type="submit" disabled={this.state.loading}>
                                         {this.state.loading ? 'Uploading avatar...' : 'Complete your registration'}
                                     </Button>
 

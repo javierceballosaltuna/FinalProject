@@ -6,6 +6,11 @@
 .btn.mainButton {
   background-color:#fcf799;
 }
+
 .btn.mainButton:hover {
   background-color: black;
+}
+
+.capitalize {
+  text-transform: capitalize;
 }

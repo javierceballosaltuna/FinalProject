@@ -1,6 +1,6 @@
+import './TeacherProfile.css'
 import React, { Component } from 'react'
 import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal, Table, Image } from 'react-bootstrap'
-
 import RequestsService from '../../../services/request.service';
 import IndSessionForm from './IndSessionForm';
 
@@ -32,38 +32,31 @@ class TeacherProfile extends Component {
     render() {
         return (
 
-            <Container style={{
-                paddingTop: '40px',
-            }}>
+            <Container style={{ paddingTop: '40px' }}>
                 <Row>
                     <Col>
-                        <Card style={{
-                            width: '18rem',
-                            borderBottom: 'solid 3px blue',
-                            background: '#fcf799',
-                            color: 'grey',
-                            fontFamily: 'var(--bs-font-sans-serif)'
-                        }}>
+                        <Row>
+                            <Col md={4}>
 
+                                <Card.Body className="photoCard">
 
-                            <Image variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} roundedCircle />
+                                    <Image className="profilePhoto" variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} roundedCircle />
 
+                                    <Card.Title style={{marginTop: '20px'}}>Welcome to your profile, {this.props.user.teacherData.name}</Card.Title>
 
-                            <Card.Body>
+                                    <Card.Text>
+                                        <h4 style={{marginTop: '20px'}}> You have a <b className="capitalize">{this.props.user.role}</b> account.</h4>
+                                        
+                                        <h5 style={{marginTop: '20px'}}>About you:</h5>
+                                        
+                                        <p style={{marginTop: '20px'}}>{this.props.user.teacherData.description}</p>
+                                    </Card.Text>
 
-                                <Card.Title>{this.props.user.teacherData.name}{this.props.user.teacherData.lastName}'s Profile</Card.Title>
+                                </Card.Body>
+                            </Col>
+                        </Row>
 
-
-                                <Card.Text>
-                                    <h4>{this.props.user.role}</h4>
-                                    <p>{this.props.user.teacherData.description}</p>
-                                </Card.Text>
-
-                            </Card.Body>
-
-                        </Card>
                     </Col>
-
 
                     <Col>
                         <h3>Future sessions:</h3>
@@ -83,7 +76,7 @@ class TeacherProfile extends Component {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        
+
                                         <td>{elm.description}</td>
                                         <td>{elm.date}</td>
                                     </tr>
@@ -149,7 +142,7 @@ class TeacherProfile extends Component {
                                                 <Modal.Title>Make a request</Modal.Title>
                                             </Modal.Header>
                                             <Modal.Body>
-                                                <IndSessionForm props={this.props} updateProfile={ this.props.updateProfile}requestId={this.state.requestId} closeModal={() => this.setState({ modal: false })} />
+                                                <IndSessionForm props={this.props} updateProfile={this.props.updateProfile} requestId={this.state.requestId} closeModal={() => this.setState({ modal: false })} />
                                             </Modal.Body>
                                         </Modal>
                                     </>
