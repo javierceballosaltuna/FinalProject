@@ -1,78 +1,97 @@
-import React from 'react'
-import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem } from 'react-bootstrap'
+import React, { Component } from 'react'
+import { Row, Card, Button, Container, Col, Table, ListGroupItem } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 // import Spinner from '../../shared/Spinner'
 
-const StudentProfile = (props) => {
+
+class StudentProfile extends Component {
+
+    constructor({ props }) {
+
+        super(props)
+        this.state = {
+            modal: false,
+            requestId: undefined,
+        }
 
 
-    return (
-        <>
+    }
+
+
+    render() {
+        return (
 
             <Container>
                 <Row>
                     <Col>
-                        <Card style={{ width: '18rem' }} key={props.user._id}>
-                            <Card.Body>
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Body key={this.props.user._id}>
 
-                                <Card.Title>{props.user.studentData.name} {props.user.studentData.lastName}'s Profile</Card.Title>
-
-
+                                <Card.Title>{this.props.user.studentData.name}{this.props.user.studentData.lastName}'s Profile</Card.Title>
                                 <Card.Text>
-
-
-                                    <h4>{props.user.role}</h4>
-                                    <p>{props.user.studentData.description}</p>
+                                    <h4>{this.props.user.role}</h4>
+                                    <p>{this.props.user.studentData.description}</p>
                                 </Card.Text>
-                                <Button variant="primary"><Link to={`/beers/${props.user._id}`} style={{ color: 'white' }}>See more details</Link></Button>
+                                <Button variant="primary"><Link to={`/beers/${this.props._id}`} style={{ color: 'white' }}>See more details</Link></Button>
                             </Card.Body>
 
                         </Card>
                     </Col>
 
                     <Col>
+                        <h3>1 to 1 sessions:</h3>
+                        {this.props.user.studentData.individualEvent.map(elm =>
 
-                        {props.user.studentData.individualEvent.map(elm =>
-                            <>
-                                <h3>1 to 1 sessions</h3>
-                                <ListGroup variant="flush">
+                            <Table striped bordered hover size="sm">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>{elm.description}</td>
+                                        <td>{elm.date}</td>
+                                    </tr>
+                                </tbody>
+                            </Table>
 
-                                    <ListGroup.Item>{elm.studentData.individualEvent}</ListGroup.Item>
-
-                                </ListGroup>
-                                <h3>Group sessions</h3>
-                                <ListGroup variant="flush">
-
-                                    <ListGroup.Item>{elm.studentData.groupEvent}</ListGroup.Item>
-
-                                </ListGroup>
-                            </>
                         )}
 
                         <hr></hr>
+                        <h3>Group sessions:</h3>
+                        {this.props.user.studentData.groupEvent.map(elm =>
+                            <>
+                                <Table striped bordered hover size="sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{elm.description}</td>
+                                            <td>{elm.date}</td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
 
-                        {/* // user.map(elm => {
 
-                        //     <>
-                        //         <h3>Requests</h3>
-                        //         <ListGroup variant="flush">
 
-                        //             <ListGroup.Item>{elm.student}: "{elm.comment}"</ListGroup.Item>
+                            </>
+                        )}
 
-                        //         </ListGroup>
 
-                        //     </>
 
-                        
-                        
-                    }) */}
 
                     </Col>
                 </Row>
-            </Container>
-        </>
-    )
+            </Container >
+        )
+    }
 }
 
 export default StudentProfile

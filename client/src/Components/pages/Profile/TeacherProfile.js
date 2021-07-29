@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal, Table } from 'react-bootstrap'
+import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal, Table, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import IndSessionForm from './IndSessionForm'
 
@@ -23,13 +23,13 @@ class TeacherProfile extends Component {
     render() {
         return (
 
-            <Container>
+            <Container style={{paddingTop: '40px'}}>
                 <Row>
                     <Col>
                         <Card style={{ width: '18rem' }}>
-                            <h1>hola</h1>
+                           
 
-                            <Card.Img variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} />
+                            <Image variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} roundedCircle/>
 
 
                             <Card.Body>
@@ -43,7 +43,7 @@ class TeacherProfile extends Component {
                                     <h4>{this.props.user.role}</h4>
                                     <p>{this.props.user.teacherData.description}</p>
                                 </Card.Text>
-                                <Button variant="primary"><Link to={`/beers/${this.props._id}`} style={{ color: 'white' }}>See more details</Link></Button>
+                                {/* <Button variant="primary"><Link to={`/beers/${this.props._id}`} style={{ color: 'white' }}>See more details</Link></Button> */}
                             </Card.Body>
 
                         </Card>
@@ -109,9 +109,9 @@ class TeacherProfile extends Component {
                                         <ListGroup.Item ><strong>Requester:</strong> {elm.student.studentData.name}</ListGroup.Item>
                                         <ListGroup.Item ><strong>Message:</strong>  {elm.comment}</ListGroup.Item>
                                         <ListGroupItem>
-                                            <Button onClick={() => this.setState({ modal: true, requestId: elm._id })} variant="primary" style={{ marginBottom: '20px' }} requestId={elm._id}>Propose a session</Button>
+                                            <Button onClick={() => this.setState({ modal: true, requestId: elm._id })} variant="primary" style={{ margin: '20px' }} requestId={elm._id}>Propose a session</Button>
 
-                                            <button onClick={this.handleApprove}>Decline</button>
+                                            <Button onClick={this.handleApprove} variant="primary" style={{ margin: '20px' }}>Decline </Button>
                                         </ListGroupItem>
 
                                     </ListGroup>

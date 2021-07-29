@@ -68,14 +68,14 @@ class Profile extends Component {
             this.state.user ? (this.state.user.role === 'teacher'
                 ?
                 <>
-                    <h1>buenassss</h1>
+                    
                     <TeacherProfile handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
                     {/* <h1>{this.showProfileByRole}</h1> */}
 
                 </>
                 :
                 <>
-                    <h1>buenassss</h1>
+                   
                     <StudentProfile handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
                 </>)
                 : null
