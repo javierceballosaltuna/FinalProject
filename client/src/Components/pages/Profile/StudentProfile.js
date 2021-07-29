@@ -1,9 +1,7 @@
+import './StudentProfile.css'
 import React, { Component } from 'react'
-import { Row, Card, Button, Container, Col, Table, ListGroupItem, Modal } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Row, Card, Button, Container, Col, ListGroupItem, Modal } from 'react-bootstrap'
 import EditStudentProfile from './EditStudentProfile'
-
-// import Spinner from '../../shared/Spinner'
 
 
 class StudentProfile extends Component {
@@ -19,71 +17,62 @@ class StudentProfile extends Component {
     render() {
         return (
 
-            <Container style={{
-                paddingTop: '40px',
-            }}>
+            <Container style={{ paddingTop: '40px' }}>
                 <Row>
-                    <Col>
-                        <Card style={{ width: '18rem' }}>
+                    <Col md={4}>
+                        <Card style={{ width: '18rem' }} className="shadow-lg roundBox roundCard">
                             <Card.Body key={this.props.user._id}>
 
-                                <Card.Title>{this.props.user.studentData.name}{this.props.user.studentData.lastName}'s Profile</Card.Title>
+                                <Card.Title>{this.props.user.studentData.name} {this.props.user.studentData.lastName}'s Profile</Card.Title>
+
                                 <Card.Text>
-                                    <h4>{this.props.user.role}</h4>
-                                    <p>{this.props.user.studentData.description}</p>
+                                    <h4 style={{ marginTop: '20px' }}> You have a <b className="capitalize">{this.props.user.role}</b> account.</h4>
+
+                                    <h5 style={{ marginTop: '20px' }}>About you:</h5>
+
+                                    <p style={{ marginTop: '20px' }}>{this.props.user.studentData.description}</p>
                                 </Card.Text>
-                                <Button variant="primary"><Link to={`/beers/${this.props._id}`} style={{ color: 'white' }}>See more details</Link></Button>
                             </Card.Body>
 
                         </Card>
-                        <Button variant="outline-info" onClick={() => this.setState({ showModal: true })}>Edit Profile</Button>
+                    </Col>
+                    <Col md={8}>
+                    <Card.Body className="shadow-lg roundBox roundCard">
+                            <Card.Title>
+                                <h3 className='formTitle text-center capitalize'>Future sessions</h3>
+                            </Card.Title>
+                            {this.props.user.studentData.individualEvent.map(elm =>
+                                <>
+                                    <p><b>Description:</b> {elm.description}</p>
+                                    <p><b>When?</b> {elm.date}</p>
+                                    <hr />
+                                </>
+                            )}
+                        </Card.Body>
+                        <Card.Body className="shadow-lg roundBox roundCard">
+                        <Card.Title>
+                            <h3 className='formTitle text-center capitalize'>Group sessions</h3>
+                            </Card.Title>
+                            {this.props.user.studentData.groupEvent.map(elm =>
+                                <>
+                                    <p><b>Description:</b> {elm.description}</p>
+                                    <p><b>When?</b> {elm.date}</p>
+                                    <hr />
+                                </>
+                            )}
+                        </Card.Body>
+                        
+                    </Col>
+
+                    <Col md={4}>
+                        
+                        <Button variant="outline-dark" onClick={() => this.setState({ showModal: true })}>Edit Profile</Button>
                         <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
                             <EditStudentProfile handleAlert={this.props.handleAlert} profile={this.props.user} updateProfile={this.props.updateProfile} closeModal={() => this.setState({ showModal: false })} />
                         </Modal>
                     </Col>
-
-                    <Col>
-                        <h3>Future sessions:</h3>
-                        {this.props.user.studentData.individualEvent.map(elm =>
-
-                            <Table striped bordered hover size="sm">
-                                <thead>
-                                    <tr>
-                                        <th>Description</th>
-                                        <th>Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{elm.description}</td>
-                                        <td>{elm.date}</td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-
-                        )}
-
-                        <hr></hr>
-                        <h3>Group sessions:</h3>
-                        {this.props.user.studentData.groupEvent.map(elm =>
-                                <Table striped bordered hover size="sm">
-                                    <thead>
-                                        <tr>
-                                            <th>Description</th>
-                                            <th>Date</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>{elm.description}</td>
-                                            <td>{elm.date}</td>
-                                        </tr>
-                                    </tbody>
-                                </Table>
-                        )}
-                    </Col>
                 </Row>
-            </Container >
+            </Container>
         )
     }
 }

@@ -1,3 +1,4 @@
+import './EditEvent.css'
 import { Component } from 'react'
 import { Row, Modal, Col, Form, Button } from 'react-bootstrap'
 import EventsService from '../../../services/event.service'
@@ -65,47 +66,43 @@ class EditEvent extends Component {
         return (
 
             <>
-                <Modal.Header> <Modal.Title>Edit Your Event</Modal.Title> </Modal.Header>
+                <Modal.Header>
+                    <Modal.Title>Edit Your Event</Modal.Title>
+                </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={e => this.handleSubmit(e)}>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="date">
-                                <Form.Label>When will the event take place?</Form.Label>
-                                <Form.Control type="date" value={this.state.event.date} onChange={e => this.handleInputChange(e)} name="date" />
+                                <Form.Control placeholder="When will the event take place?" className="roundBox" type="date" value={this.state.event.date} onChange={e => this.handleInputChange(e)} name="date" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="description">
-                                <Form.Label>Please, enter a short description:</Form.Label>
-                                <Form.Control as="textarea" rows={2} value={this.state.event.description} onChange={e => this.handleInputChange(e)} name="description" />
+                                <Form.Control as="textarea" placeholder="Please, enter a short description..." className="roundBox" rows={4} value={this.state.event.description} onChange={e => this.handleInputChange(e)} name="description" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="street">
-                                <Form.Label>Street</Form.Label>
-                                <Form.Control type="text" value={this.state.event.location.address.street} onChange={e => this.handleAddressChange(e)} name="street" />
+                                <Form.Control placeholder="Street" className="roundBox" type="text" value={this.state.event.location.address.street} onChange={e => this.handleAddressChange(e)} name="street" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="zipCode">
-                                <Form.Label>Zip Code</Form.Label>
-                                <Form.Control type="text" value={this.state.event.location.address.zipCode} onChange={e => this.handleAddressChange(e)} name="zipCode" />
+                                <Form.Control placeholder="Zip Code" className="roundBox" type="text" value={this.state.event.location.address.zipCode} onChange={e => this.handleAddressChange(e)} name="zipCode" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="city">
-                                <Form.Label>City</Form.Label>
-                                <Form.Control type="text" value={this.state.event.location.address.city} onChange={e => this.handleAddressChange(e)} name="city" />
+                                <Form.Control placeholder="City" className="roundBox" type="text" value={this.state.event.location.address.city} onChange={e => this.handleAddressChange(e)} name="city" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="country">
-                                <Form.Label>Country</Form.Label>
-                                <Form.Control type="text" value={this.state.event.location.address.country} onChange={e => this.handleAddressChange(e)} name="country" />
+                                <Form.Control placeholder="Country" className="roundBox" type="text" value={this.state.event.location.address.country} onChange={e => this.handleAddressChange(e)} name="country" />
                             </Form.Group>
                         </Form.Row>
 
-                        <Button type="submit" variant="dark">Update event</Button>
+                        <Button type="submit" variant="outline-dark" className="mainButton roundBox" style={{ width: '100%', marginTop: '20px' }}>Update event</Button>
                     </Form>
                 </Modal.Body>
             </>

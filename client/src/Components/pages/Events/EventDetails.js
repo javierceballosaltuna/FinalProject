@@ -60,7 +60,7 @@ class EventDetails extends Component {
     leaveEvent = () => {
 
         const { event_id } = this.props.match.params
-        
+
         this.eventsService
             .leaveEvent(event_id)
             .then(response => {
@@ -79,7 +79,7 @@ class EventDetails extends Component {
             .cancelEvent(event_id)
             .then(response => {
                 this.getEventDetails()
-                this.setState({ canceledTitle: 'Canceled', classColor: 'btn-danger' })
+                this.setState({ canceledTitle: 'Canceled', classColor: 'mainButton roundBox' })
             })
             .catch(err => console.log(err))
 
@@ -98,38 +98,40 @@ class EventDetails extends Component {
                             :
                             <Row className="justify-content-around">
                                 <Col md={6}>
-                                    <h1>{this.state.event.eventType} Event that takes place on {this.state.event.location.address.city}</h1>
+                                    <h1><b className="capitalize">{this.state.event.eventType}</b> Event that takes place on {this.state.event.location.address.city}</h1>
 
-                                    <Button variant="outline-info" onClick={() => this.setState({ showModal: true })}>Edit Event</Button>
+                                    <Button variant="outline-dark" className="mainButton roundBox" onClick={() => this.setState({ showModal: true })}>Edit Event</Button>
                                     <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
                                         <EditEvent handleAlert={this.props.handleAlert} event={this.state.event} updateDetails={this.getEventDetails} closeModal={() => this.setState({ showModal: false })} />
                                     </Modal>
-                                    <hr/>
+                                    <hr />
                                     <p>What is the event about?</p>
                                     <p>{this.state.event.description}</p>
-                                    <hr/>
+                                    <hr />
                                     <p>Where?</p>
-                                    {/* <section style={{width: '250px', height: '250px'}}>
-                                        <MapContainer
-                                            address={this.state.event.location.address.address}
-                                            city={this.state.event.location.address.city}
-                                            country={this.state.event.location.address.country}
-                                            zipCode={this.state.event.location.address.city}
-                                        />
-                                    </section> */}
-
+                                    <p>
+                                        The event takes place at {this.state.event.location.address.street}, in {this.state.event.location.address.city}, {this.state.event.location.address.country}.
+                                    </p>
                                     <hr />
 
                                 </Col>
 
                                 <Col md={4}>
-                                    <p>Wanna join?</p>
-                                    <Button className={this.state.button.classColor} onClick={this.joinEvent} style={{ marginTop: '20px' }} variant="outline-dark" type="submit">{this.state.button.joinedTitle}</Button>
-                                    <Button className={this.state.button.classColor} onClick={this.leaveEvent} style={{ marginTop: '20px' }} variant="outline-dark" type="submit">{this.state.button.quittedTitle}</Button>
+                                    <Container>
+                                        <Row className='justify-content-center'>
+
+
+                                        </Row>
+                                    </Container>
+                                    <Col md={6}>
+                                        <p>Wanna join?</p>
+
+                                        <Button variant="outline-dark" className="mainButton roundBox" onClick={this.joinEvent} style={{ marginTop: '20px', width: '50%' }} type="submit">Join</Button>
+                                        <Button variant="outline-dark" className="mainButton roundBox" onClick={this.leaveEvent} style={{ marginTop: '20px', width: '50%' }} type="submit">Quit</Button>
+                                    </Col>
+                                    <Button variant="outline-dark" className="mainButton roundBox" onClick={this.cancelEvent} style={{ marginTop: '20px', width: '100%' }} type="submit">Cancel</Button>
                                 </Col>
-                                <Col md={6}>
-                                    <Button className={this.state.button.classColor} onClick={this.cancelEvent} style={{ marginTop: '20px' }} variant="outline-dark" type="submit">{this.state.button.canceledTitle}</Button>
-                                </Col>
+
                             </Row>
                     }
 

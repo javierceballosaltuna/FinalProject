@@ -3,7 +3,6 @@
     padding-bottom: 50px;
     width: 18rem;
     background: #fcf799;
-    color: grey;
     font-family: var(--bs-font-sans-serif);
 }
 
@@ -16,10 +15,15 @@
 
 .roundCard {
     border-radius: 70%;
+    margin-top: 25px;
+    padding-bottom: 50px;
+    background: #fcf799;
 }
 
 .formTitle {
 padding: 30px;
 }
+
+
 
 

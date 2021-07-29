@@ -85,7 +85,7 @@ class TeacherSignupForm extends Component {
                                     <Form onSubmit={e => this.handleSubmit(e)}>
                                         <Row className="justify-content-center">
 
-                                        <h2 className="text-center formTitle">Complete your Student Profile</h2>
+                                            <h2 className="text-center formTitle">Complete your Student Profile</h2>
 
                                             <Col md={4}>
                                                 <Form.Group controlId="name">
@@ -110,7 +110,7 @@ class TeacherSignupForm extends Component {
                                         <Form.Group controlId="avatar" className="mb-3 uploadFile">
                                             <Form.Label>Please, upload your avatar:</Form.Label>
                                             <Col>
-                                            <Form.Control type="file" onChange={this.handleFileUpload} />
+                                                <Form.Control type="file" onChange={this.handleFileUpload} />
                                             </Col>
                                         </Form.Group>
                                         <Form.Group controlId="subject">
@@ -129,19 +129,19 @@ class TeacherSignupForm extends Component {
                                             </Form.Control>
                                         </Form.Group>
 
-                                    {this.state.loading && <Spinner />}
+                                        {this.state.loading && <Spinner />}
 
 
-                                    <Button style={{ width: '100%', marginTop: '20px', marginBottom: '30px' }} className='roundBox mainButton' variant="outline-dark" type="submit" disabled={this.state.loading}>
-                                        {this.state.loading ? 'Uploading avatar...' : 'Complete your registration'}
-                                    </Button>
+                                        <Button style={{ width: '100%', marginTop: '20px', marginBottom: '30px' }} className='roundBox mainButton' variant="outline-dark" type="submit" disabled={this.state.loading}>
+                                            {this.state.loading ? 'Uploading avatar...' : 'Complete your registration'}
+                                        </Button>
 
                                     </Form>
                                 </Card.Text>
                             </Card.Body>
                         </Col>
                     </Row>
-            </Container>
+                </Container>
             </>
         )
     }
