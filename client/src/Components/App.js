@@ -48,7 +48,7 @@ class App extends Component {
 
           <main style={{ flex: '1' }}>
 
-            <Navigation style={{ marginTop: "10px" }} storeUser={this.storeUser} loggedUser={this.state.loggedUser} />
+            <Navigation style={{ marginTop: "10px" }} storeUser={this.storeUser} loggedUser={this.state.loggedUser} props={this.props}/>
 
             <Routes style={{ marginTop: "10px" }} storeUser={this.storeUser} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} />
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Row, Card, Button, Container, Col, Table, ListGroupItem } from 'react-bootstrap'
+import { Row, Card, Button, Container, Col, Table, ListGroupItem, Modal } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import EditStudentProfile from './EditStudentProfile'
 
 // import Spinner from '../../shared/Spinner'
 
@@ -35,6 +36,10 @@ class StudentProfile extends Component {
                             </Card.Body>
 
                         </Card>
+                        <Button variant="outline-info" onClick={() => this.setState({ showModal: true })}>Edit Profile</Button>
+                        <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
+                            <EditStudentProfile handleAlert={this.props.handleAlert} profile={this.props.user} updateProfile={this.props.updateProfile} closeModal={() => this.setState({ showModal: false })} />
+                        </Modal>
                     </Col>
 
                     <Col>

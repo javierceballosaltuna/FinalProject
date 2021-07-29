@@ -6,6 +6,7 @@ import Spinner from '../../shared/Spinner'
 import EditEvent from './EditEvent'
 import { isTeacher } from '../../../Utils'
 
+
 class EventDetails extends Component {
 
     constructor(props) {
@@ -103,12 +104,19 @@ class EventDetails extends Component {
                                     <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
                                         <EditEvent handleAlert={this.props.handleAlert} event={this.state.event} updateDetails={this.getEventDetails} closeModal={() => this.setState({ showModal: false })} />
                                     </Modal>
-                                    <hr />
+                                    <hr/>
                                     <p>What is the event about?</p>
                                     <p>{this.state.event.description}</p>
-                                    <hr />
+                                    <hr/>
                                     <p>Where?</p>
-                                    <p>Aquí va la API de Google Maps</p>
+                                    {/* <section style={{width: '250px', height: '250px'}}>
+                                        <MapContainer
+                                            address={this.state.event.location.address.address}
+                                            city={this.state.event.location.address.city}
+                                            country={this.state.event.location.address.country}
+                                            zipCode={this.state.event.location.address.city}
+                                        />
+                                    </section> */}
 
                                     <hr />
 

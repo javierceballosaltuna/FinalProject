@@ -2,6 +2,7 @@ import './TeacherProfile.css'
 import React, { Component } from 'react'
 import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal, Table, Image } from 'react-bootstrap'
 import RequestsService from '../../../services/request.service';
+import EditTeacherProfile from './EditTeacherProfile';
 import IndSessionForm from './IndSessionForm';
 
 
@@ -42,20 +43,25 @@ class TeacherProfile extends Component {
 
                                     <Image className="profilePhoto" variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} roundedCircle />
 
-                                    <Card.Title style={{marginTop: '20px'}}>Welcome to your profile, {this.props.user.teacherData.name}</Card.Title>
+                                    <Card.Title style={{ marginTop: '20px' }}>Welcome to your profile, {this.props.user.teacherData.name}</Card.Title>
 
                                     <Card.Text>
-                                        <h4 style={{marginTop: '20px'}}> You have a <b className="capitalize">{this.props.user.role}</b> account.</h4>
-                                        
-                                        <h5 style={{marginTop: '20px'}}>About you:</h5>
-                                        
-                                        <p style={{marginTop: '20px'}}>{this.props.user.teacherData.description}</p>
+                                        <h4 style={{ marginTop: '20px' }}> You have a <b className="capitalize">{this.props.user.role}</b> account.</h4>
+
+                                        <h5 style={{ marginTop: '20px' }}>About you:</h5>
+
+                                        <p style={{ marginTop: '20px' }}>{this.props.user.teacherData.description}</p>
                                     </Card.Text>
 
                                 </Card.Body>
                             </Col>
                         </Row>
 
+                        <hr></hr>
+                        <Button variant="outline-info" onClick={() => this.setState({ showModal: true })}>Edit Profile</Button>
+                        <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
+                            <EditTeacherProfile handleAlert={this.props.handleAlert} profile={this.props.user} updateProfile={this.props.updateProfile} closeModal={() => this.setState({ showModal: false })} />
+                        </Modal>
                     </Col>
 
                     <Col>
