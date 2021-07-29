@@ -28,7 +28,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route path="/events/details/:event_id" render={props => <EventDetails loggedUser={loggedUser} {...props} />} />
             <Route path="/events/edit/:event_id" render={props => <EditEvent {...props} />} />
 
-            <Route path="/subjects" render={() => <SubjectsList loggedUser={loggedUser }/>}   />
+            {/* <Route path="/subjects" render={() => <SubjectsList loggedUser={loggedUser }/>}   /> */}
             {/*
             
             <Route path="/profile/edit"   />
