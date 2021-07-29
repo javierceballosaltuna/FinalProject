@@ -14,7 +14,7 @@ class CompleteRegistration extends Component {
     render() {
 
         return (
-            this.state.user ? (
+            this.props.loggedUser ? (
                 this.props.loggedUser.role === 'teacher'
                     ?
                     <>

@@ -29,15 +29,18 @@ class CredentialsCard extends Component {
 
                         <hr />
 
-                        <LoginForm storeUser={this.props.storeUser} history={this.props.history} handleAlert={this.props.handleAlert} />
+                        {!this.props.loggedUser && <LoginForm storeUser={this.props.storeUser} history={this.props.history} handleAlert={this.props.handleAlert} />}
 
                         <hr />
 
-                        <Button onClick={() => this.setState({ modal: true })} style={{ marginTop: '10px', width: '100%', marginBottom: '30px' }} variant="outline-dark" type="submit">Sign-up</Button>
+                        {!this.props.loggedUser &&
 
-                        <Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
-                            <InitialSignInForm closeModal={() => this.setState({ modal: false })} storeUser={this.props.storeUser} history={this.props.history} handleAlert={this.props.handleAlert}/>
-                        </Modal>
+                            <><Button onClick={() => this.setState({ modal: true })} style={{ marginTop: '10px', width: '100%', marginBottom: '30px' }} variant="outline-dark" type="submit">Sign-up</Button>
+
+                                <Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
+                                    <InitialSignInForm closeModal={() => this.setState({ modal: false })} storeUser={this.props.storeUser} history={this.props.history} handleAlert={this.props.handleAlert} />
+                                </Modal>
+                            </>}
 
                     </Col>
 

@@ -7,17 +7,15 @@ const { checkMongooseError } = require('../utils')
 const { isLoggedIn, checkRoles } = require('../middleware/index')
 
 
-
 router.post('/group-sessions/create/', isLoggedIn, checkRoles('teacher'), (req, res) => {
 
-    const { date, description, lat, lgn } = req.body
+    const { date, description } = req.body
     const address = { street, zipCode, city, country } = req.body
     const { user_id } = req.session.currentUser
 
     Event
-        .create({ location: { coordinates: [lat, lgn], address }, description, eventType: 'group', date })
+        .create({ location: { address }, description, eventType: 'group', date })
         .then(event => User.findByIdAndUpdate(user_id, { $push: { 'teacherData.groupEvent': event._id } }, { new: true }))
-        .lean()
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 

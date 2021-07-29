@@ -31,12 +31,17 @@ class EventDetails extends Component {
 
         const { event_id } = this.props.match.params
 
-        this.eventsService
+        return this.eventsService
             .getEventDetails(event_id)
             .then(response => this.setState({ event: response.data }))
             .catch(err => console.log(err))
 
     }
+
+    componentDidMount = () => {
+        this.getEventDetails()
+    }
+
 
     joinEvent = () => {
         const student = this.props.loggedUser._id
@@ -73,10 +78,6 @@ class EventDetails extends Component {
 
     }
 
-    componentDidMount() {
-        this.getEventDetails()
-    }
-
     render() {
 
         return (
@@ -91,10 +92,10 @@ class EventDetails extends Component {
                             <Row className="justify-content-around">
                                 <Col md={6}>
                                     <h1>{this.state.event.eventType} Event that takes place on {this.state.event.location.address.city}</h1>
-                                    
+
                                     <Button variant="outline-info" onClick={() => this.setState({ showModal: true })}>Edit Event</Button>
                                     <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
-                                        <EditEvent handleAlert={this.props.handleAlert} event={this.state.event} closeModal={() => this.setState({ showModal: false })} />
+                                        <EditEvent handleAlert={this.props.handleAlert} event={this.state.event} updateDetails={this.getEventDetails} closeModal={() => this.setState({ showModal: false })} />
                                     </Modal>
                                     <hr />
                                     <p>What is the event about?</p>
