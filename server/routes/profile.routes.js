@@ -7,23 +7,28 @@ const cdnUpload = require('../config/fileUpload.config')
 
 router.get('/', (req, res) => {
 
-    const user_id = req.session.user._id
-
-    if (req.session.user.role === 'student') {
-
+    
+    
+    const user_id = req.session.currentUser._id
+    
+    if (req.session.currentUser.role === 'student') {
+        
         const getStudentDetails = User.findById(user_id).populate('studentData.teachers studentData.individualEvent studentData.groupEvent')
         const getRequestDetails = Request.find({ "student": `${user_id}` }).populate('student teacher')
-      
+        
+        console.log('ESTAMOS EN EL PERFIL----', req.session.currentUser.userName)
         Promise
             .all([getStudentDetails, getRequestDetails])
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err }))    
 
-    } else if (req.session.user.role === 'teacher'){
+    } else if (req.session.currentUser.role === 'teacher'){
 
         const getTeacherDetails = User.findById(user_id).populate('teacherData.individualEvent teacherData.teachingMaterials teacherData.groupEvent')
         const getRequestDetails = Request.find({ "teacher": `${user_id}` }).populate('student teacher')
-        console.log(getTeacherDetails, getRequestDetails)
+        
+        console.log('ESTAMOS EN EL PERFIL----', req.session.currentUser.userName)
+
         Promise
             .all([getTeacherDetails, getRequestDetails])
             .then(response => res.json(response))
@@ -35,9 +40,9 @@ router.get('/', (req, res) => {
 
 router.put('/edit', isLoggedIn, cdnUpload.single('avatar'),(req, res) => {
 
-    const { user_id } = req.session.user
+    const { user_id } = req.session.currentUser
 
-    if (req.session.user.role === 'student') {
+    if (req.session.currentUser.role === 'student') {
 
         const studentData = { name, lastName, age, description, course, interests, legalTutor } = req.body
 
@@ -52,7 +57,7 @@ router.put('/edit', isLoggedIn, cdnUpload.single('avatar'),(req, res) => {
         const teacherData = { name, lastName, age, description, avatar: req.file.path, subject } = req.body
 
         User
-            .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
+            .findByIdAndUpdate(req.session.currentUser._id, { teacherData }, { new: true })
             .lean()
             .then(response => res.json(response))
             .catch(err => res.status(500).json({ code: 500, message: 'Error trying to save changes (teacher)', err }))
@@ -62,7 +67,7 @@ router.put('/edit', isLoggedIn, cdnUpload.single('avatar'),(req, res) => {
 
 router.delete('/delete', isLoggedIn, (req, res) => {
 
-    const user_id = req.session.user._id
+    const user_id = req.session.currentUser._id
 
     User
         .findByIdAndRemove(user_id)

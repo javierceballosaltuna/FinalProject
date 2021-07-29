@@ -1,22 +1,24 @@
-// import React, { Component } from 'react'
-// import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal } from 'react-bootstrap'
-// import { Link } from 'react-router-dom'
-// import IndSessionForm from './IndSessionForm'
+import React, { Component } from 'react'
+import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal, Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import IndSessionForm from './IndSessionForm'
 
 
 
 
-// class TeacherProfile extends Component() {
+class TeacherProfile extends Component {
 
-//     constructor(props) {
+    constructor({ props }) {
 
-//         super(props)
-//         this.state = {
-//             modal: false
-//         }
-        
-//     }
-    
+        super(props)
+        this.state = {
+            modal: false,
+            requestId: undefined,
+        }
+
+
+    }
+
 
 //     render() {
 //         return (
@@ -27,102 +29,113 @@
 //                         <Card style={{ width: '18rem' }}>
 //                             <h1>hola</h1>
 
-//                             <Card.Img variant="top" src={this.user.teacherData.avatar} key={this.user._id} />
+                            <Card.Img variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} />
 
 
-//                             <Card.Body>
+    //                             <Card.Body>
 
-//                                 <Card.Title>{this.user.teacherData.name}{this.user.teacherData.lastName}'s Profile</Card.Title>
-
-
-//                                 <Card.Text>
+    <Card.Title>{this.props.user.teacherData.name}{this.props.user.teacherData.lastName}'s Profile</Card.Title>
 
 
-//                                     <h4>{this.user.role}</h4>
-//                                     <p>{this.user.teacherData.description}</p>
-//                                 </Card.Text>
-//                                 <Button variant="primary"><Link to={`/beers/${this._id}`} style={{ color: 'white' }}>See more details</Link></Button>
-//                             </Card.Body>
-
-//                         </Card>
-//                     </Col>
+    //                                 <Card.Text>
 
 
-//                     <Col>
-//                         <h3>1 to 1 sessions:</h3>
-//                         {this.user.teacherData.individualEvent.map(elm =>
-//                             <>
+    <h4>{this.props.user.role}</h4>
+    <p>{this.props.user.teacherData.description}</p>
+                                </Card.Text >
+    <Button variant="primary"><Link to={`/beers/${this.props._id}`} style={{ color: 'white' }}>See more details</Link></Button>
+                            </Card.Body >
+
+    //                         </Card>
+    //                     </Col>
 
 
-//                                 <ListGroup variant="flush" key={elm._id}>
+    <Col>
+        <h3>1 to 1 sessions:</h3>
+        {this.props.user.teacherData.individualEvent.map(elm =>
 
-//                                     <ListGroup.Item key={elm._id}>{elm.date}</ListGroup.Item>
-//                                     <ListGroup.Item >{elm.description}</ListGroup.Item>
+            <Table striped bordered hover size="sm">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{elm.description}</td>
+                        <td>{elm.date}</td>
+                    </tr>
+                </tbody>
+            </Table>
 
-//                                 </ListGroup>
+        )}
+
+        <hr></hr>
+        <h3>Group sessions:</h3>
+        {this.props.user.teacherData.groupEvent.map(elm =>
+                            <>
+                                <Table striped bordered hover size="sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{elm.description}</td>
+                                            <td>{elm.date}</td>
+                                        </tr>
+                                    </tbody>
+                                </Table>
+
 
 
 //                             </>
 //                         )}
 
-//                         <hr></hr>
-//                         <h3>Group sessions:</h3>
-//                         {this.user.teacherData.groupEvent.map(elm =>
-//                             <>
+                        <hr></hr>
+                        <h3>Pending Requests:</h3>
 
 
-//                                 <ListGroup variant="flush" key={elm._id}>
+                        {
+                this.props.request.map(elm =>
+                    // { console.log(elm.teacher.teacherData.name, elm.student.studentData.name) }
+                    // if ((elm.isAccepted = false) && (elm.isActive = true)) {
+                    <>
+                        <ListGroup variant="flush" key={elm._id}>
 
-//                                     <ListGroup.Item key={elm._id}>{elm.date}</ListGroup.Item>
-//                                     <ListGroup.Item >{elm.description}</ListGroup.Item>
+                            <ListGroup.Item ><strong>Requester:</strong> {elm.student.studentData.name}</ListGroup.Item>
+                            <ListGroup.Item ><strong>Message:</strong>  {elm.comment}</ListGroup.Item>
+                            <ListGroupItem>
+                                <Button onClick={() => this.setState({ modal: true, requestId: elm._id })} variant="primary" style={{ marginBottom: '20px' }} requestId={elm._id}>Propose a session</Button>
 
-//                                 </ListGroup>
+                                <button onClick={this.handleApprove}>Decline</button>
+                            </ListGroupItem>
 
+                        </ListGroup>
 
-//                             </>
-//                         )}
+                        <Modal Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
+                            <Modal.Header>
+                                <Modal.Title>Make a request</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <IndSessionForm props={this.props} requestId={this.state.requestId} closeModal={() => this.setState({ modal: false })} />
+                            </Modal.Body>
+                        </Modal>
+                    </>
+                    // }
+                )
 
-//                         <hr></hr>
-//                         <h3>Individual Session Requests:</h3>
-
-
-//                         {
-//                             this.request.map(elm =>
-//                                 // { console.log(elm.teacher.teacherData.name, elm.student.studentData.name) }
-//                                 // if ((elm.isAccepted = false) && (elm.isActive = true)) {
-//                                 <>
-//                                     <ListGroup variant="flush" key={elm._id}>
-
-//                                         <ListGroup.Item key={elm._id}>Requested by:{elm.student.studentData.name}</ListGroup.Item>
-//                                         <ListGroup.Item key={elm._id}> Comment:{elm.comment}</ListGroup.Item>
-//                                         <ListGroupItem>
-//                                             <Button onClick={() => this.handleApprove(elm._id), this.setState({ modal: true })} variant="primary" style={{ marginBottom: '20px' }}>Propose a session</Button>
-                                        
-//                                             <button onClick={this.handleApprove}>Decline</button>
-//                                         </ListGroupItem>
-
-//                                     </ListGroup>
-
-//                                     <Modal Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
-//                                         <Modal.Header>
-//                                             <Modal.Title>Make a request</Modal.Title>
-//                                         </Modal.Header>
-//                                         <Modal.Body>
-//                                             <IndSessionForm props={this.props.name} teacherId={this.props._id} student={this.props.student} refreshSubjects={this.getAllSubjects} closeModal={() => this.setState({ modal: false })} />
-//                                         </Modal.Body>
-//                                     </Modal>
-//                                 </>
-//                                 // }
-//                             )
-
-//                         }
+            }
 
 
-//                     </Col>
-//                 </Row>
-//             </Container >
-//         )
-//     }
-// }
+                    </Col>
+                </Row >
+            </Container >
+        )
+    }
+}
 
-// export default TeacherProfile
+export default TeacherProfile

@@ -14,7 +14,7 @@ router.post('/group-sessions/create/',
 
         const { date, description, lat, lgn } = req.body
         const address = { street, zipCode, city, country } = req.body
-        const { user_id } = req.session.user
+        const { user_id } = req.session.currentUser
 
         Event
             .create({ location: { coordinates: [lat, lgn], address }, description, eventType: 'group', date })
@@ -36,8 +36,9 @@ router.get('/individual-sessions',  (req, res) => {
 
 })
 
-router.get('/group-sessions', isLoggedIn, (req, res) => {
-    // 
+router.get('/group-sessions', (req, res) => {
+
+    console.log('ESTAMOS EN EL GROUP SESSIONS----', req.session.currentUser.userName)
 
     Event
         .find({ eventType: "group", isActive: "true" })
@@ -63,7 +64,7 @@ router.get('/details/:event_id', (req, res) => {
 router.put('/join/:event_id', isLoggedIn, checkRoles('student'), (req, res) => {
 
     const { event_id } = req.params
-    const { user_id } = req.session.user
+    const { user_id } = req.session.currentUser
 
     User
         .findByIdAndUpdate(user_id, { $push: { 'studentData.groupEvent': event_id } }, { new: true })
@@ -102,7 +103,7 @@ router.put('/edit/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, 
 router.put('/quit/:event_id', isLoggedIn, checkRoles('student'), (req, res) => {
 
     const { event_id } = req.params
-    const { user_id } = req.session.user
+    const { user_id } = req.session.currentUser
 
     User
         .findByIdAndUpdate(user_id, { $pull: { 'studentData.groupEvent': event_id } }, { new: true })

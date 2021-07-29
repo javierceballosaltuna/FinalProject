@@ -21,7 +21,7 @@ router.get('/', isLoggedIn, (req, res) => {
 router.post('/create', isLoggedIn, checkRoles('teacher'), cdnUpload.single('url'), (req, res) => {
 
     const { name, description, subject } = req.body
-    const { user_id } = req.session.user 
+    const { user_id } = req.session.currentUser 
 
     TeachingMaterial
         .create({ name, url: req.file.path, description, subject })

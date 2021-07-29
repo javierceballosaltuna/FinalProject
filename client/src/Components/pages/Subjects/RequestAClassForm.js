@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
 import RequestService from '../../../services/request.service'
-import SubjectCard from './SubjectCard'
+
 
 
 class RequestAClassForm extends Component {
@@ -49,7 +49,7 @@ class RequestAClassForm extends Component {
 
                     <Form.Group controlId="student">
                         <Form.Label>Student</Form.Label>
-                        <Form.Control type="text" value={this.props.student.studentData.name} onChange={this.handleInputChange} name="student" disabled />
+                        <Form.Control type="text" value={this.props.student.studentData.name}onChange={this.handleInputChange} name="student" disabled />
                     </Form.Group>
 
                     <Form.Group controlId="comment">
