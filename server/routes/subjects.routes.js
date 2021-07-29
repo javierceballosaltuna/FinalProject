@@ -21,7 +21,7 @@ router.post('/contact/:teacher_id/',  (req, res) => {
 // isLoggedIn, checkRoles('student'),
     const { teacher_id } = req.params
     const { comment } = req.body
-    const user_id = req.session.user._id
+    const user_id = req.session.currentUser._id
     console.log('hace la llamada')
     console.log(req.body)
     Request

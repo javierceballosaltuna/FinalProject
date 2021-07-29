@@ -42,8 +42,8 @@ router.post('/signup-student', (req, res) => {
             User
                 .create({ userName, password: hashPass, email, role })
                 .then(user => {
-                    req.session.user = user
-                    res.json(req.session.user)
+                    req.session.currentUser = user
+                    res.json(req.session.currentUser)
                 })
                 .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 
@@ -55,11 +55,11 @@ router.post('/signup-student', (req, res) => {
 router.post('/signup-teacher', (req, res) => {
 
     const { userName, password, email, role } = req.body
-  
+
     User
         .findOne({ userName })
         .then((user) => {
-            console.log(user)
+
             if (user) {
                 res.status(400).json({ code: 400, message: 'This username already exists. :(' })
                 return
@@ -86,8 +86,8 @@ router.post('/signup-teacher', (req, res) => {
             User
                 .create({ userName, password: hashPass, email, role })
                 .then(user => {
-                    req.session.user = user
-                    res.json(req.session.user)
+                    req.session.currentUser = user
+                    res.json(req.session.currentUser)
                 })
                 .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 
@@ -113,9 +113,10 @@ router.post('/', (req, res) => {
                 return
             }
 
-            req.session.user = user
-            res.json(req.session.user)
-            console.log('ha iniciado sesión')
+            req.session.currentUser = user
+            console.log('ESTAMOS EN EL LOGIN----', req.session.currentUser.userName)
+            res.json(req.session.currentUser)
+
         })
         .catch(err => res.status(500).json({ code: 500, message: 'DB error while fetching user', err }))
 
@@ -125,12 +126,12 @@ router.put("/complete-registration/",
     //isLoggedIn, checkRoles('teacher', 'student'), 
     cdnUpload.single('avatar'), (req, res) => {
 
-        if (req.session.user.role === 'teacher') {
+        if (req.session.currentUser.role === 'teacher') {
 
             const teacherData = { name, lastName, age, description, avatar, subject } = req.body
 
             User
-                .findByIdAndUpdate(req.session.user._id, { teacherData }, { new: true })
+                .findByIdAndUpdate(req.session.currentUser._id, { teacherData }, { new: true })
                 .then((user) => { res.json(user) })
                 .catch(err => res.status(500).json({ code: 500, message: 'Error completing teacher profile', err }))
 
@@ -141,7 +142,7 @@ router.put("/complete-registration/",
             const studentData = { name, lastName, age, description, course, legalTutor }
 
             User
-                .findByIdAndUpdate(req.session.user._id, { studentData }, { new: true })
+                .findByIdAndUpdate(req.session.currentUser._id, { studentData }, { new: true })
                 .lean()
                 .then((user) => { res.json(user) })
                 .catch(err => res.status(500).json({ code: 500, message: 'Error completing student profile', err }))
@@ -153,12 +154,17 @@ router.put("/complete-registration/",
 router.post('/isloggedin',
     //isLoggedIn, 
     (req, res) => {
-        req.session.user ? res.json(req.session.user) : res.status(401).json({ code: 401, message: 'Unauthorized' })
+        req.session.currentUser ? res.json(req.session.currentUser) : res.status(401).json({ code: 401, message: 'Unauthorized' })
     })
 
-router.get('/logout', 
-// isLoggedIn, 
-(req, res) => { req.session.destroy(() => res.json({ message: 'Logout successful' })) })
+router.get('/logout',
+    // isLoggedIn, 
+    (req, res) => {
+        req.session.destroy(() => {
+            console.log('estamos en el logout', req.session)
+            res.json({ message: 'Logout successful' })
+        })
+    })
 
 
 module.exports = router
