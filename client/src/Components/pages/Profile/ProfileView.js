@@ -33,13 +33,13 @@ class Profile extends Component {
     }
 
 
-    handleApprove = (request_id) => {
-        this.RequestsService
-            .approveRequest(request_id)
-            .then((response) => console.log(response.data))
-            // this.setState({ request: response.data }))
-            .catch(err => console.log(err))
-    }
+    // handleApprove = (request_id) => {
+    //     this.RequestsService
+    //         .approveRequest(request_id)
+    //         .then((response) => console.log(response.data))
+    //         // this.setState({ request: response.data }))
+    //         .catch(err => console.log(err))
+    // }
 
 
     componentDidMount() {
@@ -55,14 +55,14 @@ class Profile extends Component {
                 ?
                 <>
                     
-                    <TeacherProfile handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
+                    <TeacherProfile  user={this.state.user} request={this.state.request} />
                     {/* <h1>{this.showProfileByRole}</h1> */}
 
                 </>
                 :
                 <>
                    
-                    <StudentProfile handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
+                    <StudentProfile  user={this.state.user} request={this.state.request} />
                 </>)
                 : null
         )

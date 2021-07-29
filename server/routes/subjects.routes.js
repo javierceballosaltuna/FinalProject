@@ -69,7 +69,7 @@ router.put('/contact/:request_id/decline', isLoggedIn, checkRoles('teacher'), (r
     const { request_id } = req.params
 
     Request
-        .findByIdAndUpdate(request_id, { isActive: false }, { new: true })
+        .findByIdAndUpdate(request_id, { isActive: false, isAccepted: false }, { new: true })
         .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error trying to decline individual event request', err }))

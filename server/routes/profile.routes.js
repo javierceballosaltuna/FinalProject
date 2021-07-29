@@ -5,7 +5,7 @@ const Request = require('../models/Request.model')
 const { isLoggedIn } = require('../middleware')
 const cdnUpload = require('../config/fileUpload.config')
 
-router.get('/', (req, res) => {
+router.get('/', isLoggedIn, (req, res) => {
 
     
     

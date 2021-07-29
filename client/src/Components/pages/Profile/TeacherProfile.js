@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal, Table, Image } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+
+import RequestsService from '../../../services/request.service';
 import IndSessionForm from './IndSessionForm';
 
 
@@ -16,17 +17,33 @@ class TeacherProfile extends Component {
             requestId: undefined,
         }
 
+        this.RequestsService = new RequestsService()
+    }
 
+    rejectRequest = (request_id) => {
+
+        this.RequestsService
+            .rejectRequest(request_id)
+            .then(() => alert('request rejected'))
+            .catch(err => console.log(err))
     }
 
 
     render() {
         return (
 
-            <Container style={{ paddingTop: '40px' }}>
+            <Container style={{
+                paddingTop: '40px',
+            }}>
                 <Row>
                     <Col>
-                        <Card style={{ width: '18rem' }}>
+                        <Card style={{
+                            width: '18rem',
+                            borderBottom: 'solid 3px blue',
+                            background: '#fcf799',
+                            color: 'grey',
+                            fontFamily: 'var(--bs-font-sans-serif)'
+                        }}>
 
 
                             <Image variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} roundedCircle />
@@ -41,7 +58,7 @@ class TeacherProfile extends Component {
                                     <h4>{this.props.user.role}</h4>
                                     <p>{this.props.user.teacherData.description}</p>
                                 </Card.Text>
-                               
+
                             </Card.Body>
 
                         </Card>
@@ -52,7 +69,12 @@ class TeacherProfile extends Component {
                         <h3>1 to 1 sessions:</h3>
                         {this.props.user.teacherData.individualEvent.map(elm =>
 
-                            <Table striped bordered hover size="sm">
+                            <Table style={{
+                                borderBottom: 'solid 3px blue',
+                                background: '#fcf799',
+                                color: 'grey',
+                                fontFamily: 'var(--bs-font-sans-serif)'
+                            }}>
                                 <thead>
                                     <tr>
                                         <th>Description</th>
@@ -73,7 +95,12 @@ class TeacherProfile extends Component {
                         <h3>Group sessions:</h3>
                         {this.props.user.teacherData.groupEvent.map(elm =>
                             <>
-                                <Table striped bordered hover size="sm">
+                                <Table style={{
+                                    borderBottom: 'solid 3px blue',
+                                    background: '#fcf799',
+                                    color: 'grey',
+                                    fontFamily: 'var(--bs-font-sans-serif)'
+                                }}>
                                     <thead>
                                         <tr>
                                             <th>Description</th>
@@ -96,31 +123,36 @@ class TeacherProfile extends Component {
 
                         {
                             this.props.request.map(elm =>
-                                // { console.log(elm.teacher.teacherData.name, elm.student.studentData.name) }
-                                // if ((elm.isAccepted = false) && (elm.isActive = true)) {
-                                <>
-                                    <ListGroup variant="flush" key={elm._id}>
 
-                                        <ListGroup.Item ><strong>Requester:</strong> {elm.student.studentData.name}</ListGroup.Item>
-                                        <ListGroup.Item ><strong>Message:</strong>  {elm.comment}</ListGroup.Item>
-                                        <ListGroupItem>
-                                            <Button onClick={() => this.setState({ modal: true, requestId: elm._id })} variant="primary" style={{ margin: '20px' }} requestId={elm._id}>Propose a session</Button>
+                                elm.isAccepted === false && elm.isActive === true ?
+                                    <>
+                                        <ListGroup style={{
 
-                                            <Button onClick={this.handleApprove} variant="primary" style={{ margin: '20px' }}>Decline </Button>
-                                        </ListGroupItem>
+                                            background: '#fcf799',
+                                            color: 'grey',
+                                            fontFamily: 'var(--bs-font-sans-serif)'
+                                        }} variant="flush" key={elm._id}>
 
-                                    </ListGroup>
+                                            <ListGroup.Item ><strong>Requester:</strong> {elm.student.studentData.name}</ListGroup.Item>
+                                            <ListGroup.Item ><strong>Message:</strong>  {elm.comment}</ListGroup.Item>
+                                            <ListGroupItem>
+                                                <Button onClick={() => this.setState({ modal: true, requestId: elm._id })} variant="primary" style={{ margin: '20px' }} requestId={elm._id}>Propose a session</Button>
 
-                                    <Modal Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
-                                        <Modal.Header>
-                                            <Modal.Title>Make a request</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            <IndSessionForm props={this.props} requestId={this.state.requestId} closeModal={() => this.setState({ modal: false })} />
-                                        </Modal.Body>
-                                    </Modal>
-                                </>
+                                                <Button onClick={() => this.rejectRequest(elm._id)} variant="primary" style={{ margin: '20px' }}>Decline </Button>
+                                            </ListGroupItem>
 
+                                        </ListGroup>
+
+                                        <Modal Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
+                                            <Modal.Header>
+                                                <Modal.Title>Make a request</Modal.Title>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <IndSessionForm props={this.props} requestId={this.state.requestId} closeModal={() => this.setState({ modal: false })} />
+                                            </Modal.Body>
+                                        </Modal>
+                                    </>
+                                    : null
                             )
 
                         }

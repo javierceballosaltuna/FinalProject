@@ -75,22 +75,3 @@ class SubjectsList extends Component {
 }
 
 export default SubjectsList
-
-//MODAL 
-    // (<>
-    //     
-
-    //     <Row>
-    //         {this.state.coasters.map(elm => <CoasterCard {...elm} />)}
-    //     </Row>
-
-    //     <Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
-    //         <Modal.Header>
-    //             <Modal.Title>Nueva Montaña rusa</Modal.Title>
-    //         </Modal.Header>
-    //         <Modal.Body>
-    //             <CoasterForm refreshCoasters={this.loadCoasters} closeModal={() => this.setState({ modal: false })} />
-    //         </Modal.Body>
-    //     </Modal>
-    // </>
-    // )

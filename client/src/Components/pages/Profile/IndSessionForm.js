@@ -37,12 +37,14 @@ class IndSessionForm extends Component {
         this.RequestService
             
             .approveRequest(this.props.requestId, {formDetails: this.state})
-            .then(response => {
+            .then((response) => {
                 this.props.closeModal()
-                console.log(response)
-                // this.setState(response.data)
+                this.setState(response.data)
+               
+               
             })
-            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
+            .catch(err => console.log('no se ha hecho'))
+                // this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
 
     render() {
