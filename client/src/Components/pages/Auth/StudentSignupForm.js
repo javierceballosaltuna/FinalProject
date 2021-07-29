@@ -8,7 +8,6 @@ class StudentSignupForm extends Component {
         super()
         this.state =
         {
-
             name: '',
             lastName: '',
             age: '',
@@ -39,7 +38,16 @@ class StudentSignupForm extends Component {
             .completeRegistration(this.state)
             .then(response => {
                 this.props.history.push('/profile')
-                this.setState(response.data)
+                this.setState({
+                    name: '',
+                    lastName: '',
+                    age: '',
+                    description: '',
+                    course: '',
+                    tutorName: '',
+                    tutorLastName: '',
+                    personalId: ''
+                })
             })
             .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }

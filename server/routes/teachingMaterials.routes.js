@@ -4,7 +4,7 @@ const TeachingMaterial = require('../models/TeachingMaterial.model')
 
 const { checkMongooseError } = require('../utils')
 const { isLoggedIn, checkRoles } = require('../middleware/index')
-const cdnUpload = require('../config/fileUpload.config')
+const cloudinary = require('../config/cloudinary.config')
 
 
 router.get('/', isLoggedIn, (req, res) => {
@@ -18,7 +18,7 @@ router.get('/', isLoggedIn, (req, res) => {
 
 })
 
-router.post('/create', isLoggedIn, checkRoles('teacher'), cdnUpload.single('url'), (req, res) => {
+router.post('/create', isLoggedIn, checkRoles('teacher'), cloudinary.single('url'), (req, res) => {
 
     const { name, description, subject } = req.body
     const { user_id } = req.session.currentUser 
@@ -52,7 +52,7 @@ router.delete('/delete/:material_id', isLoggedIn, checkRoles('teacher', 'admin')
 
 })
 
-router.put('/edit/:material_id', isLoggedIn, checkRoles('teacher', 'admin'), cdnUpload.single('url'), (req, res) => {
+router.put('/edit/:material_id', isLoggedIn, checkRoles('teacher', 'admin'), cloudinary.single('url'), (req, res) => {
 
     const { material_id } = req.params
     const { name,  description, subject } = req.body

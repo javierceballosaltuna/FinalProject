@@ -6,7 +6,7 @@ const router = require("express").Router()
 const { checkMongooseError } = require('../utils')
 
 
-router.get('/subjects',  (req, res) => {
+router.get('/subjects', (req, res) => {
 
     User
         .find({ role: "teacher" })
@@ -17,31 +17,27 @@ router.get('/subjects',  (req, res) => {
 
 })
 
-router.post('/contact/:teacher_id/',  (req, res) => {
-// isLoggedIn, checkRoles('student'),
+router.post('/contact/:teacher_id/', isLoggedIn, checkRoles('student'), (req, res) => {
+
     const { teacher_id } = req.params
     const { comment } = req.body
     const user_id = req.session.currentUser._id
-    console.log('hace la llamada')
-    console.log(req.body)
-    Request
 
+    Request
         .create({ student: user_id, teacher: teacher_id, comment })
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 
 })
 
-router.put('/contact/:request_id/approve', (req, res) => {
-    //isLoggedIn, checkRoles('teacher'),
+router.put('/contact/:request_id/approve', isLoggedIn, checkRoles('teacher'), (req, res) => {
 
     const { request_id } = req.params
     const address = { street, zipCode, city, country } = req.body
     const { date, description } = req.body
-console.log('hace la llamada')
+
     Request
         .findByIdAndUpdate(request_id, { isAccepted: true, isActive: false }, { new: true })
-        
         .then((request) => {
             Event
                 .create({ date, description, eventType: 'individual', location: { address } }, console.log('crea el evento'))
@@ -52,12 +48,12 @@ console.log('hace la llamada')
                     console.log(request.student.userName)
                     return Promise
                         .all([StudentEventCreated, teacherEventCreated])
-                        // .then(response => res.json(response))
-                        // .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
+                    // .then(response => res.json(response))
+                    // .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
                 })
-                // .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
+            // .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
         })
-        
+
         .then(response => res.json(response))
         .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 

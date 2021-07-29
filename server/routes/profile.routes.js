@@ -2,43 +2,38 @@ const User = require('../models/User.model')
 const router = require("express").Router()
 const Request = require('../models/Request.model')
 
-const { isLoggedIn } = require('../middleware')
-const cdnUpload = require('../config/fileUpload.config')
+const { isLoggedIn } = require('../middleware/index')
+const uploader = require('../config/cloudinary.config')
 
 router.get('/', isLoggedIn, (req, res) => {
 
-    
-    
     const user_id = req.session.currentUser._id
-    
+
     if (req.session.currentUser.role === 'student') {
-        
+
         const getStudentDetails = User.findById(user_id).populate('studentData.teachers studentData.individualEvent studentData.groupEvent')
         const getRequestDetails = Request.find({ "student": `${user_id}` }).populate('student teacher')
-        
-        console.log('ESTAMOS EN EL PERFIL----', req.session.currentUser.userName)
+
         Promise
             .all([getStudentDetails, getRequestDetails])
             .then(response => res.json(response))
-            .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err }))    
+            .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err }))
 
-    } else if (req.session.currentUser.role === 'teacher'){
+    } else if (req.session.currentUser.role === 'teacher') {
 
         const getTeacherDetails = User.findById(user_id).populate('teacherData.individualEvent teacherData.teachingMaterials teacherData.groupEvent')
         const getRequestDetails = Request.find({ "teacher": `${user_id}` }).populate('student teacher')
-        
-        console.log('ESTAMOS EN EL PERFIL----', req.session.currentUser.userName)
 
         Promise
             .all([getTeacherDetails, getRequestDetails])
             .then(response => res.json(response))
-                
+
             .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err }))
-       
-    } 
+
+    }
 })
 
-router.put('/edit', isLoggedIn, cdnUpload.single('avatar'),(req, res) => {
+router.put('/edit', isLoggedIn, uploader.single('avatar'), (req, res) => {
 
     const { user_id } = req.session.currentUser
 

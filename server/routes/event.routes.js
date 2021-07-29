@@ -5,29 +5,25 @@ const Event = require('../models/Event.model')
 const { checkMongooseError } = require('../utils')
 
 const { isLoggedIn, checkRoles } = require('../middleware/index')
-const cdnUpload = require('../config/fileUpload.config')//HAY QUE VER EN EVENT CREATE SI METEMOS LOS TEACHING MATERIALS, HABRIA QUE POPULAR.
 
 
-router.post('/group-sessions/create/',
-    // isLoggedIn, checkRoles('teacher'),
-    (req, res) => { 
 
-        const { date, description, lat, lgn } = req.body
-        const address = { street, zipCode, city, country } = req.body
-        const { user_id } = req.session.currentUser
+router.post('/group-sessions/create/', isLoggedIn, checkRoles('teacher'), (req, res) => {
 
-        Event
-            .create({ location: { coordinates: [lat, lgn], address }, description, eventType: 'group', date })
-            .then(event => User.findByIdAndUpdate(user_id, { $push: { 'teacherData.groupEvent': event._id } }, { new: true }))
-            .lean()
-            .then(response => res.json(response))
-            .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
+    const { date, description, lat, lgn } = req.body
+    const address = { street, zipCode, city, country } = req.body
+    const { user_id } = req.session.currentUser
 
-    })
+    Event
+        .create({ location: { coordinates: [lat, lgn], address }, description, eventType: 'group', date })
+        .then(event => User.findByIdAndUpdate(user_id, { $push: { 'teacherData.groupEvent': event._id } }, { new: true }))
+        .lean()
+        .then(response => res.json(response))
+        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
 
-router.get('/individual-sessions',  (req, res) => {
-    // isLoggedIn,
+})
 
+router.get('/individual-sessions', isLoggedIn, (req, res) => {
 
     Event
         .find({ eventType: "individual", isActive: "true" })
@@ -36,9 +32,7 @@ router.get('/individual-sessions',  (req, res) => {
 
 })
 
-router.get('/group-sessions', (req, res) => {
-
-    console.log('ESTAMOS EN EL GROUP SESSIONS----', req.session.currentUser.userName)
+router.get('/group-sessions', isLoggedIn, (req, res) => {
 
     Event
         .find({ eventType: "group", isActive: "true" })
@@ -48,8 +42,7 @@ router.get('/group-sessions', (req, res) => {
 
 })
 
-router.get('/details/:event_id', (req, res) => {
-    // isLoggedIn,
+router.get('/details/:event_id', isLoggedIn, (req, res) => {
 
     const { event_id } = req.params
 

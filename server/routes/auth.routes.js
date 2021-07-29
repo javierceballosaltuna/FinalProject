@@ -5,8 +5,7 @@ const User = require('../models/User.model')
 const { checkMongooseError } = require('../utils')
 
 const { isLoggedIn, checkRoles } = require('../middleware/index')
-const cdnUpload = require('../config/fileUpload.config')
-
+const uploader = require('../config/cloudinary.config')
 
 router.post('/signup-student', (req, res) => {
 
@@ -122,49 +121,43 @@ router.post('/', (req, res) => {
 
 })
 
-router.put("/complete-registration/",
-    //isLoggedIn, checkRoles('teacher', 'student'), 
-    cdnUpload.single('avatar'), (req, res) => {
+router.put("/complete-registration/", isLoggedIn, checkRoles('teacher', 'student'), uploader.single('avatar'), (req, res) => {
 
-        if (req.session.currentUser.role === 'teacher') {
+    if (req.session.currentUser.role === 'teacher') {
 
-            const teacherData = { name, lastName, age, description, avatar, subject } = req.body
+        const teacherData = { name, lastName, age, description, avatar, subject } = req.body
 
-            User
-                .findByIdAndUpdate(req.session.currentUser._id, { teacherData }, { new: true })
-                .then((user) => { res.json(user) })
-                .catch(err => res.status(500).json({ code: 500, message: 'Error completing teacher profile', err }))
+        User
+            .findByIdAndUpdate(req.session.currentUser._id, { teacherData }, { new: true })
+            .then((user) => { res.json(user) })
+            .catch(err => res.status(500).json({ code: 500, message: 'Error completing teacher profile', err }))
 
-        } else {
+    } else {
 
-            const { name, lastName, age, description, course, interests } = req.body
-            const legalTutor = { tutorName, tutorLastName, personalId } = req.body
-            const studentData = { name, lastName, age, description, course, legalTutor }
+        const { name, lastName, age, description, course } = req.body
+        const legalTutor = { tutorName, tutorLastName, personalId } = req.body
+        const studentData = { name, lastName, age, description, course, legalTutor }
 
-            User
-                .findByIdAndUpdate(req.session.currentUser._id, { studentData }, { new: true })
-                .lean()
-                .then((user) => { res.json(user) })
-                .catch(err => res.status(500).json({ code: 500, message: 'Error completing student profile', err }))
+        User
+            .findByIdAndUpdate(req.session.currentUser._id, { studentData }, { new: true })
+            .lean()
+            .then((user) => { res.json(user) })
+            .catch(err => res.status(500).json({ code: 500, message: 'Error completing student profile', err }))
 
-        }
+    }
 
+})
+
+router.post('/isloggedin', isLoggedIn, (req, res) => {
+    req.session.currentUser ? res.json(req.session.currentUser) : res.status(401).json({ code: 401, message: 'Unauthorized' })
+})
+
+router.get('/logout', isLoggedIn, (req, res) => {
+    req.session.destroy(() => {
+        console.log('estamos en el logout', req.session)
+        res.json({ message: 'Logout successful' })
     })
-
-router.post('/isloggedin',
-    //isLoggedIn, 
-    (req, res) => {
-        req.session.currentUser ? res.json(req.session.currentUser) : res.status(401).json({ code: 401, message: 'Unauthorized' })
-    })
-
-router.get('/logout',
-    // isLoggedIn, 
-    (req, res) => {
-        req.session.destroy(() => {
-            console.log('estamos en el logout', req.session)
-            res.json({ message: 'Logout successful' })
-        })
-    })
+})
 
 
 module.exports = router

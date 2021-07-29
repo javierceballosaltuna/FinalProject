@@ -7,27 +7,26 @@ class CompleteRegistration extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: this.props.loggedUser
+            user: props.loggedUser
         }
     }
-
 
     render() {
 
         return (
-
-            this.state.user ? (this.state.user.role === 'teacher'
-                ?
-                <>
-                    <TeacherSignupForm handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
-
-                </>
-                :
-                <>
-                    <StudentSignupForm handleApprove={() => this.handleApprove()} user={this.state.user} request={this.state.request} />
-                </>)
+            this.state.user ? (
+                this.props.loggedUser.role === 'teacher'
+                    ?
+                    <>
+                        <TeacherSignupForm history={this.props.history} user={this.state.user} />
+                    </>
+                    :
+                    <>
+                        <StudentSignupForm history={this.props.history} user={this.state.user} />
+                    </>)
                 : null
         )
+
     }
 }
 

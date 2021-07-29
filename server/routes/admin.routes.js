@@ -2,7 +2,7 @@ const User = require("../models/User.model")
 const Request = require('../models/Request.model')
 const TeachingMaterial = require('../models/TeachingMaterial.model')
 const Event = require('../models/Event.model')
-const { checkRoles, isLoggedIn } = require("../middleware")
+const { checkRoles, isLoggedIn } = require("../middleware/index")
 const router = require("express").Router()
 
 
