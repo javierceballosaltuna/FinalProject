@@ -17,7 +17,10 @@ router.get('/', isLoggedIn, (req, res) => {
         Promise
             .all([getStudentDetails, getRequestDetails])
             .then(response => res.json(response))
-            .catch(err => res.status(500).json({ code: 500, message: 'Error loading your profile', err }))
+            .catch(err => {
+                console.log(err)
+                res.status(500).json({ code: 500, message: 'Error loading your profile', err })
+            })
 
     } else if (req.session.currentUser.role === 'teacher') {
 

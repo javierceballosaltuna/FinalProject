@@ -14,15 +14,13 @@ class StudentProfile extends Component {
             modal: false,
             requestId: undefined,
         }
-
-
     }
-
-
     render() {
         return (
 
-            <Container>
+            <Container style={{
+                paddingTop: '40px',
+            }}>
                 <Row>
                     <Col>
                         <Card style={{ width: '18rem' }}>
@@ -40,7 +38,7 @@ class StudentProfile extends Component {
                     </Col>
 
                     <Col>
-                        <h3>1 to 1 sessions:</h3>
+                        <h3>Future sessions:</h3>
                         {this.props.user.studentData.individualEvent.map(elm =>
 
                             <Table striped bordered hover size="sm">
@@ -63,7 +61,6 @@ class StudentProfile extends Component {
                         <hr></hr>
                         <h3>Group sessions:</h3>
                         {this.props.user.studentData.groupEvent.map(elm =>
-                            <>
                                 <Table striped bordered hover size="sm">
                                     <thead>
                                         <tr>
@@ -78,15 +75,7 @@ class StudentProfile extends Component {
                                         </tr>
                                     </tbody>
                                 </Table>
-
-
-
-                            </>
                         )}
-
-
-
-
                     </Col>
                 </Row>
             </Container >

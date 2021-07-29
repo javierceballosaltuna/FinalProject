@@ -50,22 +50,26 @@ class SubjectsList extends Component {
                 (<>
                     <Container>
                         <Row>
-                            {this.state.subjects.map((elm) =>
 
-                                <Col style={{objectFit: 'cover'}}>
-                                    <SubjectCard
+                            {this.state.subjects.map((elm) => {
 
-                                        key={elm._id}
-                                        name={elm.teacherData.name}
-                                        _id={elm._id} lastName={elm.teacherData.lastName}
-                                        subject={elm.teacherData.subject}
-                                        description={elm.teacherData.description}
-                                        avatar={elm.teacherData.avatar}
-                                        student={this.props.loggedUser} />
-                                </Col>
+                                return elm.teacherData ?
+                                    <Col md={4}>
 
+                                        <SubjectCard
 
+                                            key={elm._id}
+                                            name={elm.teacherData.name}
+                                            _id={elm._id} lastName={elm.teacherData.lastName}
+                                            subject={elm.teacherData.subject}
+                                            description={elm.teacherData.description}
+                                            avatar={elm.teacherData.avatar}
+                                            student={this.props.loggedUser}
+                                        /> </Col> : null
+
+                            }
                             )}
+
                         </Row>
                     </Container>
                 </>)

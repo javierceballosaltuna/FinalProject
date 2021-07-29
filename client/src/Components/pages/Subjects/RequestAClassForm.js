@@ -53,7 +53,7 @@ class RequestAClassForm extends Component {
                     </Form.Group>
 
                     <Form.Group controlId="comment">
-                        <Form.Label>Comment</Form.Label><br></br>
+                        <Form.Label>Message</Form.Label><br></br>
                         <textarea style={{ width: '100%' }} type="text" onChange={this.handleInputChange} name="comment" />
 
                     </Form.Group>

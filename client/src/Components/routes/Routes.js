@@ -27,7 +27,7 @@ const Routes = ({ storeUser, loggedUser, handleAlert }) => {
             <Route exact path="/events/group-events/create" render={props => <CreateEventForm {...props} history={props.history} />} />
             <Route path="/events/details/:event_id" render={props => loggedUser ? <EventDetails loggedUser={loggedUser} history={props.history} {...props} /> : <Redirect to="/" />} />
 
-            {/* <Route path="/subjects" render={() => <SubjectsList loggedUser={loggedUser }/>}   /> */}
+            <Route path="/subjects" render={() => <SubjectsList loggedUser={loggedUser }/>}   />
             {/*
             
             <Route path="/profile/edit"   />

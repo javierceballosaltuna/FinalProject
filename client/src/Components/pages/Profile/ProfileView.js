@@ -45,15 +45,15 @@ class Profile extends Component {
             this.state.user ? (this.state.user.role === 'teacher'
                 ?
                 <>
-                    
-                    <TeacherProfile updateProfile={this.getOneUser()} user={this.state.user} request={this.state.request} />
+
+                    <TeacherProfile updateProfile={this.getOneUser} user={this.state.user} request={this.state.request} />
                     {/* <h1>{this.showProfileByRole}</h1> */}
 
                 </>
                 :
                 <>
-                   
-                    <StudentProfile  user={this.state.user} request={this.state.request} />
+
+                    <StudentProfile updateprofile={this.getOneUser} user={this.state.user} request={this.state.request} />
                 </>)
                 : null
         )
