@@ -1,4 +1,8 @@
+.loginCard {
+      margin-top: 100px;
+  }
 
-.btn.selectedButton {
-    background-color:#fcf799;
-}
+.btn.roleButton {
+    background-color:#4b4b4b;
+    color: aliceblue;
+  }

@@ -1,5 +1,6 @@
+import "./LoginForm.css"
 import { Component } from 'react'
-import { Form, Button, Alert } from 'react-bootstrap'
+import { Form, Button, Alert, Card } from 'react-bootstrap'
 import AuthService from '../../../services/auth.service'
 
 
@@ -46,18 +47,17 @@ class LoginForm extends Component {
                 <Form onSubmit={this.handleSubmit}>
 
                     <Form.Group controlId="userName">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" value={this.state.userName} onChange={e => this.handleInputChange(e)} name="userName" />
+                        <Form.Control className="roundBox" type="text" placeholder="Username" value={this.state.userName} onChange={e => this.handleInputChange(e)} name="userName" />
                     </Form.Group>
 
                     <Form.Group controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" value={this.state.password} onChange={e => this.handleInputChange(e)} name="password" />
+                        <Form.Control className="roundBox" type="password" placeholder="Password" value={this.state.password} onChange={e => this.handleInputChange(e)} name="password" />
                     </Form.Group>
 
-                    <Button style={{ marginTop: '20px', width: '100%' }} variant="outline-dark" type="submit">Log-in</Button>
+                    <Button className="roundBox mainButton" style={{ width: '100%' }} variant="outline-dark" type="submit">Log-in</Button>
 
                 </Form>
+
             </>
         )
     }

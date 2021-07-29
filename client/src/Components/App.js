@@ -5,6 +5,7 @@ import AuthService from '../services/auth.service'
 import Routes from './routes/Routes'
 import Alert from './shared/Alert'
 import Navigation from './layout/Navigation'
+import './App.css'
 
 
 class App extends Component {
