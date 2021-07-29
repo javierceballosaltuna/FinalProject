@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Row, Container, Alert } from 'react-bootstrap'
+import { Row, Container, Alert, Button } from 'react-bootstrap'
 import EventsService from '../../../services/event.service'
+import { Link } from 'react-router-dom'
 import Spinner from '../../shared/Spinner'
 import EventCard from './EventCard'
 
@@ -56,10 +57,13 @@ class EventsList extends Component {
                 :
                 (
                     <>
-                    <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
+                        <Link to={'/events/group-events/create'} style={{ width: '100%' }}>
+                            <Button variant="dark" block >Create Event</Button>
+                        </Link>
+                        <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
                         <Container>
                             <Row>
-                                {this.state.events.map(elm => <EventCard key={elm._id} description={elm.description} _id={elm._id} date={elm.date} />)}
+                                {this.state.events.map(elm => <EventCard key={elm._id} description={elm.description} _id={elm._id} date={elm.date} city={elm.location.address.city} />)}
                             </Row>
                         </Container>
 

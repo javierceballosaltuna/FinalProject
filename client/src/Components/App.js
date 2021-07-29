@@ -16,9 +16,7 @@ class App extends Component {
       showAlert: false,
       alertText: ''
     }
-
     this.authService = new AuthService()
-
   }
 
 
@@ -26,32 +24,31 @@ class App extends Component {
     this.setState({ showAlert, alertText })
   }
 
-  //actualiza el user
-  
-  
-  //recupera el user del backend
+  storeUser = loggedUser => this.setState({ loggedUser })
+
   fetchUser = () => {
     this.authService
       .isLoggedIn()
-      .then(response => this.setState({ loggedUser: response.data }))
-      .catch(() => this.setState({ loggedUser: null }))
-    
+      .then(response => this.storeUser(response.data))
+      .catch(() => this.storeUser(null))
+
   }
 
-  componentDidMount = () => this.fetchUser()
+  componentDidMount = () => {
+    this.fetchUser()
+  }
 
-  storeUser = loggedUser => this.setState({ loggedUser })
 
   render() {
 
     return (
       (
         <>
-          {/* {this.state.loggedUser === undefined ? Spinner : App} */}
+
           <main style={{ flex: '1' }}>
 
             <Navigation style={{ marginTop: "10px" }} storeUser={this.storeUser} loggedUser={this.state.loggedUser} />
-            
+
             <Routes style={{ marginTop: "10px" }} storeUser={this.storeUser} loggedUser={this.state.loggedUser} handleAlert={alertText => this.handleAlert(alertText)} />
 
             <Alert handleAlert={(alertText, showAlert) => this.handleAlert(alertText, showAlert)} show={this.state.showAlert} text={this.state.alertText} />

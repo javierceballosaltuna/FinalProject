@@ -26,7 +26,10 @@ const Navigation = ({ loggedUser, storeUser }) => {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
-                        <Nav.Link as={Link} to="/events/group-sessions">Events</Nav.Link>
+                    <NavDropdown title="Events" id="basic-nav-dropdown">
+                    <NavDropdown.Item as={Link} to="/events/group-sessions">Group Events</NavDropdown.Item>
+                    <NavDropdown.Item as={Link} to="/events/individual-sessions">Individual Events</NavDropdown.Item>
+                    </NavDropdown>
                         <Nav.Link as={Link} to="/subjects">Subjects</Nav.Link>
                         <Nav.Link as={Link} to="/resources">Resources</Nav.Link>
                         <NavDropdown title="Profile" id="basic-nav-dropdown">

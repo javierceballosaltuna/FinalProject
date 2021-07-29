@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Row, Card, Button, Container, Col, ListGroup, ListGroupItem, Modal, Table, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import IndSessionForm from './IndSessionForm'
+import IndSessionForm from './IndSessionForm';
 
 
 
@@ -23,13 +23,13 @@ class TeacherProfile extends Component {
     render() {
         return (
 
-            <Container style={{paddingTop: '40px'}}>
+            <Container style={{ paddingTop: '40px' }}>
                 <Row>
                     <Col>
                         <Card style={{ width: '18rem' }}>
-                           
 
-                            <Image variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} roundedCircle/>
+
+                            <Image variant="top" src={this.props.user.teacherData.avatar} key={this.props.user._id} roundedCircle />
 
 
                             <Card.Body>
@@ -38,12 +38,10 @@ class TeacherProfile extends Component {
 
 
                                 <Card.Text>
-
-
                                     <h4>{this.props.user.role}</h4>
                                     <p>{this.props.user.teacherData.description}</p>
                                 </Card.Text>
-                                {/* <Button variant="primary"><Link to={`/beers/${this.props._id}`} style={{ color: 'white' }}>See more details</Link></Button> */}
+                               
                             </Card.Body>
 
                         </Card>
@@ -89,9 +87,6 @@ class TeacherProfile extends Component {
                                         </tr>
                                     </tbody>
                                 </Table>
-
-
-
                             </>
                         )}
 
@@ -125,14 +120,14 @@ class TeacherProfile extends Component {
                                         </Modal.Body>
                                     </Modal>
                                 </>
-                                // }
+
                             )
 
                         }
 
 
                     </Col>
-                </Row>
+                </Row >
             </Container >
         )
     }

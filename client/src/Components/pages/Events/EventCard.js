@@ -13,7 +13,7 @@ const EventCard = ({ description, _id, date, city }) => {
                 </Container>
                 <Container className="product-caption">
                     <Card.Body>
-                        <Card.Title style={{ fontSize: '1em' }}>Class on {date}. ({city}) |</Card.Title>
+                        <Card.Title style={{ fontSize: '1em' }}>Class on {date}. {city} |</Card.Title>
                         <Card.Text style={{ fontSize: '1em' }}>Short description: {description}</Card.Text>
                     </Card.Body>
                 </Container>

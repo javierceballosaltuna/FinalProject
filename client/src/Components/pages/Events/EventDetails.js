@@ -1,8 +1,9 @@
 import { Component } from 'react'
 import { Link } from 'react-router-dom'
 import EventsService from '../../../services/event.service'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
 import Spinner from '../../shared/Spinner'
+import EditEvent from './EditEvent'
 
 
 class EventDetails extends Component {
@@ -12,15 +13,15 @@ class EventDetails extends Component {
         this.state = {
             event: undefined,
             button: {
-                title: 'join',
-                classColor: 'btn-dark',
-                url: '/events/join/'
+                joinedTitle: 'Join',
+                quittedTitle: 'Quit',
+                canceledTitle: 'Cancel',
+                classColor: 'undefined'
             },
             alert: {
                 show: false,
                 text: ' '
             },
-            joinButton: undefined,
             showModal: false
         }
         this.eventsService = new EventsService()
@@ -37,43 +38,44 @@ class EventDetails extends Component {
 
     }
 
-    joinEvent = (e) => {
-        e.preventDefault()
+    joinEvent = () => {
         const student = this.props.loggedUser._id
         const { event_id } = this.props.match.params
 
         this.eventsService
             .joinEvent(event_id, student)
-            .then(response => this.setState({ event: response.data, button: { title: 'join', classColor: 'btn-dark', url: '/events/join/' } }))
+            .then(response => this.setState({ event: response.data, button: { joinedTitle: 'Joined', classColor: 'btn-success' } }))
             .catch(err => console.log(err))
 
     }
 
-    leaveEvent = (e) => {
-        e.preventDefault()
+    leaveEvent = () => {
+
         const student = this.props.loggedUser._id
         const { event_id } = this.props.match.params
 
         this.eventsService
             .leaveEvent(event_id, student)
-            .then(response => this.setState({ event: response.data, button: { title: 'quit', classColor: 'btn-danger', url: '/events/quit/' } }))
+            .then(response => this.setState({ event: response.data, button: { quittedTitle: 'Quitted', classColor: 'btn-danger' } }))
             .catch(err => console.log(err))
 
     }
 
+    cancelEvent = () => {
+
+        const student = this.props.loggedUser._id
+        const { event_id } = this.props.match.params
+
+        this.eventsService
+            .cancelEvent(event_id, student)
+            .then(response => this.setState({ event: response.data, button: { canceledTitle: 'Canceled', classColor: 'btn-danger' } }))
+            .catch(err => console.log(err))
+
+    }
 
     componentDidMount() {
         this.getEventDetails()
     }
-
-    // isInEvent() {
-    //     this.state.event
-    //     this.props.loggedUser
-    // }
-    
-//submit form
-//onchange si hay un input
-//componentDidMount si quieres pedir info al cargar la pagina
 
     render() {
 
@@ -88,7 +90,12 @@ class EventDetails extends Component {
                             :
                             <Row className="justify-content-around">
                                 <Col md={6}>
-                                    <h1>{this.state.event.eventType} Event that takes place on {this.state.event.location.city}</h1>
+                                    <h1>{this.state.event.eventType} Event that takes place on {this.state.event.location.address.city}</h1>
+                                    
+                                    <Button variant="outline-info" onClick={() => this.setState({ showModal: true })}>Edit Event</Button>
+                                    <Modal show={this.state.showModal} onHide={() => this.setState({ showModal: false })} >
+                                        <EditEvent handleAlert={this.props.handleAlert} event={this.state.event} closeModal={() => this.setState({ showModal: false })} />
+                                    </Modal>
                                     <hr />
                                     <p>What is the event about?</p>
                                     <p>{this.state.event.description}</p>
@@ -102,7 +109,11 @@ class EventDetails extends Component {
 
                                 <Col md={4}>
                                     <p>Wanna join?</p>
-                                    <Button onClick={this.joinEvent} style={{ marginTop: '20px', width: '100%' }} type="submit">{this.state.button.title}</Button>
+                                    <Button className={this.state.button.classColor} onClick={this.joinEvent} style={{ marginTop: '20px' }} variant="outline-dark" type="submit">{this.state.button.joinedTitle}</Button>
+                                    <Button className={this.state.button.classColor} onClick={this.leaveEvent} style={{ marginTop: '20px' }} variant="outline-dark" type="submit">{this.state.button.quittedTitle}</Button>
+                                </Col>
+                                <Col md={6}>
+                                    <Button className={this.state.button.classColor} onClick={this.joinEvent} style={{ marginTop: '20px' }} variant="outline-dark" type="submit">{this.state.button.canceledTitle}</Button>
                                 </Col>
                             </Row>
                     }

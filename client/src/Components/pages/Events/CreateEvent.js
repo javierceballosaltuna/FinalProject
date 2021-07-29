@@ -31,11 +31,9 @@ class CreateEventForm extends Component {
 
     handleSubmit(e) {
         e.preventDefault()
-        this.AuthService
+        this.eventsService
             .createGroupEvent(this.state)
-            .then(response => {
-                this.setState(response.data)
-            })
+            .then(response => this.setState(response.data))
             .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
 

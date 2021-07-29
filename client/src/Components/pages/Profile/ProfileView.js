@@ -33,20 +33,6 @@ class Profile extends Component {
     }
 
 
-
-    // showProfileByRole = () => {
-
-    //     console.log(this.state.user)
-
-    //     if (this.state.user.role === 'teacher') {
-    //         <TeacherProfile user={this.state.user} request={this.state.request} />
-    //     }
-    //     if (this.state.user.role === 'student') {
-    //         <StudentProfile user={this.state.user} request={this.state.request} />
-
-    //     }
-    // }
-
     handleApprove = (request_id) => {
         this.RequestsService
             .approveRequest(request_id)
