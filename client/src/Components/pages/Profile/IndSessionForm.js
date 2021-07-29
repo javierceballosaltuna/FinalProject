@@ -1,69 +1,102 @@
 
-import { Component } from 'react'
-import { Form, Button, Container } from 'react-bootstrap'
-import RequestService from '../../../services/request.service'
-import SubjectCard from './SubjectCard'
-
+import React, { Component } from 'react'
+import { Form, Button, Container, Row, Col, Link, Alert } from 'react-bootstrap';
+import RequestsService from '../../../services/request.service';
 
 class IndSessionForm extends Component {
 
     constructor(props) {
+
+
         super(props)
         this.state = {
-            student: '',
-            teacher: '',
-            comment: '',
 
+            date: '',
+            description: '',
+            street: '',
+            zipCode: '',
+            city: '',
+            country: '',
+            alert: {
+                show: false,
+                text: ' '
+            }
         }
-        console.log(this.props.teacherId)
-        this.RequestService = new RequestService()
+        console.log(props);
+        this.RequestService = new RequestsService()
     }
 
-    handleInputChange = e => {
+    handleInputChange(e) {
         const { name, value } = e.target
         this.setState({ [name]: value })
     }
 
-    handleFormSubmit = e => {
-        e.preventDefault()
 
+    handleSubmit(e) {
+        e.preventDefault()
         this.RequestService
-            .createRequest(this.props.teacherId, { comment: this.state.comment })
-            .then(() => {
+            
+            .approveRequest(this.props.requestId, {formDetails: this.state})
+            .then(response => {
                 this.props.closeModal()
-                this.props.refreshSubjects()
-                this.setState({ student: '', teacher: '', coment: '' })
+                console.log(response)
+                // this.setState(response.data)
             })
-            .catch((err) => console.log('no se ha creado la request'))
+            .catch(err => this.setState({ alert: { show: true, text: err.response.data.message } }))
     }
 
     render() {
         return (
-            <Container>
 
-                <Form onSubmit={this.handleFormSubmit}>
+            <>
+                <Container>
 
-                    <Form.Group controlId="teacher">
-                        <Form.Label>Teacher</Form.Label>
-                        <Form.Control type="text" value={this.props.teacher} onChange={this.handleInputChange} name="teacher" disabled />
-                    </Form.Group>
+                    <Row className="justify-content-center">
 
-                    <Form.Group controlId="student">
-                        <Form.Label>Student</Form.Label>
-                        <Form.Control type="text" value={this.props.student.studentData.name} onChange={this.handleInputChange} name="student" disabled />
-                    </Form.Group>
+                        <Col md={6}>
 
-                    <Form.Group controlId="comment">
-                        <Form.Label>Comment</Form.Label><br></br>
-                        <textarea style={{ width: '100%' }} type="text" onChange={this.handleInputChange} name="comment" />
+                            <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
 
-                    </Form.Group>
+                            <Form onSubmit={e => this.handleSubmit(e)}>
 
-                    <Button style={{ marginTop: '20px', width: '100%' }} variant="dark" type="submit">Send</Button>
+                                <Form.Group controlId="date">
+                                    <Form.Label>When will the event take place?</Form.Label>
+                                    <Form.Control type="date" value={this.state.date} onChange={e => this.handleInputChange(e)} name="date" />
+                                </Form.Group>
 
-                </Form>
+                                <Form.Group controlId="description">
+                                    <Form.Label>Please, enter a short description:</Form.Label>
+                                    <Form.Control as="textarea" rows={2} value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
+                                </Form.Group>
 
-            </Container>
+                                <Form.Group controlId="street">
+                                    <Form.Label>Street</Form.Label>
+                                    <Form.Control type="text" value={this.state.street} onChange={e => this.handleInputChange(e)} name="street" />
+                                </Form.Group>
+
+                                <Form.Group controlId="zipCode">
+                                    <Form.Label>Zip Code</Form.Label>
+                                    <Form.Control type="text" value={this.state.zipCode} onChange={e => this.handleInputChange(e)} name="zipCode" />
+                                </Form.Group>
+
+                                <Form.Group controlId="city">
+                                    <Form.Label>City</Form.Label>
+                                    <Form.Control type="text" value={this.state.city} onChange={e => this.handleInputChange(e)} name="city" />
+                                </Form.Group>
+
+                                <Form.Group controlId="country">
+                                    <Form.Label>Country</Form.Label>
+                                    <Form.Control type="text" value={this.state.country} onChange={e => this.handleInputChange(e)} name="country" />
+                                </Form.Group>
+
+                                <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Confirm session </Button>
+
+                            </Form>
+                        </Col>
+                    </Row>
+                </Container>
+
+            </>
         )
     }
 }

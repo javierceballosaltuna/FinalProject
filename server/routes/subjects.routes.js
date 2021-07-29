@@ -37,22 +37,25 @@ router.put('/contact/:request_id/approve', (req, res) => {
 
     const { request_id } = req.params
     const address = { street, zipCode, city, country } = req.body
-    const { date, avatar, description, eventType } = req.body
-
+    const { date, description } = req.body
+console.log('hace la llamada')
     Request
         .findByIdAndUpdate(request_id, { isAccepted: true, isActive: false }, { new: true })
-        .then(request => {
+        
+        .then((request) => {
             Event
-                .create({ date, avatar, description, eventType, location: { coordinates: [lat, lgn], address } })
+                .create({ date, description, eventType: 'individual', location: { address } }, console.log('crea el evento'))
                 .then(event => {
 
                     const StudentEventCreated = User.findByIdAndUpdate(request.student, { $push: { 'studentData.individualEvent': event._id } }, { new: true })
                     const teacherEventCreated = User.findByIdAndUpdate(request.teacher, { $push: { 'teacherData.individualEvent': event._id } }, { new: true })
-                    Promise
+                    console.log(request.student.userName)
+                    return Promise
                         .all([StudentEventCreated, teacherEventCreated])
-                        .then(response => res.json(response))
-                        .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
+                        // .then(response => res.json(response))
+                        // .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
                 })
+                // .catch(err => res.status(400).json({ code: 400, message: checkMongooseError(err) }))
         })
         
         .then(response => res.json(response))

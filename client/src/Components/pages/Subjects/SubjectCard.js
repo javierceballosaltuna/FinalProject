@@ -19,25 +19,27 @@ class SubjectCard extends Component {
 
         return (
             <>
-                <Col md={6}>
-                    <Card >
-                        <Container className="product-caption">
+                
+                    <Container className="product-caption" style={{textAlign: 'center', paddingTop: '50px'}}>
+                        <Card style={{width: '250px'}} >
+
                             <Card.Body>
-                                <Image src={this.props.avatar} rounded />
-                                <Card.Title style={{ fontSize: '1em' }}>Request a class with {this.props.name} {this.props.lastName} </Card.Title>
-                                <Card.Text style={{ fontSize: '1em' }}> Subject: <strong>[{this.props.subject}]</strong>
+                                <Image src={this.props.avatar} className={'img-circle'} style={{ width: ' 150px' }} />
+                                <Card.Title style={{ fontSize: '1em' }}><strong>{this.props.name} {this.props.lastName} </strong></Card.Title>
+                                <Card.Text style={{ fontSize: '1em' }}>  <strong>[{this.props.subject}]</strong>
                                     <hr></hr>    {this.props.description}</Card.Text>
                                 <hr></hr>
                                 <Button onClick={() => this.setState({ modal: true })} variant="primary" style={{ marginBottom: '20px' }}>Request</Button>
 
                             </Card.Body>
-                        </Container>
-                    </Card>
-                </Col>
+
+                        </Card>
+                    </Container>
+               
 
                 <Modal Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
-                    <Modal.Header>
-                        <Modal.Title>Make a request</Modal.Title>
+                    <Modal.Header style={{ alignSelf: 'center'}}>
+                        <Modal.Title >Contact Form</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <RequestAClassForm teacher={this.props.name} teacherId={this.props._id} student={this.props.student} refreshSubjects={this.getAllSubjects} closeModal={() => this.setState({ modal: false })} />

@@ -27,7 +27,7 @@ class Profile extends Component {
 
         this.UsersService
             .getOneUser()
-            .then(response => this.setState({ user: response.data[0], request: response.data[1] }, console.log(response.data)))
+            .then(response => this.setState({ user: response.data[0], request: response.data[1] }))
             .catch(err => console.log(err))
 
     }
