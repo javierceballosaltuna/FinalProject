@@ -1,7 +1,7 @@
 import './Navigation.css'
 import AuthService from '../../services/auth.service'
 import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import logo from '../../assets/Images/logo.png'
 
 const Navigation = ({ loggedUser, storeUser }) => {

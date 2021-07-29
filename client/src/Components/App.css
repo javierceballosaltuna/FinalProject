@@ -14,3 +14,7 @@
 .capitalize {
   text-transform: capitalize;
 }
+
+.btn.subjectButton:hover {
+  background-color: black;
+}

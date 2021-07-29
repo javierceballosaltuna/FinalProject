@@ -12,7 +12,7 @@ class SubjectCard extends Component {
         this.state = {
             modal: false,
         }
-        console.log(this.props)
+        
     }
 
     render() {
@@ -21,7 +21,7 @@ class SubjectCard extends Component {
             <>
                 
                     <Container className="product-caption" style={{textAlign: 'center', paddingTop: '50px'}}>
-                        <Card style={{width: '250px'}} >
+                        <Card className='roundBox shadow-lg'style={{width: '250px', backgroundColor:'#fcf799'}} >
 
                             <Card.Body>
                                 <Image src={this.props.avatar} className={'img-circle'} style={{ width: ' 150px' }} />
@@ -29,7 +29,7 @@ class SubjectCard extends Component {
                                 <Card.Text style={{ fontSize: '1em' }}>  <strong>[{this.props.subject}]</strong>
                                     <hr></hr>    {this.props.description}</Card.Text>
                                 <hr></hr>
-                                <Button onClick={() => this.setState({ modal: true })} variant="primary" style={{ marginBottom: '20px' }}>Request</Button>
+                            <Button className="roundBox subjectButton" Click={() => this.setState({ modal: true })} style={{ marginBottom: '20px'}}>Request</Button>
 
                             </Card.Body>
 
@@ -37,7 +37,7 @@ class SubjectCard extends Component {
                     </Container>
                
 
-                <Modal Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
+                <Modal show={this.state.modal} onHide={() => this.setState({ modal: false })}>
                     <Modal.Header style={{ alignSelf: 'center'}}>
                         <Modal.Title >Contact Form</Modal.Title>
                     </Modal.Header>

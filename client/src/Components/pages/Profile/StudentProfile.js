@@ -1,6 +1,6 @@
 import './StudentProfile.css'
 import React, { Component } from 'react'
-import { Row, Card, Button, Container, Col, ListGroupItem, Modal } from 'react-bootstrap'
+import { Row, Card, Button, Container, Col, Modal } from 'react-bootstrap'
 import EditStudentProfile from './EditStudentProfile'
 
 
@@ -43,7 +43,7 @@ class StudentProfile extends Component {
                             </Card.Title>
                             {this.props.user.studentData.individualEvent.map(elm =>
                                 <>
-                                    <p><b>Description:</b> {elm.description}</p>
+                                    <p key={elm._id}><b>Description:</b> {elm.description}</p>
                                     <p><b>When?</b> {elm.date}</p>
                                     <hr />
                                 </>
