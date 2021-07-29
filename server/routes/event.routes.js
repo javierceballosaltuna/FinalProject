@@ -55,11 +55,10 @@ router.get('/details/:event_id', isLoggedIn, (req, res) => {
 router.put('/join/:event_id', isLoggedIn, checkRoles('student'), (req, res) => {
 
     const { event_id } = req.params
-    const { user_id } = req.session.currentUser
+    const { _id } = req.session.currentUser
 
     User
-        .findByIdAndUpdate(user_id, { $push: { 'studentData.groupEvent': event_id } }, { new: true })
-        .lean()
+        .findByIdAndUpdate(_id, { $push: { 'studentData.groupEvent': event_id } }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 
@@ -71,7 +70,6 @@ router.put('/cancel/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req
 
     Event
         .findByIdAndUpdate(event_id, { isActive: false }, { new: true })
-        .lean()
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error deleting an event', err }))
 
@@ -94,11 +92,10 @@ router.put('/edit/:event_id', isLoggedIn, checkRoles('teacher', 'admin'), (req, 
 router.put('/quit/:event_id', isLoggedIn, checkRoles('student'), (req, res) => {
 
     const { event_id } = req.params
-    const { user_id } = req.session.currentUser
+    const { _id } = req.session.currentUser
 
     User
-        .findByIdAndUpdate(user_id, { $pull: { 'studentData.groupEvent': event_id } }, { new: true })
-        .lean()
+        .findByIdAndUpdate(_id, { $pull: { 'studentData.groupEvent': event_id } }, { new: true })
         .then(response => res.json(response))
         .catch(err => res.status(500).json({ code: 500, message: 'Error creating group-session', err }))
 

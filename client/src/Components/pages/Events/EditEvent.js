@@ -33,18 +33,19 @@ class EditEvent extends Component {
 
     handleAddressChange(e) {
         const { name, value } = e.target
-        this.setState({ event: { 
-            ...this.state.event, 
-            location: {
-                address: {
-                    ...this.state.event.location.address,
-                    [name]: value 
+        this.setState({
+            event: {
+                ...this.state.event,
+                location: {
+                    address: {
+                        ...this.state.event.location.address,
+                        [name]: value
+                    }
                 }
             }
-            }
         }
-            )
-        
+        )
+
     }
 
     handleSubmit(e) {
@@ -52,8 +53,7 @@ class EditEvent extends Component {
         this.eventsService
             .editEvent(this.props.event._id, this.state.event)
             .then(() => {
-                //this.props.handleAlert(`Event with id:${this.state.event._id} has been updated`)
-                this.props.updateDetails().then( x => {
+                this.props.updateDetails().then(x => {
                     this.props.closeModal()
                 })
             })
@@ -83,7 +83,7 @@ class EditEvent extends Component {
                         <Form.Row as={Row}>
                             <Form.Group as={Col} controlId="street">
                                 <Form.Label>Street</Form.Label>
-                                <Form.Control type="text" value={this.state.event.location.address.street} onChange={e => this.handleAddressChange(e)}  name="street" />
+                                <Form.Control type="text" value={this.state.event.location.address.street} onChange={e => this.handleAddressChange(e)} name="street" />
                             </Form.Group>
                         </Form.Row>
                         <Form.Row as={Row}>
