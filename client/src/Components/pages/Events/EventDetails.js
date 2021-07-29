@@ -5,8 +5,7 @@ import { Container, Row, Col, Button, Modal } from 'react-bootstrap'
 import Spinner from '../../shared/Spinner'
 import EditEvent from './EditEvent'
 import { isTeacher } from '../../../Utils'
-import { GoogleApiWrapper } from 'google-maps-react'
-import MapContainer from './EventsMap'
+
 
 class EventDetails extends Component {
 

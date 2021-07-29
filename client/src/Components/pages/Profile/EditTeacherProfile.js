@@ -121,7 +121,7 @@ class EditTeacherProfile extends Component {
                     {this.state.loading && <Spinner />}
 
                     <Button variant="dark" type="submit" disabled={this.state.loading}>
-                        {this.state.loading ? 'Uploading avatar...' : 'Complete your registration'}
+                        {this.state.loading ? 'Uploading avatar...' : 'Update Profile'}
                     </Button>
 
                 </Form>
