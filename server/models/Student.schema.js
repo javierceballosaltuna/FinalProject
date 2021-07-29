@@ -3,13 +3,13 @@ const { Schema } = require("mongoose")
 const studentSchema = new Schema({
 
   name: { type: String, required: [true, 'Name required'] },
-  
+
   lastName: { type: String, required: [true, 'lastName required'] },
-  
+
   age: { type: Number, required: [true, 'Age required'] },
-  
+
   description: { type: String, required: [true, 'Description required'] },
-  
+
   course: { type: String, required: [true, 'Course required'] },
 
   legalTutor: {
@@ -18,7 +18,7 @@ const studentSchema = new Schema({
     personalId: { type: String, required: [true, 'Tutor Personal ID required'] }
   },
 
-  teachers: [{ type: Schema.Types.ObjectId, ref: 'Teacher' }],
+  teachers: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 
   individualEvent: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
 

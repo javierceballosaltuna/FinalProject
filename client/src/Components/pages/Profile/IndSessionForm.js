@@ -36,16 +36,16 @@ class IndSessionForm extends Component {
         e.preventDefault()
         this.RequestService
             
-            .approveRequest(this.props.requestId, {formDetails: this.state})
-            .then((response) => {
+            .approveRequest(this.props.requestId,this.state)
+            .then(() => {
+                //this.props.handleAlert(`Event with id:${this.state.event._id} has been updated`)
+                this.props.updateProfile().then(() => {
                 this.props.closeModal()
-                this.setState(response.data)
-               
-               
+                })
             })
-            .catch(err => console.log('no se ha hecho'))
-                // this.setState({ alert: { show: true, text: err.response.data.message } }))
-    }
+            .catch(err => console.log(err))
+    }  // this.setState({ alert: { show: true, text: err.response.data.message } }))
+    
 
     render() {
         return (

@@ -33,15 +33,6 @@ class Profile extends Component {
     }
 
 
-    // handleApprove = (request_id) => {
-    //     this.RequestsService
-    //         .approveRequest(request_id)
-    //         .then((response) => console.log(response.data))
-    //         // this.setState({ request: response.data }))
-    //         .catch(err => console.log(err))
-    // }
-
-
     componentDidMount() {
         this.getOneUser()
     }
@@ -54,15 +45,15 @@ class Profile extends Component {
             this.state.user ? (this.state.user.role === 'teacher'
                 ?
                 <>
-                    
-                    <TeacherProfile  user={this.state.user} request={this.state.request} />
+
+                    <TeacherProfile updateProfile={this.getOneUser} user={this.state.user} request={this.state.request} />
                     {/* <h1>{this.showProfileByRole}</h1> */}
 
                 </>
                 :
                 <>
-                   
-                    <StudentProfile  user={this.state.user} request={this.state.request} />
+
+                    <StudentProfile updateprofile={this.getOneUser} user={this.state.user} request={this.state.request} />
                 </>)
                 : null
         )
