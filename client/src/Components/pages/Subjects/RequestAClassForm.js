@@ -29,9 +29,9 @@ class RequestAClassForm extends Component {
         this.RequestService
             .createRequest(this.props.teacherId, { comment: this.state.comment })
             .then(() => {
-                this.props.closeModal()
                 this.props.refreshSubjects()
                 this.setState({ student: '', teacher: '', coment: '' })
+                this.props.closeModal()
             })
             .catch((err) => console.log('no se ha creado la request'))
     }
@@ -44,21 +44,20 @@ class RequestAClassForm extends Component {
 
                     <Form.Group controlId="teacher">
                         <Form.Label>Teacher</Form.Label>
-                        <Form.Control type="text" value={this.props.teacher} onChange={this.handleInputChange} name="teacher" disabled />
+                        <Form.Control placeholder="When will the event take place?" className="roundBox" type="text" value={this.props.teacher} onChange={this.handleInputChange} name="teacher" disabled />
                     </Form.Group>
 
                     <Form.Group controlId="student">
                         <Form.Label>Student</Form.Label>
-                        <Form.Control type="text" value={this.props.student.studentData.name}onChange={this.handleInputChange} name="student" disabled />
+                        <Form.Control placeholder="When will the event take place?" className="roundBox" type="text" value={this.props.student.studentData.name}onChange={this.handleInputChange} name="student" disabled />
                     </Form.Group>
 
                     <Form.Group controlId="comment">
-                        <Form.Label>Message</Form.Label><br></br>
-                        <textarea style={{ width: '100%' }} type="text" onChange={this.handleInputChange} name="comment" />
+                        <textarea placeholder="  Enter a short message..." className="roundBox" style={{ width: '100%' }} type="text" onChange={this.handleInputChange} name="comment" />
 
                     </Form.Group>
 
-                    <Button style={{ marginTop: '20px', width: '100%' }} variant="dark" type="submit">Send</Button>
+                    <Button variant="outline-dark" className="mainButton roundBox" style={{ marginTop: '20px', width: '100%' }} type="submit">Send</Button>
 
                 </Form>
 

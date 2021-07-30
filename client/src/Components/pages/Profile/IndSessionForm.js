@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Form, Button, Container, Row, Col, Link, Alert } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Card, Alert } from 'react-bootstrap';
 import RequestsService from '../../../services/request.service';
 
 class IndSessionForm extends Component {
@@ -34,17 +34,17 @@ class IndSessionForm extends Component {
     handleSubmit(e) {
         e.preventDefault()
         this.RequestService
-            
-            .approveRequest(this.props.requestId,this.state)
+
+            .approveRequest(this.props.requestId, this.state)
             .then(() => {
                 //this.props.handleAlert(`Event with id:${this.state.event._id} has been updated`)
                 this.props.updateProfile().then(() => {
-                this.props.closeModal()
+                    this.props.closeModal()
                 })
             })
             .catch(err => console.log(err))
     }  // this.setState({ alert: { show: true, text: err.response.data.message } }))
-    
+
 
     render() {
         return (
@@ -55,44 +55,50 @@ class IndSessionForm extends Component {
                     <Row className="justify-content-center">
 
                         <Col md={6}>
+                            <Card.Body className="singupCard shadow-lg roundBox">
+                                <Card.Text>
 
-                            <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
+                                    <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
 
-                            <Form onSubmit={e => this.handleSubmit(e)}>
+                                    <Form onSubmit={e => this.handleSubmit(e)}>
 
-                                <Form.Group controlId="date">
-                                    <Form.Label>When will the event take place?</Form.Label>
-                                    <Form.Control type="date" value={this.state.date} onChange={e => this.handleInputChange(e)} name="date" />
-                                </Form.Group>
+                                        <h2 className="text-center formTitle">Request form</h2>
 
-                                <Form.Group controlId="description">
-                                    <Form.Label>Please, enter a short description:</Form.Label>
-                                    <Form.Control as="textarea" rows={2} value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
-                                </Form.Group>
+                                        <Form.Group controlId="date">
+                                            <Form.Label>When will the event take place?</Form.Label>
+                                            <Form.Control placeholder="When will the event take place?" className="roundBox" type="date" value={this.state.date} onChange={e => this.handleInputChange(e)} name="date" />
+                                        </Form.Group>
 
-                                <Form.Group controlId="street">
-                                    <Form.Label>Street</Form.Label>
-                                    <Form.Control type="text" value={this.state.street} onChange={e => this.handleInputChange(e)} name="street" />
-                                </Form.Group>
+                                        <Form.Group controlId="description">
+                                            <Form.Label>Please, enter a short description:</Form.Label>
+                                            <Form.Control as="textarea" placeholder="Please, enter a short description..." className="roundBox" rows={2} value={this.state.description} onChange={e => this.handleInputChange(e)} name="description" />
+                                        </Form.Group>
 
-                                <Form.Group controlId="zipCode">
-                                    <Form.Label>Zip Code</Form.Label>
-                                    <Form.Control type="text" value={this.state.zipCode} onChange={e => this.handleInputChange(e)} name="zipCode" />
-                                </Form.Group>
+                                        <Form.Group controlId="street">
+                                            <Form.Label>Street</Form.Label>
+                                            <Form.Control type="text" placeholder="Street" className="roundBox" value={this.state.street} onChange={e => this.handleInputChange(e)} name="street" />
+                                        </Form.Group>
 
-                                <Form.Group controlId="city">
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Control type="text" value={this.state.city} onChange={e => this.handleInputChange(e)} name="city" />
-                                </Form.Group>
+                                        <Form.Group controlId="zipCode">
+                                            <Form.Label>Zip Code</Form.Label>
+                                            <Form.Control type="text" placeholder="Zip Code" className="roundBox" value={this.state.zipCode} onChange={e => this.handleInputChange(e)} name="zipCode" />
+                                        </Form.Group>
 
-                                <Form.Group controlId="country">
-                                    <Form.Label>Country</Form.Label>
-                                    <Form.Control type="text" value={this.state.country} onChange={e => this.handleInputChange(e)} name="country" />
-                                </Form.Group>
+                                        <Form.Group controlId="city">
+                                            <Form.Label>City</Form.Label>
+                                            <Form.Control type="text" placeholder="City" className="roundBox" value={this.state.city} onChange={e => this.handleInputChange(e)} name="city" />
+                                        </Form.Group>
 
-                                <Button variant="dark" style={{ width: '100%', marginTop: '20px' }} type="submit">Confirm session </Button>
+                                        <Form.Group controlId="country">
+                                            <Form.Label>Country</Form.Label>
+                                            <Form.Control type="text" placeholder="Country" className="roundBox" value={this.state.country} onChange={e => this.handleInputChange(e)} name="country" />
+                                        </Form.Group>
 
-                            </Form>
+                                        <Button style={{ width: '100%', marginTop: '20px', marginBottom: '30px' }} className='roundBox mainButton' variant="outline-dark" type="submit">Confirm session </Button>
+
+                                    </Form>
+                                </Card.Text>
+                            </Card.Body>
                         </Col>
                     </Row>
                 </Container>

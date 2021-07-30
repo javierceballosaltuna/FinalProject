@@ -20,16 +20,16 @@ class SubjectCard extends Component {
         return (
             <>
                 
-                    <Container className="product-caption" style={{textAlign: 'center', paddingTop: '50px'}}>
+                    <Container style={{textAlign: 'center', paddingTop: '50px'}}>
                         <Card className='roundBox shadow-lg'style={{width: '250px', backgroundColor:'#fcf799'}} >
 
                             <Card.Body>
-                                <Image src={this.props.avatar} className={'img-circle'} style={{ width: ' 150px' }} />
+                                <Image src={this.props.avatar} className={'img-circle'} style={{ width: ' 150px', marginBottom: '30px' }} roundedCircle/>
                                 <Card.Title style={{ fontSize: '1em' }}><strong>{this.props.name} {this.props.lastName} </strong></Card.Title>
-                                <Card.Text style={{ fontSize: '1em' }}>  <strong>[{this.props.subject}]</strong>
+                                <Card.Text style={{ fontSize: '1em' }}>  <strong className="capitalize">{this.props.subject} Teacher</strong>
                                     <hr></hr>    {this.props.description}</Card.Text>
                                 <hr></hr>
-                            <Button className="roundBox subjectButton" Click={() => this.setState({ modal: true })} style={{ marginBottom: '20px'}}>Request</Button>
+                            <Button className="roundBox subjectButton" onClick={() => this.setState({ modal: true })} style={{ marginBottom: '20px'}}>Request</Button>
 
                             </Card.Body>
 

@@ -89,7 +89,7 @@ class EventDetails extends Component {
 
         return (
             <>
-                <Container>
+                <Container style={{ padding:'30px', marginTop: 30, marginBottom: 40 }}>
 
                     {
                         !this.state.event
