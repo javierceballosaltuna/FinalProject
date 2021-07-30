@@ -25,7 +25,12 @@ class TeacherProfile extends Component {
 
         this.RequestsService
             .rejectRequest(request_id)
-            .then(() => alert('request rejected'))
+            .then(() => {
+                //this.props.handleAlert(`Event with id:${this.state.event._id} has been updated`)
+                this.props.updateProfile().then(() => {
+                    this.props.closeModal()
+                })
+            })
             .catch(err => console.log(err))
     }
 
@@ -65,7 +70,7 @@ class TeacherProfile extends Component {
                             {this.props.user.teacherData.individualEvent.map(elm =>
                                 <>
                                     <p><b>Description:</b> {elm.description}</p>
-                                    <p><b>When?</b> {elm.date}</p>
+                                    <p><b>When?</b> {elm.date.substring(0, 10)}</p>
                                     <hr/>
                                 </>
                             )}
@@ -76,8 +81,8 @@ class TeacherProfile extends Component {
                             <h3 className='formTitle text-center capitalize'>group sessions</h3>
                             {this.props.user.teacherData.groupEvent.map(elm =>
                                 <>
-                                    <p>Description: {elm.description}</p>
-                                    <p>When? {elm.date}</p>
+                                    <p><b>Description:</b> {elm.description}</p>
+                                    <p><b>When?</b> {elm.date.substring(0, 10)}</p>
                                 </>
                             )}
                         </Card.Body>

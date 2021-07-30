@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Form, Button, Container, Row, Col, Card, Alert } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import RequestsService from '../../../services/request.service';
+
 
 class IndSessionForm extends Component {
 
@@ -54,14 +56,16 @@ class IndSessionForm extends Component {
 
                     <Row className="justify-content-center">
 
-                        <Col md={6}>
+                        <Col>
+                            <Link to="/subjects" className="btn btn-dark">Back</Link>
                             <Card.Body className="singupCard shadow-lg roundBox">
+                               
                                 <Card.Text>
 
                                     <Alert show={this.state.alert.show} variant='danger'>{this.state.alert.text}</Alert>
 
                                     <Form onSubmit={e => this.handleSubmit(e)}>
-
+                                        {/* <Link to="/subjects" className="btn btn-dark">Back</Link> */}
                                         <h2 className="text-center formTitle">Request form</h2>
 
                                         <Form.Group controlId="date">

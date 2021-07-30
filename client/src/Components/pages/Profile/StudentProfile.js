@@ -56,7 +56,7 @@ class StudentProfile extends Component {
                             {this.props.user.studentData.groupEvent.map(elm =>
                                 <>
                                     <p><b>Description:</b> {elm.description}</p>
-                                    <p><b>When?</b> {elm.date}</p>
+                                    <p><b>When?</b> {elm.date.substring(0, 10)}</p>
                                     <hr />
                                 </>
                             )}

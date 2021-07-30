@@ -1,6 +1,8 @@
 import { Component } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import RequestService from '../../../services/request.service'
+
 
 
 
@@ -29,17 +31,18 @@ class RequestAClassForm extends Component {
         this.RequestService
             .createRequest(this.props.teacherId, { comment: this.state.comment })
             .then(() => {
+                this.props.closeModal()
                 this.props.refreshSubjects()
                 this.setState({ student: '', teacher: '', coment: '' })
-                this.props.closeModal()
+                
             })
             .catch((err) => console.log('no se ha creado la request'))
     }
 
     render() {
         return (
-            <Container>
-
+            <>
+                <Link to="/subjects" className="btn btn-dark">Back</Link>
                 <Form onSubmit={this.handleFormSubmit}>
 
                     <Form.Group controlId="teacher">
@@ -61,7 +64,7 @@ class RequestAClassForm extends Component {
 
                 </Form>
 
-            </Container>
+            </>
         )
     }
 }
